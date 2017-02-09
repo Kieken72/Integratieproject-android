@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_search);
 
         txtDate = (TextView) findViewById(R.id.txtDate);
         txtTime = (TextView) findViewById(R.id.txtTime);
