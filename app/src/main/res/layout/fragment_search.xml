@@ -36,9 +36,7 @@
             android:layout_below="@+id/searchCity"
             android:src="@drawable/ic_calendar_icon"
             android:background="#a7a7a7"
-            android:layout_marginTop="30dp"
-            android:onClick="setDate"
-            />
+            android:layout_marginTop="30dp" />
 
         <TextView
             android:id="@+id/txtDate"
@@ -60,9 +58,7 @@
             android:layout_below="@+id/btnDate"
             android:src="@drawable/ic_clock_icon"
             android:background="#a7a7a7"
-            android:layout_marginTop="25dp"
-            android:onClick="setTime"
-            />
+            android:layout_marginTop="25dp" />
 
         <ImageView
             android:id="@+id/imgPerson"
