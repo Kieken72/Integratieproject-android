@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity;
+package com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
 
 
 import android.support.v4.app.Fragment;
@@ -9,10 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.reservatiesysteem.lotte.reservatiesysteem.Fragments.SearchFragment;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
-import com.reservatiesysteem.lotte.reservatiesysteem.Fragments.TestFragment2;
+
 
 import java.util.ArrayList;
 
@@ -59,6 +57,7 @@ public class StartActivity extends AppCompatActivity {
         public HomePagerAdapter(FragmentManager fm) {
             super(fm);
             maxVisibleItems = 1;
+
             fragments.add(new SearchFragment());
             fragments.add(new TestFragment2());
         }

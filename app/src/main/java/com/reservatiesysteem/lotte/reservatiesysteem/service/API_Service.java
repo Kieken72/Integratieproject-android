@@ -1,5 +1,10 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.service;
 
+import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
+
+import java.util.List;
+
+import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
@@ -7,5 +12,7 @@ import retrofit2.http.GET;
  */
 
 public interface API_Service {
+    @GET("api/cities")
+    Call<List<City>> getCities();
 
 }

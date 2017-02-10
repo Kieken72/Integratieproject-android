@@ -1,7 +1,6 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.Fragments;
+package com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Bundle;
@@ -12,13 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
-import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity.StartActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
