@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
+package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

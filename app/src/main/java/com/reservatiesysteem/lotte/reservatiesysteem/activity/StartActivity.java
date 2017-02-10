@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
+package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 
 import android.support.v4.app.Fragment;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.SearchFragment;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.TestFragment2;
 
 
 import java.util.ArrayList;
