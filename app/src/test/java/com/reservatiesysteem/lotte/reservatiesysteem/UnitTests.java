@@ -1,12 +1,21 @@
 package com.reservatiesysteem.lotte.reservatiesysteem;
 
 
-import com.reservatiesysteem.lotte.reservatiesysteem.controller.ReservationController;
+import android.widget.ArrayAdapter;
+
+
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
@@ -16,12 +25,23 @@ import static junit.framework.Assert.assertTrue;
  */
 
 public class UnitTests {
-    ReservationController reservationController = new ReservationController();
     @Test
     public void test_getGemeentes(){
-        ArrayList<City> cities = reservationController.getCities();
-        assertNotNull("cities should not be empty",cities);
-        assertTrue("cities should be bigger than 1",cities.size()>0);
-        //assertEquals("cities should contain 5548 items",cities.size(),5548);
+        API_Service service = API.createService(API_Service.class);
+        Call<List<City>> call = service.getCities();
+
+        call.enqueue(new Callback<List<City>>() {
+            @Override
+            public void onResponse(Call<List<City>> call, Response<List<City>> response) {
+                List<City> cities = response.body();
+                assertNotNull("cities should not be empty",cities);
+                assertTrue("cities should be bigger than 1",cities.size()>0);
+            }
+
+            @Override
+            public void onFailure(Call<List<City>> call, Throwable t) {
+
+            }
+        });
     }
 }

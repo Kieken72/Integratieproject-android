@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.reservatiesysteem.lotte.reservatiesysteem.activity.MainActivity"
+    tools:context="com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity"
     android:background="@drawable/bowling">
 
     <RelativeLayout
@@ -25,7 +25,7 @@
             android:id="@+id/searchCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gemeente"
+            android:hint="Gemeente"
             android:layout_toRightOf="@+id/btnLocation"
             android:layout_marginLeft="20dp"/>
 
