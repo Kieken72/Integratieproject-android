@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/wima"
+        android:id="@+id/imgBranch"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/branchName"
+        android:hint="Brach Name"
+        android:layout_toRightOf="@+id/imgBranch"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BranchStreet"
+        android:hint="Street"
+        android:layout_toRightOf="@+id/imgBranch"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BranchCity"
+        android:hint="City"
+        android:layout_toRightOf="@+id/imgBranch"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnDetails"
+        android:src="@drawable/noun_691344_cc"
+        android:background="@color/white"
+        android:layout_toRightOf="@+id/branchName"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="35dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/imgBranch"
+        android:layout_marginTop="10dp"
+        />
+
+</RelativeLayout>

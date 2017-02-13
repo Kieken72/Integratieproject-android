@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
-import com.reservatiesysteem.lotte.reservatiesysteem.activity.SearchFragment;
-import com.reservatiesysteem.lotte.reservatiesysteem.activity.TestFragment2;
 
 
 import java.util.ArrayList;
@@ -46,6 +44,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
+
     public void changeFragment(){
         homePagerAdapter.setMaxVisibleItems(2);
         viewPager.setAdapter(homePagerAdapter);
@@ -61,14 +60,14 @@ public class StartActivity extends AppCompatActivity {
             maxVisibleItems = 1;
 
             fragments.add(new SearchFragment());
-            fragments.add(new TestFragment2());
+            fragments.add(new ResultListFragment());
         }
 
         @Override
         public Fragment getItem(int position) {
             switch(position){
                 case 0:return new SearchFragment();
-                default: return new TestFragment2();
+                default: return new ResultListFragment();
             }
         }
         @Override

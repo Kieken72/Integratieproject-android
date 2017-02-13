@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -23,7 +24,6 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,48 +44,31 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.txtTime)
     TextView txtTime;
     @BindView(R.id.btnReserveer)
-    Button button;
+    Button btnReserveer;
     @BindView(R.id.btnTime)
     ImageView btnTime;
     @BindView(R.id.btnDate)
     ImageView btnDate;
     @BindView(R.id.searchCity)
     AutoCompleteTextView txtSearchCity;
+    @BindView(R.id.numberPersons)
+    EditText numberOfPersons;
 
     private final int TIME_PICKER_INTERVAL = 30;
     private int year, month, day, hour, minute;
     private Calendar calendar;
     private ArrayAdapter<String>cityAdapter ;
 
+    //transfer data to next fragment
+    Bundle bundle = new Bundle();
+    public static final String CHOSEN_CITY = "chosenCity";
+    public static final String CHOSEN_DATE = "chosenDate";
+    public static final String CHOSEN_TIME = "chosenTime";
+    public static final String CHOSEN_NUMBEROFPERSONS = "chosenNumberOfPersons";
+
+
     public SearchFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //Get cities from API
-        API_Service service = API.createService(API_Service.class);
-        Call<List<City>> call = service.getCities();
-        call.enqueue(new Callback<List<City>>() {
-            @Override
-            public void onResponse(Call<List<City>> call, Response<List<City>> response) {
-                List<City> cities = response.body();
-                ArrayList<String> cityStrings = new ArrayList<String>();
-                for (City city:cities){
-                    cityStrings.add(city.getName());
-                }
-                cityAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line,cityStrings);
-                txtSearchCity.setAdapter(cityAdapter);
-                txtSearchCity.setThreshold(2);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<City>> call, Throwable t) {
-
-            }
-        });
     }
 
     @Override
@@ -95,10 +78,23 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        //get cities from API
+        getCities();
+
+
+        btnReserveer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 StartActivity activity = (StartActivity) getActivity();
+
+                //transfering data to ResultListFragment
+                ResultListFragment resultListFragment = new ResultListFragment();
+                bundle.putString(CHOSEN_CITY,txtSearchCity.toString());
+                bundle.putString(CHOSEN_DATE, txtDate.toString());
+                bundle.putString(CHOSEN_TIME, txtTime.toString());
+                bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
+                resultListFragment.setArguments(bundle);
+
                 activity.changeFragment();
             }
         });
@@ -171,5 +167,29 @@ public class SearchFragment extends Fragment {
                 minute = 0;
         }
         return minute;
+    }
+
+    private void getCities() {
+        API_Service service = API.createService(API_Service.class);
+        Call<List<City>> call = service.getCities();
+        call.enqueue(new Callback<List<City>>() {
+            @Override
+            public void onResponse(Call<List<City>> call, Response<List<City>> response) {
+                List<City> cities = response.body();
+                ArrayList<String> cityStrings = new ArrayList<String>();
+                for (City city:cities){
+                    cityStrings.add(city.getName());
+                }
+                cityAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line,cityStrings);
+                txtSearchCity.setAdapter(cityAdapter);
+                txtSearchCity.setThreshold(2);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<City>> call, Throwable t) {
+
+            }
+        });
     }
 }
