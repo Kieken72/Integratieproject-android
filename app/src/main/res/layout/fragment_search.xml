@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:hint="Aantal personen"
+            android:inputType="numberSigned"
             android:layout_toRightOf="@+id/imgPerson"
             android:layout_alignBottom="@+id/imgPerson" />
 
@@ -109,7 +110,5 @@
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/btnTime"
             android:layout_above="@+id/imgPerson" />
-
     </RelativeLayout>
-
 </RelativeLayout>

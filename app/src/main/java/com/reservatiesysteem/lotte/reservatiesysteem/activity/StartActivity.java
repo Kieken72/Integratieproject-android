@@ -45,8 +45,9 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    public void changeFragment(){
+    public void changeFragment(Fragment fragment){
         homePagerAdapter.setMaxVisibleItems(2);
+        homePagerAdapter.setFragment(fragment,1);
         viewPager.setAdapter(homePagerAdapter);
         viewPager.setCurrentItem(1);
         lytList.setEnabled(true);
@@ -65,10 +66,7 @@ public class StartActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch(position){
-                case 0:return new SearchFragment();
-                default: return new ResultListFragment();
-            }
+            return fragments.get(position);
         }
         @Override
         public int getCount() {
@@ -77,6 +75,10 @@ public class StartActivity extends AppCompatActivity {
         public void setMaxVisibleItems(int maxVisibleItems){
             this.maxVisibleItems = maxVisibleItems;
         }
+        public void setFragment(Fragment fragment,int id){
+            fragments.set(id,fragment);
+        }
+
 
     }
 }

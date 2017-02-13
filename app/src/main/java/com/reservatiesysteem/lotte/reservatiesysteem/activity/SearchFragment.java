@@ -89,13 +89,13 @@ public class SearchFragment extends Fragment {
 
                 //transfering data to ResultListFragment
                 ResultListFragment resultListFragment = new ResultListFragment();
-                bundle.putString(CHOSEN_CITY,txtSearchCity.toString());
-                bundle.putString(CHOSEN_DATE, txtDate.toString());
-                bundle.putString(CHOSEN_TIME, txtTime.toString());
+                bundle.putString(CHOSEN_CITY,txtSearchCity.getText().toString());
+                bundle.putString(CHOSEN_DATE, txtDate.getText().toString());
+                bundle.putString(CHOSEN_TIME, txtTime.getText().toString());
                 bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
                 resultListFragment.setArguments(bundle);
 
-                activity.changeFragment();
+                activity.changeFragment(resultListFragment);
             }
         });
 

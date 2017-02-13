@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -48,7 +49,17 @@ public class ResultListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         //transfer data from searchfragment
+        View view = inflater.inflate(R.layout.fragment_listresult, container, false);
+        ButterKnife.bind(this,view);
+
         Bundle bundle = getArguments();
 
         if(bundle != null){
@@ -57,18 +68,11 @@ public class ResultListFragment extends Fragment {
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
         }
-
         txtChosenCity.setText(chosenCity);
         txtChosenDate.setText(chosenDate);
         txtChosenTime.setText(chosenTime);
         txtChosenPersons.setText(chosenNumberOfPersons);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_listresult, container, false);
+        return view;
     }
 
     private void getBranches(){
