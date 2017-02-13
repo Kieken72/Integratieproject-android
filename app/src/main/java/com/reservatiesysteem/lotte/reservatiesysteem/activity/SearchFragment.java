@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.adapter.CityArrayAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
@@ -57,7 +58,7 @@ public class SearchFragment extends Fragment {
     private final int TIME_PICKER_INTERVAL = 30;
     private int year, month, day, hour, minute;
     private Calendar calendar;
-    private ArrayAdapter<String>cityAdapter ;
+    private CityArrayAdapter cityAdapter ;
 
     //transfer data to next fragment
     Bundle bundle = new Bundle();
@@ -95,7 +96,7 @@ public class SearchFragment extends Fragment {
                 bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
                 resultListFragment.setArguments(bundle);
 
-                activity.changeFragment(resultListFragment);
+                activity.changeFragment(resultListFragment,1);
             }
         });
 
@@ -124,7 +125,6 @@ public class SearchFragment extends Fragment {
                 timePickerDialog.show();
             }
         });
-
 
         showDate(year, month, day);
         showTime(hour, minute);
@@ -176,14 +176,16 @@ public class SearchFragment extends Fragment {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
                 List<City> cities = response.body();
-                ArrayList<String> cityStrings = new ArrayList<String>();
-                for (City city:cities){
-                    cityStrings.add(city.getName());
-                }
-                cityAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line,cityStrings);
+                //remove zwijndrecht when api works again
+                City zwijndrechtCity = new City();
+                zwijndrechtCity.setName("zwijndrecht");
+                zwijndrechtCity.setPostalCode("9120");
+                cities.add(zwijndrechtCity);
+
+                cityAdapter = new CityArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,cities);
+
                 txtSearchCity.setAdapter(cityAdapter);
                 txtSearchCity.setThreshold(2);
-
             }
 
             @Override

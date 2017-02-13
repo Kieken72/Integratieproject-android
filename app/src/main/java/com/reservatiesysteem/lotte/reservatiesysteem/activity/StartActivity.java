@@ -45,11 +45,11 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    public void changeFragment(Fragment fragment){
-        homePagerAdapter.setMaxVisibleItems(2);
-        homePagerAdapter.setFragment(fragment,1);
+    public void changeFragment(Fragment fragment,int currentItem){
+        homePagerAdapter.setMaxVisibleItems(currentItem+1);
+        homePagerAdapter.setFragment(fragment,currentItem);
         viewPager.setAdapter(homePagerAdapter);
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(currentItem);
         lytList.setEnabled(true);
     }
 
