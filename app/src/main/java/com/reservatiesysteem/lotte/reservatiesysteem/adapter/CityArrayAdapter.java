@@ -99,5 +99,4 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
             }
         };
     }
-
 }

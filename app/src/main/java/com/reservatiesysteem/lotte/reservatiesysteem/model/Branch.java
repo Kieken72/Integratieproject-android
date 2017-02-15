@@ -29,18 +29,22 @@ public class Branch {
     @SerializedName("CompanyId")
     private int companyId;
 
-    /*@SerializedName("Rooms")
-    private ArrayList<Room> rooms;
+    @SerializedName("Rooms")
+    private String rooms;
+    //private ArrayList<Room> rooms;
     @SerializedName("OpeningHours")
-    private ArrayList<> openingHours;
+    private String openingHours;
     @SerializedName("AdditionalInfos")
-    private ArrayList<> cities;
+    private String additionalInfo;
     @SerializedName("Reviews")
-    private ArrayList<Review> reviews;
+    private String reviews;
+    //private ArrayList<Review> reviews;
     @SerializedName("Messages")
-    private ArrayList<Message> messages;
+    private String messages;
+    //private ArrayList<Message> messages;
     @SerializedName("Reservations")
-    private ArrayList<Reservation> reservations;*/
+    private String reservations;
+    //private ArrayList<Reservation> reservations;
 
 
     public int getId() {
@@ -121,5 +125,53 @@ public class Branch {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public String getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(String rooms) {
+        this.rooms = rooms;
+    }
+
+    public String getOpeningHours() {
+        return openingHours;
+    }
+
+    public void setOpeningHours(String openingHours) {
+        this.openingHours = openingHours;
+    }
+
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    public String getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(String reviews) {
+        this.reviews = reviews;
+    }
+
+    public String getMessages() {
+        return messages;
+    }
+
+    public void setMessages(String messages) {
+        this.messages = messages;
+    }
+
+    public String getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(String reservations) {
+        this.reservations = reservations;
     }
 }

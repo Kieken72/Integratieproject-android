@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BranchStreet"
+        android:id="@+id/branchStreet"
         android:hint="Street"
         android:layout_toRightOf="@+id/imgBranch"
         android:layout_marginTop="50dp"
@@ -34,8 +34,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/BranchCity"
-        android:hint="City"
+        android:id="@+id/branchMail"
+        android:hint="Email"
         android:layout_toRightOf="@+id/imgBranch"
         android:layout_marginTop="70dp"
         android:layout_marginLeft="10dp"

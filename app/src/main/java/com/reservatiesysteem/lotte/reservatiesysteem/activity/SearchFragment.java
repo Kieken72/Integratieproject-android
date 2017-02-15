@@ -6,10 +6,10 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,7 +25,6 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,7 +61,7 @@ public class SearchFragment extends Fragment {
 
     //transfer data to next fragment
     Bundle bundle = new Bundle();
-    public static final String CHOSEN_CITY = "chosenCity";
+    //public static final String CHOSEN_POSTALCODE = "chosenPostalCode";
     public static final String CHOSEN_DATE = "chosenDate";
     public static final String CHOSEN_TIME = "chosenTime";
     public static final String CHOSEN_NUMBEROFPERSONS = "chosenNumberOfPersons";
@@ -90,7 +89,11 @@ public class SearchFragment extends Fragment {
 
                 //transfering data to ResultListFragment
                 ResultListFragment resultListFragment = new ResultListFragment();
-                bundle.putString(CHOSEN_CITY,txtSearchCity.getText().toString());
+
+                String chosenPostal = txtSearchCity.getText().toString();
+                int postalcode = Integer.parseInt(chosenPostal.split("- ")[1]);
+
+                bundle.putInt("chosenPostalCode", postalcode);
                 bundle.putString(CHOSEN_DATE, txtDate.getText().toString());
                 bundle.putString(CHOSEN_TIME, txtTime.getText().toString());
                 bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
@@ -185,7 +188,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<City>> call, Throwable t) {
-
+                Log.d("Error getCities", t.getMessage());
             }
         });
     }

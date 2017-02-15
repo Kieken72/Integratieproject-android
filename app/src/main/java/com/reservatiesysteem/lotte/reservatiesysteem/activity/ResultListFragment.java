@@ -1,20 +1,28 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ServiceCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.adapter.BranchAdapter;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -23,22 +31,14 @@ import butterknife.ButterKnife;
  */
 public class ResultListFragment extends Fragment {
 
-    @BindView(R.id.txtChosenCity)
-    TextView txtChosenCity;
-    @BindView(R.id.txtChosenDate)
-    TextView txtChosenDate;
-    @BindView(R.id.txtChosenTime)
-    TextView txtChosenTime;
-    @BindView(R.id.txtChosenPersons)
-    TextView txtChosenPersons;
+    @BindView(R.id.listBranches) ListView lvBranches;
+
 
     //transfer data from searchfragment
-    private String chosenCity = "";
     private String chosenDate = "";
     private String chosenTime = "";
     private String chosenNumberOfPersons = "";
-
-
+    private int chosenPostalCode;
 
     public ResultListFragment() {
         // Required empty public constructor
@@ -48,8 +48,6 @@ public class ResultListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -63,19 +61,46 @@ public class ResultListFragment extends Fragment {
         Bundle bundle = getArguments();
 
         if(bundle != null){
-            chosenCity = bundle.getString(SearchFragment.CHOSEN_CITY);
+            chosenPostalCode = bundle.getInt("chosenPostalCode", 0);
             chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
         }
-        txtChosenCity.setText(chosenCity);
-        txtChosenDate.setText(chosenDate);
-        txtChosenTime.setText(chosenTime);
-        txtChosenPersons.setText(chosenNumberOfPersons);
+
+        getBranches();
+
         return view;
     }
 
     private void getBranches(){
+       try{
+        API_Service service = API.createService(API_Service.class);
+           if(chosenPostalCode > 0) {
+               Call<List<Branch>> call = service.getBranchById(chosenPostalCode);
+               call.enqueue(new Callback<List<Branch>>() {
+                   @Override
+                   public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
+                       final BranchAdapter branchAdapter = new BranchAdapter(getActivity().getApplicationContext(), R.layout.view_branch_entry, response.body());
 
+                       if (lvBranches != null) {
+                           lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                               @Override
+                               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                               }
+                           });
+                       }
+                       lvBranches.setAdapter(branchAdapter);
+                   }
+
+                   @Override
+                   public void onFailure(Call<List<Branch>> call, Throwable t) {
+                       Log.d("Error receiving branche", t.getMessage());
+                   }
+               });
+           }
+    }catch (NullPointerException e){
+           Toast.makeText(getActivity().getApplicationContext(),"Branches kunnen niet opgehaald worden", Toast.LENGTH_LONG).show();
+       }
     }
 }
