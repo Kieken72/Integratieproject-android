@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
-import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 
 import java.util.ArrayList;
@@ -21,31 +20,30 @@ import java.util.List;
 
 public class CityArrayAdapter extends ArrayAdapter<City> {
     private final Context mContext;
-    private final List<City> mDepartments;
-    private final List<City> mDepartments_All;
-    private final List<City> mDepartments_Suggestion;
+    private final List<City> mCities_All;
+    private final List<City> mCities_Suggestion;
     private final int mLayoutResourceId;
 
-    public CityArrayAdapter(Context context, int resource,List<City>cities) {
-        super(context, resource);
+    public CityArrayAdapter(Context context, int resource, List<City> cities) {
+        super(context, resource,cities);
         this.mContext = context;
         this.mLayoutResourceId = resource;
-        this.mDepartments = new ArrayList<>(cities);
-        this.mDepartments_All = new ArrayList<>(cities);
-        this.mDepartments_Suggestion = new ArrayList<>();
+        this.mCities_All = new ArrayList<>(cities);
+        this.mCities_Suggestion = new ArrayList<>();
     }
 
     public int getCount() {
-        return mDepartments.size();
+        return mCities_Suggestion.size();
     }
 
     public City getItem(int position) {
-        return mDepartments.get(position);
+        return mCities_Suggestion.get(position);
     }
 
     public long getItemId(int position) {
         return position;
     }
+
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
             if (convertView == null) {
@@ -60,13 +58,22 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
         }
         return convertView;
     }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
+            public String convertResultToString(Object resultValue) {
+                City city = (City) resultValue;
+                return String.format("%s - %s", city.getName(), city.getPostalCode());
+            }
+
             @Override
             protected void publishResults(CharSequence constraint,
                                           FilterResults results) {
                 if (results.count > 0) {
+                    clear();
+                    ArrayList<City> cities = (ArrayList<City>) results.values;
+                    addAll(cities);
                     notifyDataSetChanged();
                 } else {
                     notifyDataSetInvalidated();
@@ -75,18 +82,18 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
 
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
-                if(constraint!=null){
-                    mDepartments_Suggestion.clear();
-                    for(City city :mDepartments_All){
-                        if(city.getName().toLowerCase().startsWith(constraint.toString().toLowerCase())||city.getPostalCode().toLowerCase().startsWith(constraint.toString().toLowerCase())){
-                            mDepartments_Suggestion.add(city);
+                if (constraint != null) {
+                    mCities_Suggestion.clear();
+                    for (City city : mCities_All) {
+                        if (city.getName().toLowerCase().startsWith(constraint.toString().toLowerCase()) || city.getPostalCode().toLowerCase().startsWith(constraint.toString().toLowerCase())) {
+                            mCities_Suggestion.add(city);
                         }
                     }
                     FilterResults filterResults = new FilterResults();
-                    filterResults.values = mDepartments_Suggestion;
-                    filterResults.count = mDepartments_Suggestion.size();
+                    filterResults.values = mCities_Suggestion;
+                    filterResults.count = mCities_Suggestion.size();
                     return filterResults;
-                }else {
+                } else {
                     return new FilterResults();
                 }
             }

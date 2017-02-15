@@ -176,11 +176,6 @@ public class SearchFragment extends Fragment {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
                 List<City> cities = response.body();
-                //remove zwijndrecht when api works again
-                City zwijndrechtCity = new City();
-                zwijndrechtCity.setName("zwijndrecht");
-                zwijndrechtCity.setPostalCode("9120");
-                cities.add(zwijndrechtCity);
 
                 cityAdapter = new CityArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,cities);
 

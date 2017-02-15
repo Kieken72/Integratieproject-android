@@ -26,7 +26,7 @@ import static junit.framework.Assert.assertTrue;
 
 public class UnitTests {
     @Test
-    public void test_getGemeentes(){
+    public void test_getGemeentes() throws InterruptedException {
         API_Service service = API.createService(API_Service.class);
         Call<List<City>> call = service.getCities();
 
@@ -34,6 +34,7 @@ public class UnitTests {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
                 List<City> cities = response.body();
+                System.out.println(cities.size());
                 assertNotNull("cities should not be empty",cities);
                 assertTrue("cities should be bigger than 1",cities.size()>0);
             }
@@ -43,5 +44,6 @@ public class UnitTests {
 
             }
         });
+        Thread.sleep(5000);
     }
 }
