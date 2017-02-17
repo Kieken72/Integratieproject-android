@@ -56,6 +56,8 @@ public class BranchAdapter extends BaseAdapter {
             v = convertView;
         }
 
+        //api call
+
         TextView txtBranchName = (TextView) v.findViewById(R.id.branchName);
         TextView txtBranchStreet = (TextView) v.findViewById(R.id.branchStreet);
         TextView txtBranchMail = (TextView) v.findViewById(R.id.branchMail);
@@ -65,4 +67,5 @@ public class BranchAdapter extends BaseAdapter {
 
         return v;
     }
+
 }

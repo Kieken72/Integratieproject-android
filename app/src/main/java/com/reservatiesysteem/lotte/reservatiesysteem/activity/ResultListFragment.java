@@ -2,6 +2,8 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,6 +45,7 @@ public class ResultListFragment extends Fragment {
 
     public ResultListFragment() {
         // Required empty public constructor
+
     }
 
 
@@ -85,8 +89,14 @@ public class ResultListFragment extends Fragment {
                        if (lvBranches != null) {
                            lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                @Override
-                               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                               public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                   StartActivity activity = (StartActivity) getActivity();
 
+                                   //transfering data to ResultListFragment
+                                   DetailsFragment detailsFragment = new DetailsFragment();
+
+
+                                   activity.changeFragment(detailsFragment,2);
                                }
                            });
                        }

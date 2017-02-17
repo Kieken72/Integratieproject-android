@@ -81,7 +81,6 @@ public class SearchFragment extends Fragment {
         //get cities from API
         getCities();
 
-
         btnReserveer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +174,7 @@ public class SearchFragment extends Fragment {
     private void getCities() {
         API_Service service = API.createService(API_Service.class);
         Call<List<City>> call = service.getCities();
+
         call.enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {

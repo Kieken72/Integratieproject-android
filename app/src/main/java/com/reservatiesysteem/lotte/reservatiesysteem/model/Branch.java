@@ -2,12 +2,13 @@ package com.reservatiesysteem.lotte.reservatiesysteem.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Jasper on 10/02/2017.
  */
-public class Branch {
+public class Branch implements Serializable{
     @SerializedName("Id")
     private int id;
     @SerializedName("Name")
@@ -21,15 +22,14 @@ public class Branch {
     @SerializedName("CiyId")
     private int cityId;
     @SerializedName("City")
-    private ArrayList<City> cities;
+    private City cities;
     @SerializedName("PhoneNumber")
     private String phoneNumber;
     @SerializedName("Email")
     private String email;
     @SerializedName("CompanyId")
     private int companyId;
-
-    @SerializedName("Rooms")
+/*    @SerializedName("Rooms")
     private String rooms;
     //private ArrayList<Room> rooms;
     @SerializedName("OpeningHours")
@@ -43,7 +43,7 @@ public class Branch {
     private String messages;
     //private ArrayList<Message> messages;
     @SerializedName("Reservations")
-    private String reservations;
+    private String reservations;*/
     //private ArrayList<Reservation> reservations;
 
 
@@ -95,11 +95,11 @@ public class Branch {
         this.cityId = cityId;
     }
 
-    public ArrayList<City> getCities() {
+    public City getCities() {
         return cities;
     }
 
-    public void setCities(ArrayList<City> cities) {
+    public void setCities(City cities) {
         this.cities = cities;
     }
 
@@ -127,6 +127,7 @@ public class Branch {
         this.companyId = companyId;
     }
 
+/*
     public String getRooms() {
         return rooms;
     }
@@ -174,4 +175,5 @@ public class Branch {
     public void setReservations(String reservations) {
         this.reservations = reservations;
     }
+*/
 }

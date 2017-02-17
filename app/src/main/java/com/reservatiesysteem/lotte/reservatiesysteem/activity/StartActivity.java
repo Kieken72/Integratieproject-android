@@ -1,6 +1,7 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -43,6 +44,7 @@ public class StartActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(0);
             }
         });
+
     }
 
     public void changeFragment(Fragment fragment,int currentItem){
@@ -62,6 +64,7 @@ public class StartActivity extends AppCompatActivity {
 
             fragments.add(new SearchFragment());
             fragments.add(new ResultListFragment());
+            fragments.add(new DetailsFragment());
         }
 
         @Override
