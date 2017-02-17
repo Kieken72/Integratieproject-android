@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -11,107 +10,130 @@
         android:paddingBottom="20dp">
 
         <LinearLayout
+            android:id="@+id/layoutbutttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/layoutbutttons">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnFotos"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Foto's"
+                android:layout_weight="1"
                 android:background="@android:color/holo_red_light"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content" />
+                android:text="Foto's"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnPlace"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Plaats"
+                android:layout_weight="1"
                 android:background="@android:color/holo_red_light"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content" />
+                android:text="Plaats"
+                android:textColor="@color/white" />
 
 
         </LinearLayout>
 
-        <ImageView
+        <LinearLayout
+            android:id="@+id/layoutImage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
             android:layout_below="@+id/layoutbutttons"
-            android:id="@+id/viewFoto"
-            android:visibility="visible"
-            />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/viewPlaats"
-            android:layout_below="@+id/layoutbutttons"
-            android:layout_alignParentStart="true" />
+            <ImageView
+                android:id="@+id/viewFoto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/layoutbutttons" />
+
+            <ImageView
+                android:id="@+id/viewPlaats"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/layoutbutttons"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnBeschrijving"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Beschrijving"
-            android:layout_below="@+id/viewFoto"
+            android:layout_below="@+id/layoutImage"
             android:background="@android:color/holo_red_light"
-            android:textColor="@color/white"/>
+            android:text="Beschrijving"
+            android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/viewBeschrijving"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:id="@+id/viewBeschrijving"
-            android:layout_below="@+id/btnBeschrijving"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/btnBeschrijving" />
 
         <LinearLayout
+            android:id="@+id/layoutbutttons2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/layoutbutttons2"
-            android:layout_below="@+id/viewBeschrijving">
+            android:layout_below="@+id/viewBeschrijving"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnInfo"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Info"
                 android:background="@android:color/holo_red_light"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content" />
+                android:text="Info"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/btnUren"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Uren"
+                android:layout_weight="1"
                 android:background="@android:color/holo_red_light"
-                android:textColor="@color/white"
-                android:layout_width="wrap_content" />
+                android:text="Uren"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/layoutImage2"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/layoutbutttons2"
-            android:id="@+id/viewUrenInfo"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/viewUren"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/layoutbutttons2"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/viewInfo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/layoutbutttons2" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnReserveren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reserveren"
-            android:layout_below="@id/viewUrenInfo"
+            android:layout_below="@id/layoutImage2"
             android:background="@android:color/holo_red_light"
-            android:textColor="@color/white"/>
-
-
+            android:text="Reserveren"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

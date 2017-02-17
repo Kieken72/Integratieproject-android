@@ -16,8 +16,6 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -38,7 +36,8 @@ public class DetailsFragment extends Fragment {
     @BindView(R.id.viewBeschrijving) TextView viewBeschrijving;
     @BindView(R.id.btnUren) Button btnUren;
     @BindView(R.id.btnInfo) Button btnInfo;
-    @BindView(R.id.viewUrenInfo) TextView viewUrenInfo;
+    @BindView(R.id.viewUren) TextView viewUren;
+    @BindView(R.id.viewInfo) TextView viewInfo;
     @BindView(R.id.btnReserveren) Button btnReserveren;
 
     private int receivedBranchId;
@@ -74,8 +73,6 @@ public class DetailsFragment extends Fragment {
                 if(viewPlaats.getVisibility() == View.VISIBLE){
                     viewPlaats.setVisibility(View.GONE);
                 }
-
-
             }
         });
 
@@ -90,30 +87,47 @@ public class DetailsFragment extends Fragment {
                 if(viewFoto.getVisibility() == View.VISIBLE){
                     viewFoto.setVisibility(View.GONE);
                 }
-
-               // viewPlaats.setImageResource(R.drawable.maps);
             }
         });
 
         btnBeschrijving.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(viewBeschrijving.getVisibility() == View.GONE){
+                    viewBeschrijving.setVisibility(View.VISIBLE);
+                } else if(viewBeschrijving.getVisibility() == View.VISIBLE){
+                    viewBeschrijving.setVisibility(View.GONE);
+                }
             }
         });
 
         btnUren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(viewUren.getVisibility() == View.GONE){
+                    viewUren.setVisibility(View.VISIBLE);
+                } else if(viewUren.getVisibility() == View.VISIBLE){
+                    viewUren.setVisibility(View.GONE);
+                }
+                if(viewInfo.getVisibility() == View.VISIBLE){
+                    viewInfo.setVisibility(View.GONE);
+                }
             }
         });
 
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(viewInfo.getVisibility() == View.GONE){
+                    viewInfo.setVisibility(View.VISIBLE);
+                } else if(viewInfo.getVisibility() == View.VISIBLE){
+                    viewInfo.setVisibility(View.GONE);
+                }
+                if(viewUren.getVisibility() == View.VISIBLE){
+                    viewUren.setVisibility(View.GONE);
+                }
             }
+
         });
 
         btnReserveren.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +148,10 @@ public class DetailsFragment extends Fragment {
             public void onResponse(Call<Branch> call, Response<Branch> response) {
                 Branch branch = response.body();
                 viewBeschrijving.setText(branch.getId() + " " + branch.getName() + " " + branch.getStreet());
+
+                viewInfo.setText(branch.getStreet() + " " + branch.getNumber() + "\n" + branch.getCity().getName() + " " + branch.getCity().getPostalCode());
+
+                viewUren.setText(branch.getOpeningHours().get(1).getFromTime());
             }
 
             @Override

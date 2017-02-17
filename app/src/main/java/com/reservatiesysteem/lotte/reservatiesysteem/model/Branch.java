@@ -1,7 +1,5 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.model;
 
-import android.media.Image;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class Branch {
     @SerializedName("CiyId")
     private int cityId;
     @SerializedName("City")
-    private City cities;
+    private City city;
     //@SerializedName("Picture")
     //private Image picture;
     @SerializedName("PhoneNumber")
@@ -129,12 +127,12 @@ public class Branch {
         this.companyId = companyId;
     }
 
-    public City getCities() {
-        return cities;
+    public City getCity() {
+        return city;
     }
 
-    public void setCities(City cities) {
-        this.cities = cities;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public ArrayList<OpeningHour> getOpeningHours() {

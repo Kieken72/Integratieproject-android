@@ -186,7 +186,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<City>> call, Throwable t) {
-                Log.d("Error getCities", t.getMessage());
+                Log.d("Error getCity", t.getMessage());
             }
         });
     }
