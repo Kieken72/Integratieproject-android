@@ -68,7 +68,8 @@ public class SearchFragment extends Fragment {
 
 
     public SearchFragment() {
-        // Required empty public constructor
+        //get cities from API
+        getCities();
     }
 
     @Override
@@ -78,9 +79,6 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         ButterKnife.bind(this, view);
 
-        //get cities from API
-        getCities();
-
         btnReserveer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,10 +87,10 @@ public class SearchFragment extends Fragment {
                 //transfering data to ResultListFragment
                 ResultListFragment resultListFragment = new ResultListFragment();
 
-                String chosenPostal = txtSearchCity.getText().toString();
-                int postalcode = Integer.parseInt(chosenPostal.split("- ")[1]);
+                String postalCode = txtSearchCity.getText().toString();
+                int chosenPostalCode = Integer.parseInt(postalCode.split("- ")[1]);
 
-                bundle.putInt("chosenPostalCode", postalcode);
+                bundle.putInt("chosenPostalCode", chosenPostalCode);
                 bundle.putString(CHOSEN_DATE, txtDate.getText().toString());
                 bundle.putString(CHOSEN_TIME, txtTime.getText().toString());
                 bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());

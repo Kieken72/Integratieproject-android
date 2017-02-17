@@ -17,6 +17,9 @@ public interface API_Service {
     @GET("api/cities")
     Call<List<City>> getCities();
 
-    @GET("api/branches/by-postal/{id}")
-    Call<List<Branch>> getBranchById(@Path("id") int id);
+    @GET("api/branches/by-postal/{chosenPostalCode}")
+    Call<List<Branch>> getBranchById(@Path("chosenPostalCode") int chosenPostalCode);
+
+    @GET("api/branches/{branchId}")
+    Call<Branch> getBranchDetails(@Path("branchId") int branchId);
 }

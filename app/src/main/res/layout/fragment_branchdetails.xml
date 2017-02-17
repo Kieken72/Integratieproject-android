@@ -10,36 +10,46 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp">
 
-        <Button
-            android:id="@+id/btnFotos"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Foto's"
-            android:background="@android:color/holo_red_light"
-            android:textColor="@color/white"/>
+            android:orientation="horizontal"
+            android:id="@+id/layoutbutttons">
 
-        <Button
-            android:id="@+id/btnPlace"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-7dp"
-            android:layout_toRightOf="@+id/btnFotos"
-            android:text="Plaats"
-            android:background="@android:color/holo_red_light"
-            android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/btnFotos"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Foto's"
+                android:background="@android:color/holo_red_light"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content" />
+
+            <Button
+                android:id="@+id/btnPlace"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Plaats"
+                android:background="@android:color/holo_red_light"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content" />
+
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_below="@+id/btnFotos"
+            android:layout_below="@+id/layoutbutttons"
             android:id="@+id/viewFoto"
+            android:visibility="visible"
             />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/viewPlaats"
-            android:layout_below="@+id/btnFotos"
+            android:layout_below="@+id/layoutbutttons"
             android:layout_alignParentStart="true" />
 
         <Button
@@ -58,30 +68,38 @@
             android:layout_below="@+id/btnBeschrijving"
             android:layout_alignParentStart="true" />
 
-        <Button
-            android:id="@+id/btnUren"
-            android:layout_width="200dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Uren"
-            android:layout_below="@id/viewBeschrijving"
-            android:background="@android:color/holo_red_light"
-            android:textColor="@color/white"/>
+            android:orientation="horizontal"
+            android:id="@+id/layoutbutttons2"
+            android:layout_below="@+id/viewBeschrijving">
 
-        <Button
-            android:id="@+id/btnInfo"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-7dp"
-            android:layout_toRightOf="@+id/btnUren"
-            android:layout_below="@id/viewBeschrijving"
-            android:text="Info"
-            android:background="@android:color/holo_red_light"
-            android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/btnInfo"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Info"
+                android:background="@android:color/holo_red_light"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content" />
+
+            <Button
+                android:id="@+id/btnUren"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Uren"
+                android:background="@android:color/holo_red_light"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content" />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_below="@+id/btnUren"
+            android:layout_below="@+id/layoutbutttons2"
             android:id="@+id/viewUrenInfo"/>
 
         <Button
@@ -92,6 +110,8 @@
             android:layout_below="@id/viewUrenInfo"
             android:background="@android:color/holo_red_light"
             android:textColor="@color/white"/>
+
+
 
     </RelativeLayout>
 

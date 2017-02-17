@@ -63,8 +63,8 @@ public class StartActivity extends AppCompatActivity {
             maxVisibleItems = 1;
 
             fragments.add(new SearchFragment());
-            fragments.add(new ResultListFragment());
-            fragments.add(new DetailsFragment());
+            fragments.add(new Fragment());
+            fragments.add(new Fragment());
         }
 
         @Override

@@ -1,14 +1,15 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.model;
 
+import android.media.Image;
+
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Jasper on 10/02/2017.
  */
-public class Branch implements Serializable{
+public class Branch {
     @SerializedName("Id")
     private int id;
     @SerializedName("Name")
@@ -23,28 +24,37 @@ public class Branch implements Serializable{
     private int cityId;
     @SerializedName("City")
     private City cities;
+    //@SerializedName("Picture")
+    //private Image picture;
     @SerializedName("PhoneNumber")
     private String phoneNumber;
     @SerializedName("Email")
     private String email;
     @SerializedName("CompanyId")
     private int companyId;
-/*    @SerializedName("Rooms")
-    private String rooms;
-    //private ArrayList<Room> rooms;
+
     @SerializedName("OpeningHours")
-    private String openingHours;
+    private ArrayList<OpeningHour> openingHours;
+
+    /*public Image getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Image picture) {
+        this.picture = picture;
+    }*/
+    /*
+    @SerializedName("Rooms")
+    private String rooms;
+
     @SerializedName("AdditionalInfos")
     private String additionalInfo;
     @SerializedName("Reviews")
     private String reviews;
-    //private ArrayList<Review> reviews;
     @SerializedName("Messages")
     private String messages;
-    //private ArrayList<Message> messages;
     @SerializedName("Reservations")
     private String reservations;*/
-    //private ArrayList<Reservation> reservations;
 
 
     public int getId() {
@@ -95,14 +105,6 @@ public class Branch implements Serializable{
         this.cityId = cityId;
     }
 
-    public City getCities() {
-        return cities;
-    }
-
-    public void setCities(City cities) {
-        this.cities = cities;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -127,53 +129,19 @@ public class Branch implements Serializable{
         this.companyId = companyId;
     }
 
-/*
-    public String getRooms() {
-        return rooms;
+    public City getCities() {
+        return cities;
     }
 
-    public void setRooms(String rooms) {
-        this.rooms = rooms;
+    public void setCities(City cities) {
+        this.cities = cities;
     }
 
-    public String getOpeningHours() {
+    public ArrayList<OpeningHour> getOpeningHours() {
         return openingHours;
     }
 
-    public void setOpeningHours(String openingHours) {
+    public void setOpeningHours(ArrayList<OpeningHour> openingHours) {
         this.openingHours = openingHours;
     }
-
-    public String getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
-    }
-
-    public String getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(String reviews) {
-        this.reviews = reviews;
-    }
-
-    public String getMessages() {
-        return messages;
-    }
-
-    public void setMessages(String messages) {
-        this.messages = messages;
-    }
-
-    public String getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(String reservations) {
-        this.reservations = reservations;
-    }
-*/
 }

@@ -2,8 +2,6 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,7 +42,6 @@ public class ResultListFragment extends Fragment {
 
     public ResultListFragment() {
         // Required empty public constructor
-
     }
 
 
@@ -60,16 +56,16 @@ public class ResultListFragment extends Fragment {
         // Inflate the layout for this fragment
         //transfer data from searchfragment
         View view = inflater.inflate(R.layout.fragment_listresult, container, false);
-        ButterKnife.bind(this,view);
 
         Bundle bundle = getArguments();
-
         if(bundle != null){
             chosenPostalCode = bundle.getInt("chosenPostalCode", 0);
             chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
         }
+
+        ButterKnife.bind(this,view);
 
         getBranches();
 
@@ -84,19 +80,20 @@ public class ResultListFragment extends Fragment {
                call.enqueue(new Callback<List<Branch>>() {
                    @Override
                    public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-                       final BranchAdapter branchAdapter = new BranchAdapter(getActivity().getApplicationContext(), R.layout.view_branch_entry, response.body());
+                       final BranchAdapter branchAdapter = new BranchAdapter(getActivity(), R.layout.view_branch_entry, response.body());
 
                        if (lvBranches != null) {
                            lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                @Override
-                               public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                   StartActivity activity = (StartActivity) getActivity();
-
-                                   //transfering data to ResultListFragment
+                               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                   Bundle bundle = new Bundle();
+                                   StartActivity startActivity = (StartActivity) getActivity();
                                    DetailsFragment detailsFragment = new DetailsFragment();
 
+                                   bundle.putInt("branchId", (int) id);
 
-                                   activity.changeFragment(detailsFragment,2);
+                                   detailsFragment.setArguments(bundle);
+                                   startActivity.changeFragment(detailsFragment, 2);
                                }
                            });
                        }
