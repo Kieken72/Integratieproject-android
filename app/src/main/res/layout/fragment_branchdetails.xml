@@ -77,7 +77,7 @@
             android:layout_below="@+id/btnBeschrijving" />
 
         <LinearLayout
-            android:id="@+id/layoutbutttons2"
+            android:id="@+id/layoutbuttons2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/viewBeschrijving"
@@ -108,21 +108,271 @@
             android:id="@+id/layoutImage2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layoutbutttons2"
+            android:layout_below="@+id/layoutbuttons2"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/viewUren"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/layoutbutttons2"
-                android:visibility="gone" />
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/layoutUren"
+                android:orientation="horizontal"
+                android:paddingTop="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:visibility="gone">
 
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/maandag"/>
+
+                    <TextView android:id="@+id/txtMaandag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"
+                        android:hint="@string/gesloten"
+                    />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/dindsdag"/>
+
+                    <TextView android:id="@+id/txtDinsdag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gesloten"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/woensdag"/>
+
+                    <TextView android:id="@+id/txtWoensdag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gesloten"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/donderdag"
+                        />
+
+                    <TextView android:id="@+id/txtDonderdag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gesloten"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/vrijdag"/>
+
+                    <TextView android:id="@+id/txtVrijdag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gesloten"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/zaterdag"/>
+
+                    <TextView android:id="@+id/txtZaterdag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gesloten"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/zondag"/>
+
+                    <TextView android:id="@+id/txtZondag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/gesloten"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+            </TableLayout>
+
+            <!--
             <TextView
                 android:id="@+id/viewInfo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_below="@id/layoutbutttons2" />
+                android:layout_below="@id/layoutbuttons2"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"/> -->
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/layoutInfo"
+                android:orientation="horizontal"
+                android:paddingTop="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/Adres"/>
+
+                    <TextView android:id="@+id/txtAdres"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vbAdres"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/telnr"/>
+
+                    <TextView android:id="@+id/txtTelnr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vbTel"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:text="@string/email"/>
+
+                    <TextView android:id="@+id/txtEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/vbEmail"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"/>
+
+                </TableRow>
+
+            </TableLayout>
 
         </LinearLayout>
 
@@ -133,7 +383,8 @@
             android:layout_below="@id/layoutImage2"
             android:background="@android:color/holo_red_light"
             android:text="Reserveren"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
 

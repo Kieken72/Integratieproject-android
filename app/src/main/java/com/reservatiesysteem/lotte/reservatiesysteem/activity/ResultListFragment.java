@@ -91,6 +91,10 @@ public class ResultListFragment extends Fragment {
                                    DetailsFragment detailsFragment = new DetailsFragment();
 
                                    bundle.putInt("branchId", (int) id);
+                                   bundle.putInt("chosenPostalCode", chosenPostalCode);
+                                   bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
+                                   bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
+                                   bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
 
                                    detailsFragment.setArguments(bundle);
                                    startActivity.changeFragment(detailsFragment, 2);

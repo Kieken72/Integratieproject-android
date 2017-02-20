@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.OpeningHour;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
@@ -36,11 +38,28 @@ public class DetailsFragment extends Fragment {
     @BindView(R.id.viewBeschrijving) TextView viewBeschrijving;
     @BindView(R.id.btnUren) Button btnUren;
     @BindView(R.id.btnInfo) Button btnInfo;
-    @BindView(R.id.viewUren) TextView viewUren;
-    @BindView(R.id.viewInfo) TextView viewInfo;
+    @BindView(R.id.layoutUren) TableLayout viewUren;
+    @BindView(R.id.layoutInfo) TableLayout viewInfo;
     @BindView(R.id.btnReserveren) Button btnReserveren;
 
+    @BindView(R.id.txtAdres) TextView txtAdres;
+    @BindView(R.id.txtTelnr) TextView txtTelNr;
+    @BindView(R.id.txtEmail) TextView txtEmail;
+
+    @BindView(R.id.txtMaandag) TextView txtMaandag;
+    @BindView(R.id.txtDinsdag) TextView txtDinsdag;
+    @BindView(R.id.txtWoensdag) TextView txtWoensdag;
+    @BindView(R.id.txtDonderdag) TextView txtDonderdag;
+    @BindView(R.id.txtVrijdag) TextView txtVrijdag;
+    @BindView(R.id.txtZaterdag) TextView txtZaterdag;
+    @BindView(R.id.txtZondag) TextView txtZondag;
+
+
     private int receivedBranchId;
+    private int chosenPostalCode = 0;
+    private String chosenDate = "";
+    private String chosenTime = "";
+    private String chosenNumberOfPersons = "";
 
     public DetailsFragment() {
 
@@ -55,6 +74,10 @@ public class DetailsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             receivedBranchId = bundle.getInt("branchId", 0);
+            chosenPostalCode = bundle.getInt("chosenPostalCode", 0);
+            chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
+            chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
+            chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
         }
 
         getBranchDetails();
@@ -149,9 +172,41 @@ public class DetailsFragment extends Fragment {
                 Branch branch = response.body();
                 viewBeschrijving.setText(branch.getId() + " " + branch.getName() + " " + branch.getStreet());
 
-                viewInfo.setText(branch.getStreet() + " " + branch.getNumber() + "\n" + branch.getCity().getName() + " " + branch.getCity().getPostalCode());
+                //get info branch
+                txtAdres.setText(branch.getStreet() + " " + branch.getNumber() + ", " + branch.getCity().getPostalCode() + " " + branch.getCity().getName());
+                txtTelNr.setText(branch.getPhoneNumber());
+                txtEmail.setText(branch.getEmail());
 
-                viewUren.setText(branch.getOpeningHours().get(1).getFromTime());
+                //viewUren.setText(branch.getOpeningHours().get(1).getFromTime());
+                //TODO uren in tabelvorm weergeven
+                for(OpeningHour openingHour : branch.getOpeningHours()){
+                    switch (openingHour.getDay()){
+                        case 0: //zondag
+                            txtZondag.setText(openingHourText(txtZondag.getText(), openingHour));
+                            break;
+                        case 1: //maandag
+                            txtMaandag.setText(openingHourText(txtMaandag.getText(), openingHour));
+                            break;
+                        case 2:  //dindsdag
+                            txtDinsdag.setText(openingHourText(txtDinsdag.getText(), openingHour));
+                            break;
+                        case 3: //woensdag
+                            txtWoensdag.setText(openingHourText(txtWoensdag.getText(), openingHour));
+                            break;
+                        case 4: //donderdag
+                            txtDonderdag.setText(openingHourText(txtDonderdag.getText(), openingHour));
+                            break;
+                        case 5: //vrijdag
+                            txtVrijdag.setText(openingHourText(txtVrijdag.getText(), openingHour));
+                            break;
+                        case 6: //zaterdag
+                            txtZaterdag.setText(openingHourText(txtZaterdag.getText(), openingHour));
+                            break;
+
+                    }
+                }
+
+
             }
 
             @Override
@@ -159,5 +214,13 @@ public class DetailsFragment extends Fragment {
                 Log.d("Error receiving details", t.getMessage());
             }
         });
+    }
+
+    private String openingHourText(CharSequence startText, OpeningHour openingHour){
+        if(startText.equals("")) {
+            return openingHour.getFromTime().substring(0,5) + " - " + openingHour.getToTime().substring(0,5);
+        }else {
+            return startText + "\n" + openingHour.getFromTime().substring(0,5) + " - " + openingHour.getToTime().substring(0,5);
+        }
     }
 }
