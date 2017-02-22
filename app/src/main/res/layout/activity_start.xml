@@ -5,7 +5,7 @@
     android:id="@+id/activity_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity.StartActivity">
+    tools:context="com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity">
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/lytSearch">
+            android:id="@+id/lytSearch"
+            android:background="@drawable/nav_button_styles">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -52,7 +53,8 @@
             android:layout_weight="1"
             android:soundEffectsEnabled="false"
             android:clickable="false"
-            android:id="@+id/lytList">
+            android:id="@+id/lytList"
+            android:background="@drawable/nav_button_styles">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -73,7 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/lytDetails">
+            android:id="@+id/lytDetails"
+            android:background="@drawable/nav_button_styles">
 
             <ImageView
                 android:layout_height="wrap_content"
@@ -94,7 +97,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:id="@+id/lytBook">
+            android:id="@+id/lytBook"
+            android:background="@drawable/nav_button_styles">
             <ImageView
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_check_icon"

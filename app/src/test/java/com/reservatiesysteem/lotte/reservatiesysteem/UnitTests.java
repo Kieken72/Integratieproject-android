@@ -35,7 +35,7 @@ public class UnitTests {
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
                 List<City> cities = response.body();
                 assertNotNull("cities should not be empty",cities);
-                assertTrue("cities should be bigger than 1",cities.size()<0);
+                assertTrue("cities should be bigger than 1",cities.size()>0);
             }
 
             @Override

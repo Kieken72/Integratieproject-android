@@ -56,6 +56,7 @@ public class ResultListFragment extends Fragment {
         // Inflate the layout for this fragment
         //transfer data from searchfragment
         View view = inflater.inflate(R.layout.fragment_listresult, container, false);
+        ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -64,31 +65,28 @@ public class ResultListFragment extends Fragment {
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
         }
-
-        ButterKnife.bind(this,view);
-
         getBranches();
 
         return view;
     }
 
-    private void getBranches(){
-       try{
-        API_Service service = API.createService(API_Service.class);
-           if(chosenPostalCode > 0) {
-               Call<List<Branch>> call = service.getBranchById(chosenPostalCode);
-               call.enqueue(new Callback<List<Branch>>() {
-                   @Override
-                   public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-                       final BranchAdapter branchAdapter = new BranchAdapter(getActivity(), R.layout.view_branch_entry, response.body());
+    private void getBranches() {
+        try {
+            API_Service service = API.createService(API_Service.class);
+            if (chosenPostalCode > 0) {
+                Call<List<Branch>> call = service.getBranchById(chosenPostalCode);
+                call.enqueue(new Callback<List<Branch>>() {
+                    @Override
+                    public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
+                        final BranchAdapter branchAdapter = new BranchAdapter(getActivity(), R.layout.view_branch_entry, response.body());
 
-                       if (lvBranches != null) {
-                           lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                               @Override
-                               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                   Bundle bundle = new Bundle();
-                                   StartActivity startActivity = (StartActivity) getActivity();
-                                   DetailsFragment detailsFragment = new DetailsFragment();
+                        if (lvBranches != null) {
+                            lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Bundle bundle = new Bundle();
+                                    StartActivity startActivity = (StartActivity) getActivity();
+                                    DetailsFragment detailsFragment = new DetailsFragment();
 
                                    bundle.putInt("branchId", (int) id);
                                    bundle.putInt("chosenPostalCode", chosenPostalCode);
@@ -96,22 +94,22 @@ public class ResultListFragment extends Fragment {
                                    bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
                                    bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
 
-                                   detailsFragment.setArguments(bundle);
-                                   startActivity.changeFragment(detailsFragment, 2);
-                               }
-                           });
-                       }
-                       lvBranches.setAdapter(branchAdapter);
-                   }
+                                    detailsFragment.setArguments(bundle);
+                                    startActivity.changeFragment(detailsFragment, 2);
+                                }
+                            });
+                        }
+                        lvBranches.setAdapter(branchAdapter);
+                    }
 
-                   @Override
-                   public void onFailure(Call<List<Branch>> call, Throwable t) {
-                       Log.d("Error receiving branche", t.getMessage());
-                   }
-               });
-           }
-    }catch (NullPointerException e){
-           Toast.makeText(getActivity().getApplicationContext(),"Branches kunnen niet opgehaald worden", Toast.LENGTH_LONG).show();
-       }
+                    @Override
+                    public void onFailure(Call<List<Branch>> call, Throwable t) {
+                        Log.d("Error receiving branche", t.getMessage());
+                    }
+                });
+            }
+        } catch (NullPointerException e) {
+            Toast.makeText(getActivity().getApplicationContext(), "Branches kunnen niet opgehaald worden", Toast.LENGTH_LONG).show();
+        }
     }
 }

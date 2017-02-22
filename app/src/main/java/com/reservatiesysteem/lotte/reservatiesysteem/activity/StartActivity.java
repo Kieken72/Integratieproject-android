@@ -34,6 +34,7 @@ public class StartActivity extends AppCompatActivity {
         homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(homePagerAdapter);
 
+
         lytList.setEnabled(false);
         lytDetails.setEnabled(false);
         lytBook.setEnabled(false);
@@ -44,7 +45,24 @@ public class StartActivity extends AppCompatActivity {
                 viewPager.setCurrentItem(0);
             }
         });
-
+        lytList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+        lytDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+        lytBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPager.setCurrentItem(3);
+            }
+        });
     }
 
     public void changeFragment(Fragment fragment,int currentItem){
@@ -52,7 +70,12 @@ public class StartActivity extends AppCompatActivity {
         homePagerAdapter.setFragment(fragment,currentItem);
         viewPager.setAdapter(homePagerAdapter);
         viewPager.setCurrentItem(currentItem);
-        lytList.setEnabled(true);
+        switch (currentItem){
+            case 0:lytSearch.setEnabled(true);break;
+            case 1:lytList.setEnabled(true);lytDetails.setEnabled(false);lytBook.setEnabled(false);break;
+            case 2:lytDetails.setEnabled(true);lytBook.setEnabled(false); break;
+            case 3:lytBook.setEnabled(true);break;
+        }
     }
 
     private class HomePagerAdapter extends FragmentStatePagerAdapter {
