@@ -90,7 +90,6 @@
             android:layout_height="wrap_content"
             android:background="@color/mint_green"
             android:text="Reserveer"
-            android:textColor="#FFF"
             />
 
         <ImageButton

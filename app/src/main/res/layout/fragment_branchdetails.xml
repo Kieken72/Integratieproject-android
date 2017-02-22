@@ -22,7 +22,7 @@
                 android:layout_weight="1"
                 android:background="@color/mint_green"
                 android:text="Foto's"
-                android:textColor="@color/white" />
+                />
 
             <Button
                 android:id="@+id/btnPlace"
@@ -31,7 +31,7 @@
                 android:layout_weight="1"
                 android:background="@color/mint_green"
                 android:text="Plaats"
-                android:textColor="@color/white" />
+                />
 
 
         </LinearLayout>
@@ -68,7 +68,7 @@
             android:layout_below="@+id/layoutImage"
             android:background="@color/mint_green"
             android:text="Beschrijving"
-            android:textColor="@color/white" />
+            />
 
         <TextView
             android:id="@+id/viewBeschrijving"
@@ -94,7 +94,7 @@
                 android:layout_weight="1"
                 android:background="@color/mint_green"
                 android:text="Info"
-                android:textColor="@color/white" />
+                />
 
             <Button
                 android:id="@+id/btnUren"
@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:background="@color/mint_green"
                 android:text="Uren"
-                android:textColor="@color/white" />
+                />
 
         </LinearLayout>
 
@@ -473,7 +473,6 @@
             android:layout_below="@id/layoutImage2"
             android:background="@color/mint_green"
             android:text="Reserveren"
-            android:textColor="@color/white"
             />
 
     </RelativeLayout>
