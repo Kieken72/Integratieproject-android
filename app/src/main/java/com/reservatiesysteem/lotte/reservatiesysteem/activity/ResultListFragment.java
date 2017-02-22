@@ -1,12 +1,14 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,7 +26,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -32,7 +33,6 @@ import retrofit2.Response;
 public class ResultListFragment extends Fragment {
 
     @BindView(R.id.listBranches) ListView lvBranches;
-
 
     //transfer data from searchfragment
     private String chosenDate = "";

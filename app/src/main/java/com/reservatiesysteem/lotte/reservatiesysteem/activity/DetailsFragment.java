@@ -1,5 +1,7 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,10 +15,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.AdditionalInfo;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.OpeningHour;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +49,10 @@ public class DetailsFragment extends Fragment {
     @BindView(R.id.txtAdres) TextView txtAdres;
     @BindView(R.id.txtTelnr) TextView txtTelNr;
     @BindView(R.id.txtEmail) TextView txtEmail;
+    @BindView(R.id.txtPayment) TextView txtPayment;
+    @BindView(R.id.txtFacility) TextView txtFacility;
+    @BindView(R.id.txtAccessibility) TextView txtAccessibility;
+    @BindView(R.id.txtAtmosphere) TextView txtAtmosphere;
 
     @BindView(R.id.txtMaandag) TextView txtMaandag;
     @BindView(R.id.txtDinsdag) TextView txtDinsdag;
@@ -60,6 +68,8 @@ public class DetailsFragment extends Fragment {
     private String chosenDate = "";
     private String chosenTime = "";
     private String chosenNumberOfPersons = "";
+
+    private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
 
     public DetailsFragment() {
 
@@ -82,8 +92,8 @@ public class DetailsFragment extends Fragment {
 
         getBranchDetails();
 
-        //TODO GET picture branch
-        viewFoto.setImageResource(R.drawable.wima);
+        Picasso.with(getContext()).load(url).into(viewFoto);
+
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,15 +180,15 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onResponse(Call<Branch> call, Response<Branch> response) {
                 Branch branch = response.body();
-                viewBeschrijving.setText(branch.getId() + " " + branch.getName() + " " + branch.getStreet());
+                viewBeschrijving.setText(branch.getDescription());
 
-                //get info branch
+                //info weergeven
                 txtAdres.setText(branch.getStreet() + " " + branch.getNumber() + ", " + branch.getCity().getPostalCode() + " " + branch.getCity().getName());
                 txtTelNr.setText(branch.getPhoneNumber());
                 txtEmail.setText(branch.getEmail());
 
-                //viewUren.setText(branch.getOpeningHours().get(1).getFromTime());
-                //TODO uren in tabelvorm weergeven
+
+                //uren weergeven
                 for(OpeningHour openingHour : branch.getOpeningHours()){
                     switch (openingHour.getDay()){
                         case 0: //zondag
@@ -206,6 +216,25 @@ public class DetailsFragment extends Fragment {
                     }
                 }
 
+                for(AdditionalInfo additionalInfo : branch.getAdditionalInfo()){
+                    switch (additionalInfo.getType()){
+                        case 0:
+                            txtPayment.setText(additionalInfoText(txtPayment.getText(), additionalInfo));
+                            break;
+                        case 1:
+                            txtFacility.setText(additionalInfoText(txtFacility.getText(), additionalInfo));
+                            break;
+                        case 2:
+                            txtAccessibility.setText(additionalInfoText(txtAccessibility.getText(), additionalInfo));
+                            break;
+                        case 3:
+                            txtAtmosphere.setText(additionalInfoText(txtAtmosphere.getText(), additionalInfo));
+                            break;
+                        case 4:
+                            break;
+                        case 5: break;
+                    }
+                }
 
             }
 
@@ -221,6 +250,14 @@ public class DetailsFragment extends Fragment {
             return openingHour.getFromTime().substring(0,5) + " - " + openingHour.getToTime().substring(0,5);
         }else {
             return startText + "\n" + openingHour.getFromTime().substring(0,5) + " - " + openingHour.getToTime().substring(0,5);
+        }
+    }
+
+    private String additionalInfoText(CharSequence startText, AdditionalInfo additionalInfo){
+        if(startText.equals("")){
+            return additionalInfo.getValue().toLowerCase();
+        }else {
+            return startText + ", " + additionalInfo.getValue().toLowerCase();
         }
     }
 }

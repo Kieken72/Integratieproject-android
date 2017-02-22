@@ -1,7 +1,10 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.model;
 
+import android.media.Image;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -22,8 +25,10 @@ public class Branch {
     private int cityId;
     @SerializedName("City")
     private City city;
-    //@SerializedName("Picture")
-    //private Image picture;
+    @SerializedName("Description")
+    private String description;
+   /* @SerializedName("Picture")
+    private Image picture;*/
     @SerializedName("PhoneNumber")
     private String phoneNumber;
     @SerializedName("Email")
@@ -34,20 +39,14 @@ public class Branch {
     @SerializedName("OpeningHours")
     private ArrayList<OpeningHour> openingHours;
 
-    /*public Image getPicture() {
-        return picture;
-    }
 
-    public void setPicture(Image picture) {
-        this.picture = picture;
-    }*/
-    /*
-    @SerializedName("Rooms")
-    private String rooms;
+    /*@SerializedName("Rooms")
+    private String rooms;*/
 
     @SerializedName("AdditionalInfos")
-    private String additionalInfo;
-    @SerializedName("Reviews")
+    private ArrayList<AdditionalInfo> additionalInfo;
+
+    /*@SerializedName("Reviews")
     private String reviews;
     @SerializedName("Messages")
     private String messages;
@@ -142,4 +141,28 @@ public class Branch {
     public void setOpeningHours(ArrayList<OpeningHour> openingHours) {
         this.openingHours = openingHours;
     }
+
+    public ArrayList<AdditionalInfo> getAdditionalInfo() {
+        return additionalInfo;
+    }
+
+    public void setAdditionalInfo(ArrayList<AdditionalInfo> additionalInfo) {
+        this.additionalInfo = additionalInfo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /*public Image getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Image picture) {
+        this.picture = picture;
+    }*/
 }

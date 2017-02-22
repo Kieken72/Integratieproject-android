@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_height="56dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@color/mint_green"
         android:id="@+id/linearLayout"
         android:baselineAligned="false">
 

@@ -4,24 +4,33 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Weekdagen -->
-    <string name="maandag">Maandag</string>
-    <string name="dindsdag">dindsdag</string>
-    <string name="woensdag">woensdag</string>
-    <string name="donderdag">donderdag</string>
-    <string name="vrijdag">vrijdag</string>
-    <string name="zaterdag">zaterdag</string>
-    <string name="zondag">zondag</string>
+    <string name="maandag">MAANDAG</string>
+    <string name="dindsdag">DINSDAG</string>
+    <string name="woensdag">WOENSDAG</string>
+    <string name="donderdag">DONDERDAG</string>
+    <string name="vrijdag">VRIJDAG</string>
+    <string name="zaterdag">ZATERDAG</string>
+    <string name="zondag">ZONDAG</string>
 
     <!-- hint uren -->
     <string name="uren">10.30 - 17.00</string>
     <string name="gesloten">Gesloten</string>
 
     <!-- view Info -->
-    <string name="Adres">Adres</string>
+    <string name="Adres">ADRES</string>
     <string name="vbAdres">Nationalestraat 5, 2018 Antwerpen</string>
-    <string name="telnr">Tel Nr.</string>
+    <string name="telnr">TEL NR.</string>
     <string name="vbTel">03 613 16 00</string>
-    <string name="email">Email</string>
+    <string name="email">EMAIL</string>
     <string name="vbEmail">voorbeeld@test.com</string>
+    <string name="payment">BETALING</string>
+    <string name="vbPayment">Visa, Bancontact</string>
+    <string name="facility">FACILITEITEN</string>
+    <string name="vbFacility">Wifi</string>
+    <string name="accessibility">TOEGANKELIJKHEID</string>
+    <string name="vbAccessibility">Rolstoel</string>
+    <string name="atmosphere">ATMOSFEER</string>
+    <string name="vbAtmosphere">Modern</string>
+
 
 </resources>

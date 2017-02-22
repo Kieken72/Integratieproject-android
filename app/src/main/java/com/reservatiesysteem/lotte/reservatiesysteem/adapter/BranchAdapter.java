@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class BranchAdapter extends BaseAdapter {
 
     private List<Branch> branches = new ArrayList<>();
     private Context context;
+    private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
+
 
     public BranchAdapter(Context context, int resource, List<Branch> branches) {
         this.branches = branches;
@@ -61,6 +65,9 @@ public class BranchAdapter extends BaseAdapter {
         TextView txtBranchName = (TextView) v.findViewById(R.id.branchName);
         TextView txtBranchStreet = (TextView) v.findViewById(R.id.branchStreet);
         TextView txtBranchMail = (TextView) v.findViewById(R.id.branchMail);
+        ImageView imgBranch = (ImageView) v.findViewById(R.id.imgBranch);
+
+        Picasso.with(context).load(url).resize(80,80).into(imgBranch);
         txtBranchName.setText(branch.getName());
         txtBranchStreet.setText(branch.getStreet());
         txtBranchMail.setText(branch.getEmail());
