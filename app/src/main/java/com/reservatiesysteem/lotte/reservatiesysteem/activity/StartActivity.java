@@ -1,6 +1,7 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,8 +9,12 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 
 
@@ -19,11 +24,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class StartActivity extends AppCompatActivity {
-    @BindView(R.id.vwpHome) ViewPager viewPager;
-    @BindView(R.id.lytSearch) LinearLayout lytSearch;
-    @BindView(R.id.lytList) LinearLayout lytList;
-    @BindView(R.id.lytDetails) LinearLayout lytDetails;
-    @BindView(R.id.lytBook) LinearLayout lytBook;
+    @BindView(R.id.vwpHome)
+    ViewPager viewPager;
+    @BindView(R.id.lytSearch)
+    LinearLayout lytSearch;
+    @BindView(R.id.lytList)
+    LinearLayout lytList;
+    @BindView(R.id.lytDetails)
+    LinearLayout lytDetails;
+    @BindView(R.id.lytBook)
+    LinearLayout lytBook;
     HomePagerAdapter homePagerAdapter;
 
     @Override
@@ -34,6 +44,7 @@ public class StartActivity extends AppCompatActivity {
         homePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(homePagerAdapter);
 
+        setTitle("Leisurebooker");
 
         lytList.setEnabled(false);
         lytDetails.setEnabled(false);
@@ -65,22 +76,54 @@ public class StartActivity extends AppCompatActivity {
         });
     }
 
-    public void changeFragment(Fragment fragment,int currentItem){
-        homePagerAdapter.setMaxVisibleItems(currentItem+1);
-        homePagerAdapter.setFragment(fragment,currentItem);
+    public void changeFragment(Fragment fragment, int currentItem) {
+        homePagerAdapter.setMaxVisibleItems(currentItem + 1);
+        homePagerAdapter.setFragment(fragment, currentItem);
         viewPager.setAdapter(homePagerAdapter);
         viewPager.setCurrentItem(currentItem);
-        switch (currentItem){
-            case 0:lytSearch.setEnabled(true);break;
-            case 1:lytList.setEnabled(true);lytDetails.setEnabled(false);lytBook.setEnabled(false);break;
-            case 2:lytDetails.setEnabled(true);lytBook.setEnabled(false); break;
-            case 3:lytBook.setEnabled(true);break;
+        switch (currentItem) {
+            case 0:
+                lytSearch.setEnabled(true);
+                break;
+            case 1:
+                lytList.setEnabled(true);
+                lytDetails.setEnabled(false);
+                lytBook.setEnabled(false);
+                break;
+            case 2:
+                lytDetails.setEnabled(true);
+                lytBook.setEnabled(false);
+                break;
+            case 3:
+                lytBook.setEnabled(true);
+                break;
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.login:
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+            case R.id.about:
+                //// TODO: about page
+                return true;
+        }
+        return true;
+    }
+
     private class HomePagerAdapter extends FragmentStatePagerAdapter {
-        private ArrayList<Fragment>fragments = new ArrayList<>();
+        private ArrayList<Fragment> fragments = new ArrayList<>();
         private int maxVisibleItems;
+
         public HomePagerAdapter(FragmentManager fm) {
             super(fm);
             maxVisibleItems = 1;
@@ -94,15 +137,18 @@ public class StartActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             return fragments.get(position);
         }
+
         @Override
         public int getCount() {
             return maxVisibleItems;
         }
-        public void setMaxVisibleItems(int maxVisibleItems){
+
+        public void setMaxVisibleItems(int maxVisibleItems) {
             this.maxVisibleItems = maxVisibleItems;
         }
-        public void setFragment(Fragment fragment,int id){
-            fragments.set(id,fragment);
+
+        public void setFragment(Fragment fragment, int id) {
+            fragments.set(id, fragment);
         }
 
 

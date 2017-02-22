@@ -1,12 +1,16 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.service;
 
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Account;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -22,4 +26,7 @@ public interface API_Service {
 
     @GET("api/branches/{branchId}")
     Call<Branch> getBranchDetails(@Path("branchId") int branchId);
+
+    @POST("api/accounts/create")
+    Call<RegisterAccount> createUser(@Body RegisterAccount account);
 }

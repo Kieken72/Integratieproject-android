@@ -16,6 +16,12 @@ public class Account {
     @SerializedName("Email")
     private String email;
 
+    public Account( String username, String fullname, String email) {
+        this.username = username;
+        this.fullname = fullname;
+        this.email = email;
+    }
+
     public String getId() {
         return id;
     }
