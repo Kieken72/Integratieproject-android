@@ -27,6 +27,7 @@ public interface API_Service {
     @GET("api/branches/{branchId}")
     Call<Branch> getBranchDetails(@Path("branchId") int branchId);
 
+    //ACCOUNT
     @POST("api/accounts/create")
     Call<RegisterAccount> createUser(@Body RegisterAccount account);
 }

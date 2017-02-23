@@ -2,9 +2,11 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Account;
@@ -13,6 +15,7 @@ import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        ButterKnife.bind(this);
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,12 +68,17 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback<RegisterAccount>() {
             @Override
             public void onResponse(Call<RegisterAccount> call, Response<RegisterAccount> response) {
-
+                if (response.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Registratie gelukt", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Registratie failed: " + response.code(), Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public void onFailure(Call<RegisterAccount> call, Throwable t) {
-
+                Log.d("Failure register", t.getMessage());
             }
         });
     }

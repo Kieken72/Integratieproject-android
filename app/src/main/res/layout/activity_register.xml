@@ -17,7 +17,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtUsername"
-        android:hint="Gebruikersnaam" />
+        android:hint="@string/username" />
 
     <EditText
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtFirstName"
-        android:hint="Voornaam" />
+        android:hint="@string/firstname" />
 
     <EditText
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/txtLastName"
-        android:hint="Achternaam" />
+        android:hint="@string/lastname" />
 
     <EditText
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/txtEmail"
-        android:hint="E-mail" />
+        android:hint="@string/emailRegister" />
 
     <EditText
         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/txtPassword"
-        android:hint="Password" />
+        android:hint="@string/password" />
 
     <EditText
         android:layout_width="match_parent"
@@ -57,11 +57,13 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/txtConfirmPassword"
-        android:hint="Confirm password" />
+        android:hint="@string/confirmPassword" />
 
     <Button
-        android:text="Register"
+        android:text="@string/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRegister" />
+        android:id="@+id/btnRegister"
+        android:background="@color/mint_green"
+        android:layout_marginTop="20dp"/>
 </LinearLayout>
