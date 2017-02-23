@@ -1,13 +1,15 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Token;
@@ -31,7 +32,7 @@ import retrofit2.Response;
 /**
  * A btnLogin screen that offers btnLogin via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
     @BindView(R.id.btnRegister)
     Button btnRegister;
     @BindView(R.id.btnLogin)
@@ -42,13 +43,15 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.txtPassword)
     EditText txtPassword;
 
+    public static final String TOKEN = "MYTOKEN" ;
+
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
@@ -64,9 +67,13 @@ public class LoginActivity extends AppCompatActivity {
                 call.enqueue(new Callback<Token>() {
                     @Override
                     public void onResponse(Call<Token> call, Response<Token> response) {
-                        Toast.makeText(getApplicationContext()," "+response.body(),Toast.LENGTH_LONG).show();
+/*                        Toast.makeText(getApplicationContext()," "+response.body(),Toast.LENGTH_LONG).show();
                         Log.d("accestoken",response.body().getAccessToken());
-
+  */
+                        SharedPreferences preferences = getSharedPreferences(TOKEN,Context.MODE_PRIVATE);
+                        Editor editor = preferences.edit();
+                        editor.putString(TOKEN,response.body().getAccessToken());
+                        editor.commit();
                     }
 
                     @Override
@@ -83,26 +90,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.login:
-                startActivity(new Intent(this, LoginActivity.class));
-                return true;
-            case R.id.about:
-                //// TODO: about page
-                return true;
-        }
-        return true;
     }
 }
 

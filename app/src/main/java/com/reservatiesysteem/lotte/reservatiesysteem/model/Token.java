@@ -1,5 +1,7 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.model;
 
+import android.content.SharedPreferences;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -21,6 +23,7 @@ public class Token {
 
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
+
     }
 
     public String getTokenType() {

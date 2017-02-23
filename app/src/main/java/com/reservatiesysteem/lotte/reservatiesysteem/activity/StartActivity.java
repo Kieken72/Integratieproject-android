@@ -1,7 +1,9 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,11 +11,13 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 
@@ -23,7 +27,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends BaseActivity {
     @BindView(R.id.vwpHome)
     ViewPager viewPager;
     @BindView(R.id.lytSearch)
@@ -49,6 +53,7 @@ public class StartActivity extends AppCompatActivity {
         lytList.setEnabled(false);
         lytDetails.setEnabled(false);
         lytBook.setEnabled(false);
+
 
         lytSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,25 +105,6 @@ public class StartActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.login:
-                startActivity(new Intent(this, LoginActivity.class));
-                return true;
-            case R.id.about:
-                //// TODO: about page
-                return true;
-        }
-        return true;
-    }
 
     private class HomePagerAdapter extends FragmentStatePagerAdapter {
         private ArrayList<Fragment> fragments = new ArrayList<>();
