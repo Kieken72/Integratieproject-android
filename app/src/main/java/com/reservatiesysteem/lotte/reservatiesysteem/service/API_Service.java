@@ -1,6 +1,6 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.service;
 
-import com.reservatiesysteem.lotte.reservatiesysteem.model.Account;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Token;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
@@ -9,6 +9,8 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -30,4 +32,8 @@ public interface API_Service {
     //ACCOUNT
     @POST("api/accounts/create")
     Call<RegisterAccount> createUser(@Body RegisterAccount account);
+
+    @FormUrlEncoded
+    @POST("oauth/token")
+    Call<Token> getToken(@Field("Username") String username, @Field("Password")String password, @Field("grant_type")String grantType );
 }

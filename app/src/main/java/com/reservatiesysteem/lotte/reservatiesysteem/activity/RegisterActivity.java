@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
-import com.reservatiesysteem.lotte.reservatiesysteem.model.Account;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
@@ -78,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RegisterAccount> call, Throwable t) {
-                Log.d("Failure register", t.getMessage());
+                Log.d("Failure btnRegister", t.getMessage());
             }
         });
     }

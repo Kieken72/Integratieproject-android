@@ -1,57 +1,46 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Token;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.Manifest.permission.READ_CONTACTS;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
- * A login screen that offers login via email/password.
+ * A btnLogin screen that offers btnLogin via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.btnRegister)
-    Button register;
+    Button btnRegister;
+    @BindView(R.id.btnLogin)
+    Button btnLogin;
+
+    @BindView(R.id.txtUsername)
+    EditText txtUsername;
+    @BindView(R.id.txtPassword)
+    EditText txtPassword;
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
@@ -64,7 +53,31 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        register.setOnClickListener(new OnClickListener() {
+        btnLogin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username = txtUsername.getText().toString();
+                String password = txtPassword.getText().toString();
+
+                API_Service service = API.createService(API_Service.class);
+                Call<Token> call = service.getToken(username,password,"password");
+                call.enqueue(new Callback<Token>() {
+                    @Override
+                    public void onResponse(Call<Token> call, Response<Token> response) {
+                        Toast.makeText(getApplicationContext()," "+response.body(),Toast.LENGTH_LONG).show();
+                        Log.d("accestoken",response.body().getAccessToken());
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Token> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        btnRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
