@@ -74,6 +74,8 @@ public class LoginActivity extends BaseActivity {
                         Editor editor = preferences.edit();
                         editor.putString(TOKEN,response.body().getAccessToken());
                         editor.commit();
+                        invalidateOptionsMenu();
+                        finish();
                     }
 
                     @Override

@@ -38,8 +38,12 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.login:
                 startActivity(new Intent(this, LoginActivity.class));
                 return true;
-            case R.id.about:
-                //// TODO: about page
+            case R.id.logout:
+                SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.TOKEN,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                invalidateOptionsMenu();
                 return true;
         }
         return true;
