@@ -2,16 +2,21 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
+
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +41,9 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.txtConfirmPassword)
     EditText txtConfirmPassword;
 
+    @BindView(R.id.lblError)
+    TextView lblError;
+
     API_Service service;
 
     @Override
@@ -55,12 +63,38 @@ public class RegisterActivity extends BaseActivity {
                 String password = txtPassword.getText().toString();
                 String confirmPassword = txtConfirmPassword.getText().toString();
 
-                RegisterAccount account = new RegisterAccount(eMail,username,firstName,lastName,password,confirmPassword);
+                String error = validatePassword(password);
 
-                createNewUser(account);
+                if(username.equals("")){
+                    lblError.setText("Gebruikersnaam mag niet leeg zijn");return;
+                }
+                if(firstName.equals("")){
+                    lblError.setText("Voornaam mag niet leeg zijn");return;
+                }
+                if (lastName.equals("")){
+                    lblError.setText("Achternaam mag niet leeg zijn");return;
+                }
+                if(eMail.equals("")){
+                    lblError.setText("E-mail incorrect of leeg");return;
+                }
+                if(!password.equals(confirmPassword)){
+                    lblError.setText("Wachtwoord en Herhaal wachtwoord moeten gelijk zijn");
+                }
+                lblError.setText(error);
+
+
+                if(error.equals("")){
+                    RegisterAccount account = new RegisterAccount(eMail,username,firstName,lastName,password,confirmPassword);
+                    //createNewUser(account);
+                }else {
+                    lblError.setText(error);
+                }
             }
         });
     }
+
+
+
     public void createNewUser(RegisterAccount account){
         service = API.createService(API_Service.class);
         Call<RegisterAccount> call = service.createUser(account);
@@ -80,5 +114,18 @@ public class RegisterActivity extends BaseActivity {
                 Log.d("Failure btnRegister", t.getMessage());
             }
         });
+    }
+
+    private String validatePassword(String password) {
+        if(password.length()<6){
+            return "passwoord moet minstens 8 tekens lang zijn";
+        }
+        if(!password.matches(".*\\d+.*")){
+            return "passwoord moet minstens 1 getal bevatten";
+        }
+        if(!password.matches(".*[!@#$%^&*]+.*")){
+            return "passwoord moet 1 van volgende tekens bevatten !@#$%^&*";
+        }
+        return "";
     }
 }

@@ -66,4 +66,8 @@
         android:id="@+id/btnRegister"
         android:background="@color/mint_green"
         android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblError"/>
 </LinearLayout>
