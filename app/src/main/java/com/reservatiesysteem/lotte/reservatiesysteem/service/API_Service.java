@@ -6,6 +6,7 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -36,4 +37,7 @@ public interface API_Service {
     @FormUrlEncoded
     @POST("oauth/token")
     Call<Token> getToken(@Field("Username") String username, @Field("Password")String password, @Field("grant_type")String grantType );
+
+/*    @POST("api/reservations")
+    Call<Object> createReservation(@Field("BranchId")int branchId,@Field("DateTime"))*/
 }

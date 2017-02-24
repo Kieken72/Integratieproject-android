@@ -63,7 +63,7 @@ public class RegisterActivity extends BaseActivity {
                 String password = txtPassword.getText().toString();
                 String confirmPassword = txtConfirmPassword.getText().toString();
 
-                String error = validatePassword(password);
+                String error = validatePassword(password,confirmPassword);
 
                 if(username.equals("")){
                     lblError.setText("Gebruikersnaam mag niet leeg zijn");return;
@@ -77,11 +77,7 @@ public class RegisterActivity extends BaseActivity {
                 if(eMail.equals("")){
                     lblError.setText("E-mail incorrect of leeg");return;
                 }
-                if(!password.equals(confirmPassword)){
-                    lblError.setText("Wachtwoord en Herhaal wachtwoord moeten gelijk zijn");
-                }
                 lblError.setText(error);
-
 
                 if(error.equals("")){
                     RegisterAccount account = new RegisterAccount(eMail,username,firstName,lastName,password,confirmPassword);
@@ -92,8 +88,6 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-
-
 
     public void createNewUser(RegisterAccount account){
         service = API.createService(API_Service.class);
@@ -116,15 +110,18 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    private String validatePassword(String password) {
+    private String validatePassword(String password,String confirmPassword) {
         if(password.length()<6){
-            return "passwoord moet minstens 8 tekens lang zijn";
+            return "passwoord moet minstens 6 tekens lang zijn";
         }
         if(!password.matches(".*\\d+.*")){
             return "passwoord moet minstens 1 getal bevatten";
         }
         if(!password.matches(".*[!@#$%^&*]+.*")){
             return "passwoord moet 1 van volgende tekens bevatten !@#$%^&*";
+        }
+        if(!password.equals(confirmPassword)){
+            return "Wachtwoord en Herhaal wachtwoord moeten gelijk zijn";
         }
         return "";
     }

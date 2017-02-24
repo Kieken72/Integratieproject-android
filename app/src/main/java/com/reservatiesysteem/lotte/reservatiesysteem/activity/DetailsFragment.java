@@ -1,5 +1,9 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -167,18 +171,25 @@ public class DetailsFragment extends Fragment {
         btnReserveren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                StartActivity startActivity = (StartActivity) getActivity();
-                ReservationFragment reservationFragment = new ReservationFragment();
+                Activity activity = getActivity();
+                SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+                String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+                if ("".equals(token)){
+                    startActivity(new Intent(activity, LoginActivity.class));
+                }else {
+                    Bundle bundle = new Bundle();
+                    StartActivity startActivity = (StartActivity) getActivity();
+                    ReservationFragment reservationFragment = new ReservationFragment();
 
-                bundle.putInt("branchId", receivedBranchId);
-                bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
-                bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
-                bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
-                bundle.putString("branchName", txtBranchName.getText().toString());
+                    bundle.putInt("branchId", receivedBranchId);
+                    bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
+                    bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
+                    bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
+                    bundle.putString("branchName", txtBranchName.getText().toString());
 
-                reservationFragment.setArguments(bundle);
-                startActivity.changeFragment(reservationFragment, 3);
+                    reservationFragment.setArguments(bundle);
+                    startActivity.changeFragment(reservationFragment, 3);
+                }
             }
         });
 

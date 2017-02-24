@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
@@ -22,6 +23,9 @@ public class ReservationFragment extends Fragment {
     @BindView(R.id.dateRes) TextView txtDateRes;
     @BindView(R.id.timeRes) TextView txtTimeRes;
     @BindView(R.id.numberRes) TextView txtNumberRes;
+
+    @BindView(R.id.btnConfirmRes)
+    Button btnConfirmRes;
 
     //transfer data from searchfragment
     private String chosenDate = "";
@@ -48,7 +52,16 @@ public class ReservationFragment extends Fragment {
         txtBranchNameRes.setText(branchName);
         txtDateRes.setText(chosenDate);
         txtTimeRes.setText(chosenTime);
-        txtNumberRes.setText(chosenNumberOfPersons);
+        txtNumberRes.setText(chosenNumberOfPersons +" personen");
+
+        btnConfirmRes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
         return view;
     }
