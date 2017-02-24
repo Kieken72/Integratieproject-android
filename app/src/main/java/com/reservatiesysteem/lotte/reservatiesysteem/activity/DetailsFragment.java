@@ -32,6 +32,7 @@ import retrofit2.Response;
 
 public class DetailsFragment extends Fragment {
 
+    @BindView(R.id.txtbranchName) TextView txtBranchName;
     @BindView(R.id.btnFotos) Button btnFotos;
     @BindView(R.id.btnPlace) Button btnPlace;
     @BindView(R.id.viewFoto) ImageView viewFoto;
@@ -66,6 +67,7 @@ public class DetailsFragment extends Fragment {
     private String chosenDate = "";
     private String chosenTime = "";
     private String chosenNumberOfPersons = "";
+    private String branchName = "";
 
     private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
 
@@ -86,6 +88,7 @@ public class DetailsFragment extends Fragment {
             chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
+
         }
 
         getBranchDetails();
@@ -164,7 +167,18 @@ public class DetailsFragment extends Fragment {
         btnReserveren.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                StartActivity startActivity = (StartActivity) getActivity();
+                ReservationFragment reservationFragment = new ReservationFragment();
 
+                bundle.putInt("branchId", receivedBranchId);
+                bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
+                bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
+                bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
+                bundle.putString("branchName", txtBranchName.getText().toString());
+
+                reservationFragment.setArguments(bundle);
+                startActivity.changeFragment(reservationFragment, 3);
             }
         });
 
@@ -178,6 +192,8 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onResponse(Call<Branch> call, Response<Branch> response) {
                 Branch branch = response.body();
+
+                txtBranchName.setText(branch.getName());
                 viewBeschrijving.setText(branch.getDescription());
 
                 //info weergeven

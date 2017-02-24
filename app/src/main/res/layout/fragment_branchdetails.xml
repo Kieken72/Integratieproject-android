@@ -9,11 +9,23 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtbranchName"
+            android:text="@string/branchName"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            />
+
         <LinearLayout
             android:id="@+id/layoutbutttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_below="@+id/txtbranchName">
 
             <Button
                 android:id="@+id/btnFotos"
