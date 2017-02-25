@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +59,7 @@ public class ReservationFragment extends Fragment {
         btnConfirmRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //API_Service service = API.createService(API_Service.class);
             }
         });
 

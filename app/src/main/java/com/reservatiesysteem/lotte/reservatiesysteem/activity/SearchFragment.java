@@ -147,7 +147,7 @@ public class SearchFragment extends Fragment {
     };
 
     private void showDate(int year, int month, int day) {
-        txtDate.setText(new StringBuilder().append(day).append("/").append(month + 1).append("/").append(year));
+        txtDate.setText(new StringBuilder().append(year).append("/").append(month + 1).append("/").append(day));
     }
 
     private void showTime(int hour, int minute) {

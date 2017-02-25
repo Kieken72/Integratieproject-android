@@ -10,10 +10,16 @@ import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by lotte on 15/02/2017.
@@ -22,11 +28,15 @@ import java.util.List;
 public class BranchAdapter extends BaseAdapter {
 
     private List<Branch> branches = new ArrayList<>();
+    private int amount;
+    private String dateTime;
     private Context context;
     private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
 
 
-    public BranchAdapter(Context context, int resource, List<Branch> branches) {
+    public BranchAdapter(Context context, int amount,String dateTime, List<Branch> branches) {
+        this.dateTime = dateTime;
+        this.amount = amount;
         this.branches = branches;
         this.context = context;
     }
@@ -50,7 +60,7 @@ public class BranchAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Branch branch = getItem(position);
 
-        View v;
+        final View v;
 
         if(convertView == null){
             final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,7 +70,28 @@ public class BranchAdapter extends BaseAdapter {
             v = convertView;
         }
 
-        //api call
+        API_Service service = API.createService(API_Service.class);
+        Call<Branch> call = service.getBranchAvailability(branch.getId(),dateTime,amount);
+        call.enqueue(new Callback<Branch>() {
+            @Override
+            public void onResponse(Call<Branch> call, Response<Branch> response) {
+
+                Branch returnBranch = response.body();
+                TextView txtAvailable = (TextView) v.findViewById(R.id.lblAvailable);
+                if(returnBranch!=null){
+                    if(returnBranch.isAvailable()){
+                        txtAvailable.setText("available");
+                    }else {
+                        txtAvailable.setText("not available");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Branch> call, Throwable t) {
+
+            }
+        });
 
         TextView txtBranchName = (TextView) v.findViewById(R.id.branchName);
         TextView txtBranchStreet = (TextView) v.findViewById(R.id.branchStreet);

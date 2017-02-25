@@ -78,7 +78,7 @@ public class ResultListFragment extends Fragment {
                 call.enqueue(new Callback<List<Branch>>() {
                     @Override
                     public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-                        final BranchAdapter branchAdapter = new BranchAdapter(getActivity(), R.layout.view_branch_entry, response.body());
+                        final BranchAdapter branchAdapter = new BranchAdapter(getActivity(),Integer.parseInt(chosenNumberOfPersons),chosenDate+"T"+chosenTime, response.body());
 
                         if (lvBranches != null) {
                             lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {

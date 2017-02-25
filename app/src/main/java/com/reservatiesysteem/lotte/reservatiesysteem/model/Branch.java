@@ -21,10 +21,12 @@ public class Branch {
     private String number;
     @SerializedName("Box")
     private String box;
-    @SerializedName("CiyId")
+    @SerializedName("CityId")
     private int cityId;
     @SerializedName("City")
     private City city;
+    @SerializedName("Available")
+    private boolean available;
     @SerializedName("Description")
     private String description;
    /* @SerializedName("Picture")
@@ -156,6 +158,14 @@ public class Branch {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     /*public Image getPicture() {

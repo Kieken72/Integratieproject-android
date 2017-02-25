@@ -16,26 +16,6 @@
         android:textSize="18dp"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/branchStreet"
-        android:hint="Street"
-        android:layout_toRightOf="@+id/imgBranch"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="10dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/branchMail"
-        android:hint="Email"
-        android:layout_toRightOf="@+id/imgBranch"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="10dp"
-        />
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,11 +35,38 @@
         android:layout_marginTop="10dp"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/branchStreet"
+        android:hint="Street"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/btnDetails"
+        android:layout_toEndOf="@+id/imgBranch" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/branchMail"
+        android:hint="Email"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/branchStreet"
+        android:layout_toEndOf="@+id/imgBranch" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblAvailable"
+        android:hint="Available"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/branchMail"
+        android:layout_toEndOf="@+id/imgBranch" />
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/imgBranch"
-        android:layout_alignBottom="@+id/branchMail"
-        android:layout_marginStart="10dp" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
