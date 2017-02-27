@@ -60,5 +60,12 @@
 
     <string name="btnCalendar">Toevoegen aan je kalender</string>
     <string name="btnBack">Terug</string>
-
+    
+    <!-- Profile -->
+    <string name="checkRes">Bekijk je reservaties</string>
+    <string name="resId">Nummer reservatie: </string>
+    <string name="resDate">Datum reservatie: </string>
+    <string name="resTime">Uur reservatie: </string>
+    <string name="resAmount">Aantal personen: </string>
+    
 </resources>

@@ -174,6 +174,7 @@ public class DetailsFragment extends Fragment {
                 Activity activity = getActivity();
                 SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+
                 if ("".equals(token)){
                     startActivity(new Intent(activity, LoginActivity.class));
                 }else {

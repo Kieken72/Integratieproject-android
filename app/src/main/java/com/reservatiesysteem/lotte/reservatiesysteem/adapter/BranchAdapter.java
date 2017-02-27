@@ -1,6 +1,7 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,8 +82,10 @@ public class BranchAdapter extends BaseAdapter {
                 if(returnBranch!=null){
                     if(returnBranch.isAvailable()){
                         txtAvailable.setText("available");
+                        txtAvailable.setTextColor(Color.GREEN);
                     }else {
                         txtAvailable.setText("not available");
+                        txtAvailable.setTextColor(Color.RED);
                     }
                 }
             }

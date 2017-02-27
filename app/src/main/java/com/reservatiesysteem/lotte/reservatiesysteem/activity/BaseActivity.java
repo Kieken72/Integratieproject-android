@@ -45,6 +45,9 @@ public class BaseActivity extends AppCompatActivity {
                 editor.commit();
                 invalidateOptionsMenu();
                 return true;
+            case R.id.myProfile:
+                startActivity(new Intent(this, ProfileActivity.class));
+                return true;
         }
         return true;
     }

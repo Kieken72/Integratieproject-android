@@ -100,8 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnconfirmRes"
+        android:id="@+id/btnConfirmRes"
         android:background="@color/mint_green"
-        android:layout_marginTop="10dp"
-        android:id="@+id/btnConfirmRes" />
+        android:layout_marginTop="10dp" />
 
 </LinearLayout>

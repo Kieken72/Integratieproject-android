@@ -1,13 +1,14 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.service;
 
+import com.reservatiesysteem.lotte.reservatiesysteem.model.ProfileAccount;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Token;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
 
 import java.util.List;
-import java.util.Objects;
 
+import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -42,8 +43,11 @@ public interface API_Service {
     @POST("oauth/token")
     Call<Token> getToken(@Field("Username") String username, @Field("Password")String password, @Field("grant_type")String grantType );
 
+    @FormUrlEncoded
     @POST("api/reservations")
-    Call<Object> createReservation(@Field("BranchId")int branchId,@Field("DateTime")String DateTime, @Field("Amount")int Amount);
+    Call<Object> createReservation(@Field("BranchId")int branchId, @Field("DateTime")String DateTime, @Field("Amount")int Amount);
 
+    @GET("api/accounts")
+    Call<ProfileAccount> getProfile();
 
 }

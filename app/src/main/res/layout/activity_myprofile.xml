@@ -22,17 +22,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtProfFirstName"
             android:text="@string/firstname"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="1"/>
+            android:layout_weight="0.12"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="15dp"
-            android:hint="@string/firstname"/>
+            android:hint="@string/firstname"
+            android:textSize="16sp"
+            android:id="@+id/editFirstname"/>
 
     </LinearLayout>
 
@@ -44,19 +46,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txtProfLastName"
+            android:id="@+id/txtProfSurname"
             android:text="@string/lastname"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="1"/>
+            android:layout_weight="0.05"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginTop="15dp"
-            android:hint="@string/lastname"/>
+            android:textSize="16sp"
+
+            android:hint="@string/lastname"
+            android:id="@+id/editSurname"/>
 
     </LinearLayout>
 
@@ -70,19 +75,46 @@
             android:layout_height="wrap_content"
             android:id="@+id/txtProfMail"
             android:text="@string/emailRegister"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="1"/>
+            android:layout_weight="0.24"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="16sp"
+
             android:layout_marginTop="15dp"
-            android:hint="@string/emailRegister"/>
+            android:hint="@string/emailRegister"
+            android:id="@+id/editEmail"/>
 
     </LinearLayout>
+
+<!--
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCheckRes"
+        android:text="@string/checkRes"
+        android:layout_marginTop="50dp"
+        android:background="@color/mint_green"/>
+-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkRes"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listReservations"
+        android:layout_marginTop="20dp">
+    </ListView>
 
 
 </LinearLayout>
