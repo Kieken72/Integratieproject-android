@@ -1,83 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/resId"
-        android:id="@+id/resId"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/resId"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:hint="Res Id"
-        android:id="@+id/txtResId"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resId"
+            android:id="@+id/resId"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resDate"
-        android:text="@string/resDate"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/txtResId"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/resId"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:hint="Res Id"
+            android:id="@+id/txtResId"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/resDate"
-        android:layout_below="@id/resId"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="10dp"
-        android:hint="Res Date"
-        android:id="@+id/txtResDate"
-        />
+    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resTime"
-        android:text="@string/resTime"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/resDate"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/resTime"
-        android:layout_below="@id/resDate"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="10dp"
-        android:hint="Res Date"
-        android:id="@+id/txtResTime"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resAmount"
-        android:text="@string/resAmount"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@id/resTime"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resDate"
+            android:text="@string/resDate"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/txtResId"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/resAmount"
-        android:layout_below="@id/resTime"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="10dp"
-        android:hint="Res Date"
-        android:id="@+id/txtResAmount"
-        />
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/resDate"
+            android:layout_below="@id/resId"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="10dp"
+            android:hint="Res Date"
+            android:id="@+id/txtResDate"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resTime"
+            android:text="@string/resTime"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/resDate"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/resTime"
+            android:layout_below="@id/resDate"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="10dp"
+            android:hint="Res Date"
+            android:id="@+id/txtResTime"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resAmount"
+            android:text="@string/resAmount"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/resTime"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/resAmount"
+            android:layout_below="@id/resTime"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:hint="Res Date"
+            android:id="@+id/txtResAmount"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

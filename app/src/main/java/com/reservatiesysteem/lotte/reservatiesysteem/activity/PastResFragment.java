@@ -13,7 +13,12 @@ import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.ReservationAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Reservation;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,14 +45,38 @@ public class PastResFragment extends Fragment {
         ReservationsActivity reservationsActivity = (ReservationsActivity) getActivity();
         reservations = reservationsActivity.getReservations();
 
-        checkPastRes();
+        try {
+            checkPastRes();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
 
-    private void checkPastRes() {
+    private void checkPastRes() throws ParseException {
+
+        ArrayList<Reservation> pastReservations = new ArrayList<>();
+
+        Date now = new Date();
+
+        for (Reservation reservation: reservations){
+            String dateTime = reservation.getDateTime();
+            String[] dateTimeArray = dateTime.split("T");
+            String date = dateTimeArray[0];
+            String time = dateTimeArray[1];
+
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
+            Date dateRes = dateFormat.parse(date + " " + time);
+
+            if(dateRes.before(now)){
+                pastReservations.add(reservation);
+            }
+        }
+
         //reservaties van user bekijken
-        final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, reservations);
+        final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, pastReservations);
         lvReservations.setAdapter(reservationAdapter);
+
     }
 }
