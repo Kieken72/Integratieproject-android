@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity;
+package com.reservatiesysteem.lotte.reservatiesysteem.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.ReservationConfirmedActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 

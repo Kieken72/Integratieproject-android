@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.fragments.FutureResFragment;
+import com.reservatiesysteem.lotte.reservatiesysteem.fragments.PastResFragment;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Reservation;
 
 import java.util.ArrayList;

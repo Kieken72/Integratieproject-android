@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.provider.CalendarContract;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.fragments.SearchFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity;
+package com.reservatiesysteem.lotte.reservatiesysteem.fragments;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.CityArrayAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;

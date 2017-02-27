@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity;
+package com.reservatiesysteem.lotte.reservatiesysteem.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.ReservationsActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.ReservationAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Reservation;
 
@@ -27,10 +28,12 @@ import butterknife.ButterKnife;
  * Created by lotte on 27/02/2017.
  */
 
-public class FutureResFragment extends Fragment {
+public class PastResFragment extends Fragment {
     @BindView(R.id.titleRes) TextView txtTitle;
     @BindView(R.id.listReservations) ListView lvReservations;
+
     ArrayList<Reservation> reservations = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -38,13 +41,13 @@ public class FutureResFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_checkres, container, false);
         ButterKnife.bind(this, view);
 
-        txtTitle.setText("Toekomstige reservaties");
+        txtTitle.setText("Afgelopen reservaties");
 
         ReservationsActivity reservationsActivity = (ReservationsActivity) getActivity();
         reservations = reservationsActivity.getReservations();
 
         try {
-            checkFutureRes();
+            checkPastRes();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -52,7 +55,8 @@ public class FutureResFragment extends Fragment {
         return view;
     }
 
-    private void checkFutureRes() throws ParseException {
+    private void checkPastRes() throws ParseException {
+
         ArrayList<Reservation> pastReservations = new ArrayList<>();
 
         Date now = new Date();
@@ -66,7 +70,7 @@ public class FutureResFragment extends Fragment {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
             Date dateRes = dateFormat.parse(date + " " + time);
 
-            if(dateRes.after(now)){
+            if(dateRes.before(now)){
                 pastReservations.add(reservation);
             }
         }

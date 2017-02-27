@@ -1,4 +1,4 @@
-package com.reservatiesysteem.lotte.reservatiesysteem.activity;
+package com.reservatiesysteem.lotte.reservatiesysteem.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,6 +17,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.AdditionalInfo;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.OpeningHour;

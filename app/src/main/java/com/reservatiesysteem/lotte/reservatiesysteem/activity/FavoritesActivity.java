@@ -3,6 +3,10 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -14,10 +18,12 @@ import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.BranchAdapter;
+import com.reservatiesysteem.lotte.reservatiesysteem.fragments.SearchFragment;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,45 +36,52 @@ import retrofit2.Response;
  * Created by Jasper on 27/02/2017.
  */
 public class FavoritesActivity extends BaseActivity {
-    @BindView(R.id.lvFavorites)
-    ListView lvFavorites;
+    @BindView(R.id.vwpFavorites)ViewPager vwpFavorites;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
         ButterKnife.bind(this);
-        getFavorites();
+
+        FavoritesPageAdapter adapter = new FavoritesPageAdapter(getSupportFragmentManager());
+        vwpFavorites.setAdapter(adapter);
     }
 
-    private void getFavorites() {
-        try {
-            API_Service service = API.createService(API_Service.class);
-            Call<List<Branch>> call = service.getBranchById(2550);
-            call.enqueue(new Callback<List<Branch>>() {
-                @Override
-                public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-                    final List<Branch> branches = response.body();
-                    final BranchAdapter branchAdapter = new BranchAdapter(getApplicationContext(), 0, null, branches);
-                    lvFavorites.setAdapter(branchAdapter);
-                    lvFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("branchId", (int) id);
-                            bundle.putInt("chosenPostalCode", Integer.parseInt(branches.get(i).getCity().getPostalCode()));
-                        }
-                    });
-                }
 
-                @Override
-                public void onFailure(Call<List<Branch>> call, Throwable t) {
-                    Log.d("Error receiving branche", t.getMessage());
-                }
-            });
 
-        } catch (NullPointerException e) {
-            Toast.makeText(getApplicationContext(), "Branches kunnen niet opgehaald worden", Toast.LENGTH_LONG).show();
+    private class FavoritesPageAdapter extends FragmentStatePagerAdapter {
+        private ArrayList<Fragment> fragments = new ArrayList<>();
+        private int maxVisibleItems;
+
+        public FavoritesPageAdapter(FragmentManager fm) {
+            super(fm);
+            maxVisibleItems = 1;
+
+            fragments.add(new Fragment());
+            fragments.add(new Fragment());
+            fragments.add(new Fragment());
+
         }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return maxVisibleItems;
+        }
+
+        public void setMaxVisibleItems(int maxVisibleItems) {
+            this.maxVisibleItems = maxVisibleItems;
+        }
+
+        public void setFragment(Fragment fragment, int id) {
+            fragments.set(id, fragment);
+        }
+
+
     }
 }
