@@ -92,7 +92,6 @@
 
     </LinearLayout>
 
-<!--
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,8 +99,8 @@
         android:text="@string/checkRes"
         android:layout_marginTop="50dp"
         android:background="@color/mint_green"/>
--->
-    <TextView
+
+    <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/checkRes"
@@ -114,7 +113,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/listReservations"
         android:layout_marginTop="20dp">
-    </ListView>
+    </ListView>-->
 
 
 </LinearLayout>

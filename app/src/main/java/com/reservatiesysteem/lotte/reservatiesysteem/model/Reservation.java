@@ -1,13 +1,15 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.model;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by lotte on 26/02/2017.
  */
 
-public class Reservation {
+public class Reservation implements Serializable {
     @SerializedName("Id")
     private int id;
     @SerializedName("AmountOfPersons")
@@ -83,4 +85,5 @@ public class Reservation {
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
+
 }

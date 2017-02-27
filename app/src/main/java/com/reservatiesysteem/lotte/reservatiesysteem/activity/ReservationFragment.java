@@ -107,6 +107,7 @@ public class ReservationFragment extends Fragment {
                     i.putExtra(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
                     i.putExtra("branchId", chosenBranchId);
 
+                    getActivity().finish();
                     startActivity(i);
 
                     Toast.makeText(getContext(), "Reservatie gelukt", Toast.LENGTH_LONG).show();

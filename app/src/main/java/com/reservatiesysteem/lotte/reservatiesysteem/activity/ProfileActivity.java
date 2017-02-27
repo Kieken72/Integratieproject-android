@@ -2,6 +2,7 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,8 +36,10 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.editFirstname) EditText firstname;
     @BindView(R.id.editSurname) EditText surname;
     @BindView(R.id.editEmail) EditText email;
-    @BindView(R.id.listReservations) ListView lvReservations;
-    //@BindView(R.id.btnCheckRes) Button btnCheckRes;
+    @BindView(R.id.btnCheckRes) Button btnCheckRes;
+    //@BindView(R.id.listReservations) ListView lvReservations;
+
+    ProfileAccount profileAccount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +48,17 @@ public class ProfileActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         getAccount();
+
+        btnCheckRes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ReservationsActivity.class);
+/*                Bundle bundle = new Bundle();
+                bundle.putSerializable("Reservations", profileAccount.getReservations());*/
+                intent.putExtra("Reservations", profileAccount.getReservations());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -58,15 +72,15 @@ public class ProfileActivity extends BaseActivity {
         call.enqueue(new Callback<ProfileAccount>() {
             @Override
             public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
-                ProfileAccount profileAccount = response.body();
+                profileAccount = response.body();
 
                 firstname.setText(profileAccount.getFirstname());
                 surname.setText(profileAccount.getSurname());
                 email.setText(profileAccount.getEmail());
 
                 //reservaties van user bekijken
-                final ReservationAdapter reservationAdapter = new ReservationAdapter(ProfileActivity.this, R.layout.view_reservation_entry, response.body().getReservations());
-                lvReservations.setAdapter(reservationAdapter);
+                /*final ReservationAdapter reservationAdapter = new ReservationAdapter(ProfileActivity.this, R.layout.view_reservation_entry, response.body().getReservations());
+                lvReservations.setAdapter(reservationAdapter);*/
             }
 
             @Override

@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by lotte on 26/02/2017.
  */
 
-public class ProfileAccount {
+public class ProfileAccount implements Serializable {
     @SerializedName("Email")
     private String email;
     @SerializedName("Surname")
