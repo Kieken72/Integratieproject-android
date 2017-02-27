@@ -64,9 +64,22 @@
     
     <!-- Profile -->
     <string name="checkRes">Bekijk je reservaties</string>
-    <string name="resId">Nummer reservatie: </string>
+    <string name="resBranchName">Naam branch: </string>
     <string name="resDate">Datum reservatie: </string>
-    <string name="resTime">Uur reservatie: </string>
+    <string name="resBranchAdress">Adres branch: </string>
     <string name="resAmount">Aantal personen: </string>
-    
+
+    <!-- About -->
+    <string name="about">
+        LeisureBooker is een systeem dat mensen toelaat om een vrijetijdsactiviteit te reserveren (Bowlingbaan, pooltafel, tennisveld, ...).
+        \n\nBij dit voorbeeld zullen wij ons focussen op bowling maar het is wel eenvoudig aanpasbaar naar andere toepassingen.
+        \n\nMensen kunnen zoeken op gemeente om te kijken waar er bowlingbanen beschikbaar zijn op een bepaald uur en dag.
+        \n\nHet resultaat is een lijst van filialen die bowlingbanen ter beschikking hebben op het gevraagde tijdstip en datum. De gebruiker kan een filiaal kiezen en hierop reserveren.
+        \n\n\nCreated By:
+        \n\nEmmanuel Kouar
+        \nNico Pelsmaekers
+        \nJasper Van Grieken
+        \nSeppe Van Winkel
+        \nLotte Verbraeken
+    </string>
 </resources>

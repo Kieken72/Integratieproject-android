@@ -109,7 +109,7 @@ public class BranchAdapter extends BaseAdapter {
 
         Picasso.with(context).load(url).resize(80,80).into(imgBranch);
         txtBranchName.setText(branch.getName());
-        txtBranchStreet.setText(branch.getStreet());
+        txtBranchStreet.setText(branch.getStreet() + " " + branch.getNumber());
         txtBranchMail.setText(branch.getEmail());
         return v;
     }

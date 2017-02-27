@@ -51,6 +51,8 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             case R.id.myFavorites:
                 startActivity(new Intent(this, FavoritesActivity.class));
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
         }
         return true;
     }

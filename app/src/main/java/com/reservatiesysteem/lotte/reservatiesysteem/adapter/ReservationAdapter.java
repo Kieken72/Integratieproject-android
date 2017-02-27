@@ -8,11 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
-import com.reservatiesysteem.lotte.reservatiesysteem.model.ProfileAccount;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Reservation;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
+import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by lotte on 26/02/2017.
@@ -57,18 +63,36 @@ public class ReservationAdapter extends BaseAdapter{
             v = convertView;
         }
 
-        TextView txtResId = (TextView) v.findViewById(R.id.txtResId);
+        final TextView txtResBranchName = (TextView) v.findViewById(R.id.txtBranchName);
         TextView txtResDate = (TextView) v.findViewById(R.id.txtResDate);
-        TextView txtResTime = (TextView) v.findViewById(R.id.txtResTime);
+        final TextView txtResAdress = (TextView) v.findViewById(R.id.txtBranchAdress);
         TextView txtResAmount = (TextView) v.findViewById(R.id.txtResAmount);
 
         String[] dateTime = reservation.getDateTime().split("T");
         String resDate = dateTime[0];
         String resTime = dateTime[1].substring(0,5);
 
-        txtResId.setText(String.valueOf(reservation.getId()));
-        txtResDate.setText(resDate);
-        txtResTime.setText(resTime);
+        //api call
+        API_Service service = API.createService(API_Service.class);
+        Call<Branch> call = service.getBranchDetails(reservation.getBranchId());
+        call.enqueue(new Callback<Branch>() {
+            @Override
+            public void onResponse(Call<Branch> call, Response<Branch> response) {
+                Branch branch = response.body();
+
+                if(branch!=null){
+                    txtResBranchName.setText(branch.getName());
+                    txtResAdress.setText(branch.getStreet() + " " + branch.getNumber() + ",\n" + branch.getCity().getPostalCode() + " " + branch.getCity().getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Branch> call, Throwable t) {
+
+            }
+        });
+
+        txtResDate.setText(resDate + " " + resTime);
         txtResAmount.setText(String.valueOf(reservation.getAmount()));
 
         return v;

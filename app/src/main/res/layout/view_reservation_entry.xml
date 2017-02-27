@@ -9,48 +9,70 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/resId"
+            android:text="@string/resBranchName"
             android:id="@+id/resId"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_weight="0.5"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/resId"
-            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:hint="Res Id"
-            android:id="@+id/txtResId"
+            android:hint="Branch name"
+            android:id="@+id/txtBranchName"
+            android:layout_weight="0.5"
             />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/resTime"
+            android:text="@string/resBranchAdress"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.5"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Branch Adress"
+            android:id="@+id/txtBranchAdress"
+            android:layout_weight="0.5"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/resDate"
             android:text="@string/resDate"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/txtResId"/>
+            android:layout_weight="0.5"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/resDate"
-            android:layout_below="@id/resId"
-            android:layout_marginStart="44dp"
             android:layout_marginTop="10dp"
             android:hint="Res Date"
             android:id="@+id/txtResDate"
+            android:layout_weight="0.5"
             />
 
     </LinearLayout>
@@ -60,49 +82,21 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/resTime"
-            android:text="@string/resTime"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/resDate"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/resTime"
-            android:layout_below="@id/resDate"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="10dp"
-            android:hint="Res Date"
-            android:id="@+id/txtResTime"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/resAmount"
             android:text="@string/resAmount"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/resTime"/>
+            android:layout_weight="0.5"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/resAmount"
-            android:layout_below="@id/resTime"
-            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
-            android:hint="Res Date"
+            android:hint="Amount res"
             android:id="@+id/txtResAmount"
+            android:layout_weight="0.5"
             />
 
     </LinearLayout>
