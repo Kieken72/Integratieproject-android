@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.ReservationAdapter;
@@ -53,10 +54,9 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ReservationsActivity.class);
-/*                Bundle bundle = new Bundle();
-                bundle.putSerializable("Reservations", profileAccount.getReservations());*/
                 intent.putExtra("Reservations", profileAccount.getReservations());
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -72,11 +72,18 @@ public class ProfileActivity extends BaseActivity {
         call.enqueue(new Callback<ProfileAccount>() {
             @Override
             public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
-                profileAccount = response.body();
 
-                firstname.setText(profileAccount.getFirstname());
-                surname.setText(profileAccount.getSurname());
-                email.setText(profileAccount.getEmail());
+                profileAccount = response.body();
+                if(profileAccount!=null){
+                    firstname.setText(profileAccount.getFirstname());
+                    surname.setText(profileAccount.getSurname());
+                    email.setText(profileAccount.getEmail());
+                }else {
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    Toast.makeText(getApplicationContext(),"login verlopen, opnieuw inloggen aub",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
 
                 //reservaties van user bekijken
                 /*final ReservationAdapter reservationAdapter = new ReservationAdapter(ProfileActivity.this, R.layout.view_reservation_entry, response.body().getReservations());

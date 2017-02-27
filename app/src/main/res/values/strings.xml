@@ -7,6 +7,7 @@
     <string name="register">Registreer</string>
     <string name="login">Inloggen</string>
     <string name="logout">Uitloggen</string>
+    <string name="myFavorites">Mijn favorieten</string>
     <string name="myProfile">Mijn profiel</string>
     <string name="username">Gebruikersnaam</string>
     <string name="password">Paswoord</string>

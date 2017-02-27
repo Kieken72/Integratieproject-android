@@ -72,6 +72,7 @@ public class DetailsFragment extends Fragment {
     private String chosenTime = "";
     private String chosenNumberOfPersons = "";
     private String branchName = "";
+    private boolean available;
 
     private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
 
@@ -92,6 +93,9 @@ public class DetailsFragment extends Fragment {
             chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
+            if(!bundle.getString("available").equals("available")){
+                btnReserveren.setEnabled(false);
+            }
 
         }
 

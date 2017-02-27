@@ -9,6 +9,9 @@
     <item android:id="@+id/myProfile"
         android:title="@string/myProfile"
         android:visible="false"/>
+    <item android:id="@+id/myFavorites"
+        android:title="@string/myFavorites"
+        android:visible="false"/>
     <item android:id="@+id/about"
         android:title="About" />
 </menu>

@@ -71,30 +71,36 @@ public class BranchAdapter extends BaseAdapter {
             v = convertView;
         }
 
-        API_Service service = API.createService(API_Service.class);
-        Call<Branch> call = service.getBranchAvailability(branch.getId(),dateTime,amount);
-        call.enqueue(new Callback<Branch>() {
-            @Override
-            public void onResponse(Call<Branch> call, Response<Branch> response) {
+        final TextView txtAvailable = (TextView) v.findViewById(R.id.lblAvailable);
 
-                Branch returnBranch = response.body();
-                TextView txtAvailable = (TextView) v.findViewById(R.id.lblAvailable);
-                if(returnBranch!=null){
-                    if(returnBranch.isAvailable()){
-                        txtAvailable.setText("available");
-                        txtAvailable.setTextColor(Color.GREEN);
-                    }else {
-                        txtAvailable.setText("not available");
-                        txtAvailable.setTextColor(Color.RED);
+        if(dateTime!=null){
+            API_Service service = API.createService(API_Service.class);
+            Call<Branch> call = service.getBranchAvailability(branch.getId(),dateTime,amount);
+            call.enqueue(new Callback<Branch>() {
+                @Override
+                public void onResponse(Call<Branch> call, Response<Branch> response) {
+
+                    Branch returnBranch = response.body();
+                    if(returnBranch!=null){
+                        if(returnBranch.isAvailable()){
+                            txtAvailable.setText("available");
+                            txtAvailable.setTextColor(Color.GREEN);
+                        }else {
+                            txtAvailable.setText("not available");
+                            txtAvailable.setTextColor(Color.RED);
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Branch> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Branch> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }else {
+            txtAvailable.setVisibility(View.GONE);
+        }
+
 
         TextView txtBranchName = (TextView) v.findViewById(R.id.branchName);
         TextView txtBranchStreet = (TextView) v.findViewById(R.id.branchStreet);
@@ -105,7 +111,6 @@ public class BranchAdapter extends BaseAdapter {
         txtBranchName.setText(branch.getName());
         txtBranchStreet.setText(branch.getStreet());
         txtBranchMail.setText(branch.getEmail());
-
         return v;
     }
 

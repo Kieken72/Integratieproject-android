@@ -81,7 +81,7 @@ public class RegisterActivity extends BaseActivity {
 
                 if(error.equals("")){
                     RegisterAccount account = new RegisterAccount(eMail,username,firstName,lastName,password,confirmPassword);
-                    //createNewUser(account);
+                    createNewUser(account);
                 }else {
                     lblError.setText(error);
                 }

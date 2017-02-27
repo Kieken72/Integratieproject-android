@@ -27,6 +27,7 @@ public class BaseActivity extends AppCompatActivity {
         }else{
             menu.findItem(R.id.logout).setVisible(true);
             menu.findItem(R.id.myProfile).setVisible(true);
+            menu.findItem(R.id.myFavorites).setVisible(true);
         }
 
         return true;
@@ -48,6 +49,8 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.myProfile:
                 startActivity(new Intent(this, ProfileActivity.class));
                 return true;
+            case R.id.myFavorites:
+                startActivity(new Intent(this, FavoritesActivity.class));
         }
         return true;
     }

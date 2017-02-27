@@ -28,7 +28,7 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
         super(context, resource,cities);
         this.mContext = context;
         this.mLayoutResourceId = resource;
-        this.mCities_All = new ArrayList<>(cities);
+        this.mCities_All = cities;
         this.mCities_Suggestion = new ArrayList<>();
     }
 

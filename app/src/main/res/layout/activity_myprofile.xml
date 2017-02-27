@@ -18,19 +18,19 @@
         android:id="@+id/firstname">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/txtProfFirstName"
             android:text="@string/firstname"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="0.12"/>
+            android:layout_weight="0.4"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:layout_marginTop="15dp"
             android:hint="@string/firstname"
             android:textSize="16sp"
@@ -44,19 +44,19 @@
         android:id="@+id/lastname">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/txtProfSurname"
             android:text="@string/lastname"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="0.05"/>
+            android:layout_weight="0.4"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:layout_marginTop="15dp"
             android:textSize="16sp"
 
@@ -71,19 +71,19 @@
         android:id="@+id/email">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/txtProfMail"
             android:text="@string/emailRegister"
             android:textSize="16sp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
-            android:layout_weight="0.24"/>
+            android:layout_weight="0.4"/>
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:textSize="16sp"
 
             android:layout_marginTop="15dp"

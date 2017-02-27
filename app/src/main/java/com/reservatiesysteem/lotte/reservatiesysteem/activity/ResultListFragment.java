@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
@@ -32,7 +33,8 @@ import retrofit2.Response;
  */
 public class ResultListFragment extends Fragment {
 
-    @BindView(R.id.listBranches) ListView lvBranches;
+    @BindView(R.id.listBranches)
+    ListView lvBranches;
 
     //transfer data from searchfragment
     private String chosenDate = "";
@@ -59,7 +61,7 @@ public class ResultListFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         Bundle bundle = getArguments();
-        if(bundle != null){
+        if (bundle != null) {
             chosenPostalCode = bundle.getInt("chosenPostalCode", 0);
             chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
@@ -78,7 +80,7 @@ public class ResultListFragment extends Fragment {
                 call.enqueue(new Callback<List<Branch>>() {
                     @Override
                     public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-                        final BranchAdapter branchAdapter = new BranchAdapter(getActivity(),Integer.parseInt(chosenNumberOfPersons),chosenDate+"T"+chosenTime, response.body());
+                        final BranchAdapter branchAdapter = new BranchAdapter(getActivity(), Integer.parseInt(chosenNumberOfPersons), chosenDate + "T" + chosenTime, response.body());
 
                         if (lvBranches != null) {
                             lvBranches.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -87,12 +89,14 @@ public class ResultListFragment extends Fragment {
                                     Bundle bundle = new Bundle();
                                     StartActivity startActivity = (StartActivity) getActivity();
                                     DetailsFragment detailsFragment = new DetailsFragment();
+                                    TextView lblAvailbale = (TextView) view.findViewById(R.id.lblAvailable);
 
-                                   bundle.putInt("branchId", (int) id);
-                                   bundle.putInt("chosenPostalCode", chosenPostalCode);
-                                   bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
-                                   bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
-                                   bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
+                                    bundle.putInt("branchId", (int) id);
+                                    bundle.putInt("chosenPostalCode", chosenPostalCode);
+                                    bundle.putString("available",lblAvailbale.getText().toString());
+                                    bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
+                                    bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
+                                    bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
 
                                     detailsFragment.setArguments(bundle);
                                     startActivity.changeFragment(detailsFragment, 2);
