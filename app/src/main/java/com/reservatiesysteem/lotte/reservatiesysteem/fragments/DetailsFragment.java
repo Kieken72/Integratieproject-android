@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.adapter.ReviewAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.AdditionalInfo;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.OpeningHour;
@@ -49,6 +51,10 @@ public class DetailsFragment extends Fragment {
     @BindView(R.id.btnInfo) Button btnInfo;
     @BindView(R.id.layoutUren) TableLayout viewUren;
     @BindView(R.id.layoutInfo) TableLayout viewInfo;
+    @BindView(R.id.btnReview) Button btnReview;
+    @BindView(R.id.btnMessages) Button btnMessages;
+    @BindView(R.id.lvReview) ListView lvReview;
+    @BindView(R.id.lvMessage) ListView lvMessages;
     @BindView(R.id.btnReserveren) Button btnReserveren;
 
     @BindView(R.id.txtAdres) TextView txtAdres;
@@ -159,6 +165,8 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+
+
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,6 +180,34 @@ public class DetailsFragment extends Fragment {
                 }
             }
 
+        });
+
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lvReview.getVisibility() == View.GONE){
+                    lvReview.setVisibility(View.VISIBLE);
+                } else if(lvReview.getVisibility() == View.VISIBLE){
+                    lvReview.setVisibility(View.GONE);
+                }
+                if(lvMessages.getVisibility() == View.VISIBLE){
+                    lvMessages.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btnMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lvMessages.getVisibility() == View.GONE){
+                    lvMessages.setVisibility(View.VISIBLE);
+                } else if(lvMessages.getVisibility() == View.VISIBLE){
+                    lvMessages.setVisibility(View.GONE);
+                }
+                if(lvReview.getVisibility() == View.VISIBLE){
+                    lvReview.setVisibility(View.GONE);
+                }
+            }
         });
 
         btnReserveren.setOnClickListener(new View.OnClickListener() {
@@ -219,7 +255,6 @@ public class DetailsFragment extends Fragment {
                 txtTelNr.setText(branch.getPhoneNumber());
                 txtEmail.setText(branch.getEmail());
 
-
                 //uren weergeven
                 for(OpeningHour openingHour : branch.getOpeningHours()){
                     switch (openingHour.getDay()){
@@ -248,6 +283,7 @@ public class DetailsFragment extends Fragment {
                     }
                 }
 
+                //additional info weergeven
                 for(AdditionalInfo additionalInfo : branch.getAdditionalInfo()){
                     switch (additionalInfo.getType()){
                         case 0:
@@ -267,6 +303,13 @@ public class DetailsFragment extends Fragment {
                         case 5: break;
                     }
                 }
+
+                //reviews weergeven
+                final ReviewAdapter reviewAdapter = new ReviewAdapter(getContext(), R.layout.view_review_entry, response.body().getReviews());
+                lvReview.setAdapter(reviewAdapter);
+
+                //messages weergeven
+
 
             }
 
@@ -292,4 +335,5 @@ public class DetailsFragment extends Fragment {
             return startText + ", " + additionalInfo.getValue().toLowerCase();
         }
     }
+
 }

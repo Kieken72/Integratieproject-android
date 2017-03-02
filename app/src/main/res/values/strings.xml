@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">ReservatieSysteem</string>
     <string name="title_activity_start">StartActivity</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Google API -->
+    <string name="Google_API">AIzaSyCGSoAPHvCRcV5tikRSfK_nCpZON3DYTog</string>
 
     <!-- Registreer & Login -->
     <string name="register">Registreer</string>
@@ -16,33 +18,36 @@
     <string name="emailRegister">E-mail</string>
     <string name="confirmPassword">Bevestig paswoord</string>
 
+    <!-- Search fragment -->
+    <string name="search">Zoeken</string>
+
     <!-- Weekdagen -->
-    <string name="maandag">MAANDAG</string>
-    <string name="dindsdag">DINSDAG</string>
-    <string name="woensdag">WOENSDAG</string>
-    <string name="donderdag">DONDERDAG</string>
-    <string name="vrijdag">VRIJDAG</string>
-    <string name="zaterdag">ZATERDAG</string>
-    <string name="zondag">ZONDAG</string>
+    <string name="maandag">Maandag</string>
+    <string name="dindsdag">Dinsdag</string>
+    <string name="woensdag">Woensdag</string>
+    <string name="donderdag">Donderdag</string>
+    <string name="vrijdag">Vrijdag</string>
+    <string name="zaterdag">Zaterdag</string>
+    <string name="zondag">Zondag</string>
 
     <!-- hint uren -->
     <string name="uren">10.30 - 17.00</string>
     <string name="gesloten">Gesloten</string>
 
     <!-- view Info -->
-    <string name="Adres">ADRES</string>
+    <string name="Adres">Adres</string>
     <string name="vbAdres">Nationalestraat 5, 2018 Antwerpen</string>
-    <string name="telnr">TEL NR.</string>
+    <string name="telnr">Tel Nr.</string>
     <string name="vbTel">03 613 16 00</string>
-    <string name="email">EMAIL</string>
+    <string name="email">Email</string>
     <string name="vbEmail">voorbeeld@test.com</string>
-    <string name="payment">BETALING</string>
+    <string name="payment">Betaling</string>
     <string name="vbPayment">Visa, Bancontact</string>
-    <string name="facility">FACILITEITEN</string>
+    <string name="facility">Faciliteiten</string>
     <string name="vbFacility">Wifi</string>
-    <string name="accessibility">TOEGANKELIJKHEID</string>
+    <string name="accessibility">Toegankelijkheid</string>
     <string name="vbAccessibility">Rolstoel</string>
-    <string name="atmosphere">ATMOSFEER</string>
+    <string name="atmosphere">Atmosfeer</string>
     <string name="vbAtmosphere">Modern</string>
     <string name="title_activity_login">Login</string>
 

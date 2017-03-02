@@ -41,18 +41,19 @@ public class Branch {
     @SerializedName("OpeningHours")
     private ArrayList<OpeningHour> openingHours;
 
-
     /*@SerializedName("Rooms")
     private String rooms;*/
 
     @SerializedName("AdditionalInfos")
     private ArrayList<AdditionalInfo> additionalInfo;
 
-    /*@SerializedName("Reviews")
-    private String reviews;
-    @SerializedName("Messages")
-    private String messages;
-    @SerializedName("Reservations")
+    @SerializedName("Reviews")
+    private ArrayList<Review> reviews;
+
+    /*@SerializedName("Messages")
+    private String messages;*/
+
+    /*@SerializedName("Reservations")
     private String reservations;*/
 
 
@@ -168,11 +169,11 @@ public class Branch {
         this.available = available;
     }
 
-    /*public Image getPicture() {
-        return picture;
+    public ArrayList<Review> getReviews() {
+        return reviews;
     }
 
-    public void setPicture(Image picture) {
-        this.picture = picture;
-    }*/
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#a7a7a7"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="102dp"
         android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:paddingRight="10dp"
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mint_green"
-            android:text="Reserveer"
+            android:text="@string/search"
             />
 
         <ImageButton

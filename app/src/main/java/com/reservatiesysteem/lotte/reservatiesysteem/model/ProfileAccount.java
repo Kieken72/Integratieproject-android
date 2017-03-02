@@ -13,6 +13,8 @@ import java.util.ArrayList;
  */
 
 public class ProfileAccount implements Serializable {
+    @SerializedName("Id")
+    private String id;
     @SerializedName("Email")
     private String email;
     @SerializedName("Surname")
@@ -22,6 +24,17 @@ public class ProfileAccount implements Serializable {
 
     @SerializedName("Reservations")
     private ArrayList<Reservation> reservations;
+
+    /*@SerializedName("Reviews")
+    private ArrayList<Review> reviews;*/
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -54,4 +67,12 @@ public class ProfileAccount implements Serializable {
     public void setReservations(ArrayList<Reservation> reservations) {
         this.reservations = reservations;
     }
+
+    /*public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }*/
 }

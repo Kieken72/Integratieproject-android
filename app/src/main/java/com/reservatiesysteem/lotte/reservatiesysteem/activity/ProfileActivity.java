@@ -38,7 +38,6 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.editSurname) EditText surname;
     @BindView(R.id.editEmail) EditText email;
     @BindView(R.id.btnCheckRes) Button btnCheckRes;
-    //@BindView(R.id.listReservations) ListView lvReservations;
 
     ProfileAccount profileAccount;
 
@@ -84,10 +83,6 @@ public class ProfileActivity extends BaseActivity {
                     finish();
                 }
 
-
-                //reservaties van user bekijken
-                /*final ReservationAdapter reservationAdapter = new ReservationAdapter(ProfileActivity.this, R.layout.view_reservation_entry, response.body().getReservations());
-                lvReservations.setAdapter(reservationAdapter);*/
             }
 
             @Override
