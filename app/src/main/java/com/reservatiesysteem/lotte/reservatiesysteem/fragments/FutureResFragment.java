@@ -80,7 +80,7 @@ public class FutureResFragment extends Fragment {
         lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //api getmessagesbyresId aanspreken
+
             }
         });
 
