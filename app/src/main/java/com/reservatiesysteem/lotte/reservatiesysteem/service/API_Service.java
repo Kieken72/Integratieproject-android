@@ -1,5 +1,6 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.service;
 
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Message;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.ProfileAccount;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Token;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
@@ -49,5 +50,9 @@ public interface API_Service {
 
     @GET("api/accounts")
     Call<ProfileAccount> getProfile();
+
+    //MESSAGES
+    @GET("api/messages/{reservationId}")
+    Call<List<Message>> getMessagesByResId(@Path("resId") int resId);
 
 }

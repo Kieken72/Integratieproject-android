@@ -495,15 +495,6 @@
                 android:background="@color/mint_green"
                 android:text="Reviews"
                 />
-
-            <Button
-                android:id="@+id/btnMessages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/mint_green"
-                android:text="Messages"
-                />
         </LinearLayout>
 
         <LinearLayout
@@ -521,12 +512,15 @@
                 android:layout_margin="10dp"
                 />
 
-            <ListView
-                android:id="@+id/lvMessage"
+            <TextView
+                android:id="@+id/empty"
+                android:text="@string/emptyReviews"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:visibility="gone"
-                android:layout_margin="10dp"/>
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                />
 
         </LinearLayout>
 

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.FavoritesActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.adapter.ReviewAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.AdditionalInfo;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.OpeningHour;
@@ -51,9 +53,12 @@ public class FavoriteBranchDetailsFragment extends Fragment {
     @BindView(R.id.viewBeschrijving) TextView viewBeschrijving;
     @BindView(R.id.btnUren) Button btnUren;
     @BindView(R.id.btnInfo) Button btnInfo;
-    @BindView(R.id.layoutUren)
-    TableLayout viewUren;
+    @BindView(R.id.layoutUren) TableLayout viewUren;
     @BindView(R.id.layoutInfo) TableLayout viewInfo;
+    @BindView(R.id.btnReview) Button btnReview;
+    @BindView(R.id.lvReview) ListView lvReview;
+    @BindView(R.id.empty) TextView txtEmpty;
+
     @BindView(R.id.btnReserveren) Button btnReserveren;
 
     @BindView(R.id.txtAdres) TextView txtAdres;
@@ -165,6 +170,18 @@ public class FavoriteBranchDetailsFragment extends Fragment {
             }
 
         });
+
+        btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lvReview.getVisibility() == View.GONE){
+                    lvReview.setVisibility(View.VISIBLE);
+                } else if(lvReview.getVisibility() == View.VISIBLE){
+                    lvReview.setVisibility(View.GONE);
+                }
+            }
+        });
+
         btnReserveren.setText("Verder gaan");
         btnReserveren.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,6 +272,11 @@ public class FavoriteBranchDetailsFragment extends Fragment {
                         case 5: break;
                     }
                 }
+
+                //reviews weergeven
+                final ReviewAdapter reviewAdapter = new ReviewAdapter(getContext(), R.layout.view_review_entry, response.body().getReviews());
+                lvReview.setEmptyView(txtEmpty);
+                lvReview.setAdapter(reviewAdapter);
 
             }
 

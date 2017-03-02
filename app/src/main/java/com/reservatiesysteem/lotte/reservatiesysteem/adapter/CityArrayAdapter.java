@@ -68,16 +68,8 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
             }
 
             @Override
-            protected void publishResults(CharSequence constraint,
-                                          FilterResults results) {
-                if (results.count > 0) {
-                    clear();
-                    ArrayList<City> cities = (ArrayList<City>) results.values;
-                    addAll(cities);
-                    notifyDataSetChanged();
-                } else {
-                    notifyDataSetInvalidated();
-                }
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+
             }
 
             @Override

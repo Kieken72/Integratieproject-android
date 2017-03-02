@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -74,6 +75,15 @@ public class FutureResFragment extends Fragment {
 
         //reservaties van user bekijken
         final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, pastReservations);
+
+        //TODO: berichten van reservatie bekijken
+        lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //api getmessagesbyresId aanspreken
+            }
+        });
+
         lvReservations.setAdapter(reservationAdapter);
 
     }

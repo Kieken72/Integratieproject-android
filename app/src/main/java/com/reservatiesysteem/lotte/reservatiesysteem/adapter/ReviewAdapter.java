@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
-import com.reservatiesysteem.lotte.reservatiesysteem.activity.ProfileActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.ProfileAccount;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Review;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
@@ -69,34 +69,22 @@ public class ReviewAdapter extends BaseAdapter {
         }
 
         TextView txtReviewText = (TextView) v.findViewById(R.id.reviewText);
-        TextView txtReviewDate = (TextView) v.findViewById(R.id.reviewDate);
-        final TextView txtReviewUser = (TextView) v.findViewById(R.id.reviewUser);
+        final TextView txtReviewUserDate = (TextView) v.findViewById(R.id.reviewUserDate);
+        ImageView imgResult = (ImageView) v.findViewById(R.id.imgResult);
 
         String[] dateTime = review.getDateTime().split("T");
         final String resDate = dateTime[0];
 
         txtReviewText.setText(review.getText());
-        txtReviewDate.setText(resDate);
+        txtReviewUserDate.setText("Gepost door " + review.getUser().getSurname() + " op " + resDate);
 
-        Activity activity = (Activity) context;
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+        if(review.isResult()){
+            imgResult.setImageResource(R.drawable.thumb_up);
+        } else {
+            imgResult.setImageResource(R.drawable.thumb_down);
+        }
 
-        final API_Service service = API.createService(API_Service.class, token);
-        Call<ProfileAccount> call = service.getProfile();
-        call.enqueue(new Callback<ProfileAccount>() {
-            @Override
-            public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
 
-                String user = response.body().getFirstname() + " " + response.body().getSurname();
-                txtReviewUser.setText("Posted by " + user);
-            }
-
-            @Override
-            public void onFailure(Call<ProfileAccount> call, Throwable t) {
-                Log.d("Error GET profile", t.getMessage());
-            }
-        });
         return v;
     }
 }

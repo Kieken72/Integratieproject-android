@@ -15,8 +15,10 @@ public class Review {
     private String dateTime;
     @SerializedName("BranchId")
     private int branchId;
-    @SerializedName("UserId")
-    private String userId;
+    @SerializedName("Result")
+    private boolean result;
+    @SerializedName("User")
+    private ProfileAccount user;
 
     public int getId() {
         return id;
@@ -50,11 +52,19 @@ public class Review {
         this.branchId = branchId;
     }
 
-    public String getUserId() {
-        return userId;
+    public boolean isResult() {
+        return result;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setResult(boolean result) {
+        this.result = result;
+    }
+
+    public ProfileAccount getUser() {
+        return user;
+    }
+
+    public void setUser(ProfileAccount user) {
+        this.user = user;
     }
 }

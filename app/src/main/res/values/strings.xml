@@ -5,6 +5,8 @@
     <!-- Google API -->
     <string name="Google_API">AIzaSyCGSoAPHvCRcV5tikRSfK_nCpZON3DYTog</string>
 
+    <string name="emptyReviews">Geen reviews beschikbaar</string>
+
     <!-- Registreer & Login -->
     <string name="register">Registreer</string>
     <string name="login">Inloggen</string>

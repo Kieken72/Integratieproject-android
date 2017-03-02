@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -52,9 +53,9 @@ public class DetailsFragment extends Fragment {
     @BindView(R.id.layoutUren) TableLayout viewUren;
     @BindView(R.id.layoutInfo) TableLayout viewInfo;
     @BindView(R.id.btnReview) Button btnReview;
-    @BindView(R.id.btnMessages) Button btnMessages;
     @BindView(R.id.lvReview) ListView lvReview;
-    @BindView(R.id.lvMessage) ListView lvMessages;
+    @BindView(R.id.layoutImage3) LinearLayout lyReview;
+    @BindView(R.id.empty) TextView txtEmpty;
     @BindView(R.id.btnReserveren) Button btnReserveren;
 
     @BindView(R.id.txtAdres) TextView txtAdres;
@@ -185,27 +186,10 @@ public class DetailsFragment extends Fragment {
         btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lvReview.getVisibility() == View.GONE){
-                    lvReview.setVisibility(View.VISIBLE);
-                } else if(lvReview.getVisibility() == View.VISIBLE){
-                    lvReview.setVisibility(View.GONE);
-                }
-                if(lvMessages.getVisibility() == View.VISIBLE){
-                    lvMessages.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        btnMessages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(lvMessages.getVisibility() == View.GONE){
-                    lvMessages.setVisibility(View.VISIBLE);
-                } else if(lvMessages.getVisibility() == View.VISIBLE){
-                    lvMessages.setVisibility(View.GONE);
-                }
-                if(lvReview.getVisibility() == View.VISIBLE){
-                    lvReview.setVisibility(View.GONE);
+                if(lyReview.getVisibility() == View.GONE){
+                    lyReview.setVisibility(View.VISIBLE);
+                } else if(lyReview.getVisibility() == View.VISIBLE){
+                    lyReview.setVisibility(View.GONE);
                 }
             }
         });
@@ -306,10 +290,8 @@ public class DetailsFragment extends Fragment {
 
                 //reviews weergeven
                 final ReviewAdapter reviewAdapter = new ReviewAdapter(getContext(), R.layout.view_review_entry, response.body().getReviews());
+                lvReview.setEmptyView(txtEmpty);
                 lvReview.setAdapter(reviewAdapter);
-
-                //messages weergeven
-
 
             }
 
