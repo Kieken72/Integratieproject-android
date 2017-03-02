@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.BranchAdapter;
+import com.reservatiesysteem.lotte.reservatiesysteem.fragments.FavoritesListFragment;
 import com.reservatiesysteem.lotte.reservatiesysteem.fragments.SearchFragment;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
@@ -36,7 +37,17 @@ import retrofit2.Response;
  * Created by Jasper on 27/02/2017.
  */
 public class FavoritesActivity extends BaseActivity {
-    @BindView(R.id.vwpFavorites)ViewPager vwpFavorites;
+    @BindView(R.id.vwpFavorites)
+    ViewPager vwpFavorites;
+    @BindView(R.id.lytList)
+    LinearLayout lytList;
+    @BindView(R.id.lytSearch)
+    LinearLayout lytSearch;
+    @BindView(R.id.lytBook)
+    LinearLayout lytBook;
+
+
+    FavoritesPageAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,10 +55,34 @@ public class FavoritesActivity extends BaseActivity {
         setContentView(R.layout.activity_favorites);
         ButterKnife.bind(this);
 
-        FavoritesPageAdapter adapter = new FavoritesPageAdapter(getSupportFragmentManager());
+        adapter = new FavoritesPageAdapter(getSupportFragmentManager());
         vwpFavorites.setAdapter(adapter);
+
+        lytSearch.setEnabled(false);
+        lytBook.setEnabled(false);
     }
 
+    public void changeFragment(Fragment fragment, int currentItem) {
+        adapter.setMaxVisibleItems(currentItem + 1);
+        adapter.setFragment(fragment, currentItem);
+        vwpFavorites.setAdapter(adapter);
+        vwpFavorites.setCurrentItem(currentItem);
+        switch (currentItem) {
+            case 0:
+                lytList.setEnabled(true);
+                lytBook.setEnabled(false);
+                break;
+            case 1:
+                lytList.setEnabled(true);
+                lytSearch.setEnabled(true);
+                lytBook.setEnabled(false);
+                break;
+            case 2:
+                lytSearch.setEnabled(true);
+                lytBook.setEnabled(true);
+                break;
+        }
+    }
 
 
     private class FavoritesPageAdapter extends FragmentStatePagerAdapter {
@@ -57,11 +92,9 @@ public class FavoritesActivity extends BaseActivity {
         public FavoritesPageAdapter(FragmentManager fm) {
             super(fm);
             maxVisibleItems = 1;
-
+            fragments.add(new FavoritesListFragment());
             fragments.add(new Fragment());
             fragments.add(new Fragment());
-            fragments.add(new Fragment());
-
         }
 
         @Override

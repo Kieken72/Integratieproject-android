@@ -1,32 +1,34 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.fragments;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Bundle;
-
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
-import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.ReservationConfirmedActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.CityArrayAdapter;
-import com.reservatiesysteem.lotte.reservatiesysteem.model.City;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,72 +36,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
+ * Created by Jasper on 01/03/2017.
  */
-public class SearchFragment extends Fragment {
+
+public class FavoritesReservationInfoFragment extends Fragment {
+    @BindView(R.id.lytTime)
+    LinearLayout lytTime;
+    @BindView(R.id.lytDate)
+    LinearLayout lytDate;
+    @BindView(R.id.btnReserveer)
+    Button btnReserveer;
+    @BindView(R.id.numberPersons)
+    EditText numberOfPersons;
     @BindView(R.id.txtDate)
     TextView txtDate;
     @BindView(R.id.txtTime)
     TextView txtTime;
-    @BindView(R.id.btnReserveer)
-    Button btnReserveer;
-    @BindView(R.id.btnTime)
-    ImageView btnTime;
-    @BindView(R.id.btnDate)
-    ImageView btnDate;
-    @BindView(R.id.searchCity)
-    AutoCompleteTextView txtSearchCity;
-    @BindView(R.id.numberPersons)
-    EditText numberOfPersons;
 
     private final int TIME_PICKER_INTERVAL = 30;
     private int year, month, day, hour, minute;
     private Calendar calendar;
     private CityArrayAdapter cityAdapter ;
 
-    //transfer data to next fragment
-    Bundle bundle = new Bundle();
-    //public static final String CHOSEN_POSTALCODE = "chosenPostalCode";
-    public static final String CHOSEN_DATE = "chosenDate";
-    public static final String CHOSEN_TIME = "chosenTime";
-    public static final String CHOSEN_NUMBEROFPERSONS = "chosenNumberOfPersons";
-
-
-    public SearchFragment() {
-        //get cities from API
-        getCities();
-    }
-
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        ButterKnife.bind(this, view);
-
-        btnReserveer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StartActivity activity = (StartActivity) getActivity();
-
-                //transfering data to ResultListFragment
-                ResultListFragment resultListFragment = new ResultListFragment();
-
-                String postalCode = txtSearchCity.getText().toString();
-                int chosenPostalCode = Integer.parseInt(postalCode.split("- ")[1]);
-
-                bundle.putInt("chosenPostalCode", chosenPostalCode);
-                bundle.putString(CHOSEN_DATE, txtDate.getText().toString());
-                bundle.putString(CHOSEN_TIME, txtTime.getText().toString());
-                bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
-                resultListFragment.setArguments(bundle);
-
-                activity.changeFragment(resultListFragment,1);
-            }
-        });
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_favorites_res_info, container, false);
+        ButterKnife.bind(this,view);
 
         calendar = Calendar.getInstance();
 
@@ -109,19 +73,23 @@ public class SearchFragment extends Fragment {
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
 
-
-        btnDate.setOnClickListener(new View.OnClickListener() {
+        btnReserveer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("date");
+                createReservation();
+            }
+        });
+
+        lytDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 DatePickerDialog dpd = new DatePickerDialog(getContext(), myDateListener, year, month, day);
                 dpd.show();
             }
         });
-        btnTime.setOnClickListener(new View.OnClickListener() {
+        lytTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("time");
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), myTimeListener, hour, minute, true);
                 timePickerDialog.show();
             }
@@ -131,7 +99,6 @@ public class SearchFragment extends Fragment {
         showTime(hour, minute);
         return view;
     }
-
 
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -170,24 +137,52 @@ public class SearchFragment extends Fragment {
         return minute;
     }
 
-    private void getCities() {
-        API_Service service = API.createService(API_Service.class);
-        Call<List<City>> call = service.getCities();
-        call.enqueue(new Callback<List<City>>() {
+    public void createReservation() {
+
+        Activity activity = getActivity();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+
+        final Bundle bundle = getArguments();
+        final int chosenBranchId = bundle.getInt("branchId");
+        final String branchName = bundle.getString("branchName");
+        final String chosenNumberOfPersons = numberOfPersons.getText().toString();
+
+        final StringBuilder dateTime = new StringBuilder();
+        dateTime.append(txtDate.getText().toString());
+        dateTime.append("T");
+        dateTime.append(txtTime.getText().toString());
+        dateTime.append(":00");
+
+
+
+        API_Service service = API.createService(API_Service.class, token);
+        Call<Object> call = service.createReservation(chosenBranchId, String.valueOf(dateTime), Integer.parseInt(chosenNumberOfPersons));
+        call.enqueue(new Callback<Object>() {
             @Override
-            public void onResponse(Call<List<City>> call, Response<List<City>> response) {
-                List<City> cities = response.body();
+            public void onResponse(Call<Object> call, Response<Object> response) {
+                if(response.isSuccessful()){
+                    Intent i = new Intent(getActivity(), ReservationConfirmedActivity.class);
+                    i.putExtra("branchName", branchName);
+                    i.putExtra(SearchFragment.CHOSEN_DATE, txtDate.getText().toString());
+                    i.putExtra(SearchFragment.CHOSEN_TIME, txtTime.getText().toString());
+                    i.putExtra(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
+                    i.putExtra("branchId", chosenBranchId);
 
-                cityAdapter = new CityArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,cities);
+                    getActivity().finish();
+                    startActivity(i);
 
-                txtSearchCity.setAdapter(cityAdapter);
-                txtSearchCity.setThreshold(2);
+                    Toast.makeText(getContext(), "Reservatie gelukt", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getContext(), "geen plaats of gesloten", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<List<City>> call, Throwable t) {
-                Log.d("Error getCity", t.getMessage());
+            public void onFailure(Call<Object> call, Throwable t) {
+                Log.d("Error creating res", t.getMessage());
             }
         });
     }
+
 }

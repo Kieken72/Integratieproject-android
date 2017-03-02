@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,11 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Token;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +48,7 @@ public class LoginActivity extends BaseActivity {
     EditText txtPassword;
 
     public static final String TOKEN = "MYTOKEN" ;
+    public static final String EXPIRE = "EXPIRE" ;
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
@@ -67,15 +72,23 @@ public class LoginActivity extends BaseActivity {
                 call.enqueue(new Callback<Token>() {
                     @Override
                     public void onResponse(Call<Token> call, Response<Token> response) {
-/*                        Toast.makeText(getApplicationContext()," "+response.body(),Toast.LENGTH_LONG).show();
-                        Log.d("accestoken",response.body().getAccessToken());
-  */
-                        SharedPreferences preferences = getSharedPreferences(TOKEN,Context.MODE_PRIVATE);
-                        Editor editor = preferences.edit();
-                        editor.putString(TOKEN,response.body().getAccessToken());
-                        editor.commit();
-                        invalidateOptionsMenu();
-                        finish();
+                        if(response.isSuccessful()){
+                            SharedPreferences preferences = getSharedPreferences(TOKEN,Context.MODE_PRIVATE);
+                            Editor editor = preferences.edit();
+
+                            Date now = new Date();
+                            now.setDate(now.getDate()+1);
+                            String expireDate = now.toString();
+
+                            editor.putString(TOKEN,response.body().getAccessToken());
+                            editor.putString(EXPIRE,expireDate);
+
+                            editor.commit();
+                            invalidateOptionsMenu();
+                            finish();
+                        }else {
+                            Toast.makeText(getApplicationContext(),"Couldn't log in, try again later",Toast.LENGTH_LONG);
+                        }
                     }
 
                     @Override

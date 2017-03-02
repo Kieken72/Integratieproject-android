@@ -3,18 +3,51 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity.EXPIRE;
+
 /**
  * Created by Jasper on 23/02/2017.
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        try {
+            SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.TOKEN,MODE_PRIVATE);
+            String expireDate = sharedPreferences.getString(EXPIRE,"");
+
+            SimpleDateFormat simpledateformat = new SimpleDateFormat("EEE MMM d HH:mm:ss zz yyyy");
+            Date stringDate = simpledateformat.parse(expireDate);
+
+            if(stringDate.before(new Date())){
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -29,7 +62,6 @@ public class BaseActivity extends AppCompatActivity {
             menu.findItem(R.id.myProfile).setVisible(true);
             menu.findItem(R.id.myFavorites).setVisible(true);
         }
-
         return true;
     }
 
@@ -51,8 +83,10 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             case R.id.myFavorites:
                 startActivity(new Intent(this, FavoritesActivity.class));
+                return true;
             case R.id.about:
                 startActivity(new Intent(this, AboutActivity.class));
+                return true;
         }
         return true;
     }
