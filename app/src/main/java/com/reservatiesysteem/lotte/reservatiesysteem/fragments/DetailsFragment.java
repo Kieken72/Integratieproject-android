@@ -41,7 +41,7 @@ import retrofit2.Response;
 
 public class DetailsFragment extends Fragment {
 
-    @BindView(R.id.txtbranchName) TextView txtBranchName;
+    @BindView(R.id.txtBranchName) TextView txtBranchName;
     @BindView(R.id.btnFotos) Button btnFotos;
     @BindView(R.id.btnPlace) Button btnPlace;
     @BindView(R.id.viewFoto) ImageView viewFoto;

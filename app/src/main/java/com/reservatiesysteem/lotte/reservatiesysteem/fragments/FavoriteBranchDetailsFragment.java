@@ -41,7 +41,7 @@ import retrofit2.Response;
 
 public class FavoriteBranchDetailsFragment extends Fragment {
 
-    @BindView(R.id.txtbranchName)
+    @BindView(R.id.txtBranchName)
     TextView txtBranchName;
     @BindView(R.id.btnFotos)
     Button btnFotos;
@@ -56,7 +56,8 @@ public class FavoriteBranchDetailsFragment extends Fragment {
     @BindView(R.id.layoutUren) TableLayout viewUren;
     @BindView(R.id.layoutInfo) TableLayout viewInfo;
     @BindView(R.id.btnReview) Button btnReview;
-    @BindView(R.id.lvReview) ListView lvReview;
+    @BindView(R.id.lvReview)
+    ListView lvReview;
     @BindView(R.id.empty) TextView txtEmpty;
 
     @BindView(R.id.btnReserveren) Button btnReserveren;

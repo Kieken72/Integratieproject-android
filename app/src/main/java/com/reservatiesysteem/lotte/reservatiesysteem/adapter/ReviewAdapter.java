@@ -68,6 +68,7 @@ public class ReviewAdapter extends BaseAdapter {
             v = convertView;
         }
 
+
         TextView txtReviewText = (TextView) v.findViewById(R.id.reviewText);
         final TextView txtReviewUserDate = (TextView) v.findViewById(R.id.reviewUserDate);
         ImageView imgResult = (ImageView) v.findViewById(R.id.imgResult);

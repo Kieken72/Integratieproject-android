@@ -36,6 +36,7 @@
         <activity android:name=".activity.ReservationsActivity"/>
         <activity android:name=".activity.FavoritesActivity"/>
         <activity android:name=".activity.AboutActivity"/>
+        <activity android:name=".activity.ReservationDetailActivity"/>
 
     </application>
 

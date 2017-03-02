@@ -16,14 +16,6 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/txtUsername"
-        android:hint="@string/username" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
         android:id="@+id/txtFirstName"
         android:hint="@string/firstname" />
 

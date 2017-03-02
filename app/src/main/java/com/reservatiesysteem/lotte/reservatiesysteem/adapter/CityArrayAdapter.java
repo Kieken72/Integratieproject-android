@@ -44,6 +44,7 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
         return position;
     }
 
+
     public View getView(int position, View convertView, ViewGroup parent) {
         try {
             if (convertView == null) {
@@ -85,9 +86,8 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
                     filterResults.values = mCities_Suggestion;
                     filterResults.count = mCities_Suggestion.size();
                     return filterResults;
-                } else {
-                    return new FilterResults();
                 }
+                return new FilterResults();
             }
         };
     }

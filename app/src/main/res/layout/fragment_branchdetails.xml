@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtbranchName"
+            android:id="@+id/txtBranchName"
             android:text="@string/branchName"
             android:textSize="20dp"
             android:gravity="center_horizontal"
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/txtbranchName">
+            android:layout_below="@+id/txtBranchName">
 
             <Button
                 android:id="@+id/btnFotos"

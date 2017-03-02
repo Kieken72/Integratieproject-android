@@ -27,9 +27,6 @@ import retrofit2.Response;
 public class RegisterActivity extends BaseActivity {
     @BindView(R.id.btnRegister)
     Button btnRegister;
-
-    @BindView(R.id.txtUsername)
-    EditText txtUsername;
     @BindView(R.id.txtFirstName)
     EditText txtFirstName;
     @BindView(R.id.txtLastName)
@@ -56,7 +53,6 @@ public class RegisterActivity extends BaseActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = txtUsername.getText().toString();
                 String firstName = txtFirstName.getText().toString();
                 String lastName = txtLastName.getText().toString();
                 String eMail = txtEmail.getText().toString();
@@ -65,9 +61,6 @@ public class RegisterActivity extends BaseActivity {
 
                 String error = validatePassword(password,confirmPassword);
 
-                if(username.equals("")){
-                    lblError.setText("Gebruikersnaam mag niet leeg zijn");return;
-                }
                 if(firstName.equals("")){
                     lblError.setText("Voornaam mag niet leeg zijn");return;
                 }
@@ -80,7 +73,7 @@ public class RegisterActivity extends BaseActivity {
                 lblError.setText(error);
 
                 if(error.equals("")){
-                    RegisterAccount account = new RegisterAccount(eMail,username,firstName,lastName,password,confirmPassword);
+                    RegisterAccount account = new RegisterAccount(eMail,eMail,firstName,lastName,password,confirmPassword);
                     createNewUser(account);
                 }else {
                     lblError.setText(error);
