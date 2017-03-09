@@ -44,12 +44,15 @@ public class SearchFragment extends Fragment {
     TextView txtDate;
     @BindView(R.id.txtTime)
     TextView txtTime;
+    @BindView(R.id.lblError)
+    TextView lblError;
     @BindView(R.id.btnReserveer)
     Button btnReserveer;
     @BindView(R.id.btnTime)
     ImageView btnTime;
     @BindView(R.id.btnDate)
     ImageView btnDate;
+
     @BindView(R.id.searchCity)
     AutoCompleteTextView txtSearchCity;
     @BindView(R.id.numberPersons)
@@ -59,6 +62,7 @@ public class SearchFragment extends Fragment {
     private int year, month, day, hour, minute;
     private Calendar calendar;
     private CityArrayAdapter cityAdapter ;
+    private List<City> cities;
 
     //transfer data to next fragment
     Bundle bundle = new Bundle();
@@ -69,7 +73,6 @@ public class SearchFragment extends Fragment {
 
 
     public SearchFragment() {
-        //get cities from API
         getCities();
     }
 
@@ -88,16 +91,34 @@ public class SearchFragment extends Fragment {
                 //transfering data to ResultListFragment
                 ResultListFragment resultListFragment = new ResultListFragment();
 
+
                 String postalCode = txtSearchCity.getText().toString();
-                int chosenPostalCode = Integer.parseInt(postalCode.split("- ")[1]);
+                int chosenPostalCode = 0;
+                if(postalCode.matches(".*- \\d{4}")){
+                    chosenPostalCode = Integer.parseInt(postalCode.split("- ")[1]);
+                }else if (postalCode.matches("\\d{4}")){
+                    chosenPostalCode = Integer.parseInt(postalCode);
+                }else {
+                    for(City city:cities){
+                        if(postalCode.toLowerCase().equals(city.getName().toLowerCase())){
+                            chosenPostalCode= Integer.parseInt(city.getPostalCode());
+                        }
+                    }
+                }
 
-                bundle.putInt("chosenPostalCode", chosenPostalCode);
-                bundle.putString(CHOSEN_DATE, txtDate.getText().toString());
-                bundle.putString(CHOSEN_TIME, txtTime.getText().toString());
-                bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
-                resultListFragment.setArguments(bundle);
+                if(chosenPostalCode!=0){
+                    bundle.putInt("chosenPostalCode", chosenPostalCode);
+                    bundle.putString(CHOSEN_DATE, txtDate.getText().toString());
+                    bundle.putString(CHOSEN_TIME, txtTime.getText().toString());
+                    bundle.putString(CHOSEN_NUMBEROFPERSONS, numberOfPersons.getText().toString());
+                    resultListFragment.setArguments(bundle);
 
-                activity.changeFragment(resultListFragment,1);
+                    activity.changeFragment(resultListFragment,1);
+                }else {
+                    lblError.setText("Gemeente incorrect, gelieve 1 uit de lijst te kiezen");
+                }
+
+
             }
         });
 
@@ -176,12 +197,16 @@ public class SearchFragment extends Fragment {
         call.enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
-                List<City> cities = response.body();
+                if(response.isSuccessful()){
+                    cities = response.body();
+                    cityAdapter = new CityArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,cities);
+                    cityAdapter.notifyDataSetChanged();
+                    txtSearchCity.setAdapter(cityAdapter);
+                    txtSearchCity.setThreshold(2);
+                }else {
+                    lblError.setText("Gemeentes niet correct opgehaald");
+                }
 
-                cityAdapter = new CityArrayAdapter(getContext(),android.R.layout.simple_dropdown_item_1line,cities);
-
-                txtSearchCity.setAdapter(cityAdapter);
-                txtSearchCity.setThreshold(2);
             }
 
             @Override

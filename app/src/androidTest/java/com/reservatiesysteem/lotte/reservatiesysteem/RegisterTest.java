@@ -26,20 +26,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 
 @RunWith(AndroidJUnit4.class)
-public class RegisterLoginTest {
+public class RegisterTest {
     @Rule
     public ActivityTestRule<RegisterActivity> mActivityRule = new ActivityTestRule<RegisterActivity>(RegisterActivity.class);
 
-
-
-
-
     @Test
-    public void registerNoUsername(){
-        onView(withId(R.id.btnRegister)).perform(click());
-        onView(withId(R.id.lblError)).check(matches(withText("Gebruikersnaam mag niet leeg zijn")));
-
-        onView(withId(R.id.txtUsername)).perform(typeText("Jasper"), closeSoftKeyboard());
+    public void register(){
         onView(withId(R.id.btnRegister)).perform(click());
         onView(withId(R.id.lblError)).check(matches(withText("Voornaam mag niet leeg zijn")));
 

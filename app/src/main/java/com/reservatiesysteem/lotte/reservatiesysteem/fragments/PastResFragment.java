@@ -62,6 +62,9 @@ public class PastResFragment extends Fragment {
     }
 
     private void checkPastRes() throws ParseException {
+
+        pastReservations = new ArrayList<>();
+
         Date now = new Date();
 
         for (Reservation reservation: reservations){

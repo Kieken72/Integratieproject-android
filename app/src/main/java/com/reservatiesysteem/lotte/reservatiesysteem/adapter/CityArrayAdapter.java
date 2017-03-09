@@ -70,7 +70,7 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-
+                notifyDataSetChanged();
             }
 
             @Override

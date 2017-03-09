@@ -27,6 +27,12 @@
         android:id="@+id/txtPassword"
         android:hint="@string/password" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblError"
+        android:textColor="@android:color/holo_red_dark" />
+
     <Button
         android:text="@string/login"
         android:layout_width="match_parent"

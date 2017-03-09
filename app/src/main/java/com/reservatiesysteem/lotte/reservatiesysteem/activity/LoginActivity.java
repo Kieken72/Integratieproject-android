@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
@@ -47,6 +48,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.txtPassword)
     EditText txtPassword;
 
+    @BindView(R.id.lblError)
+    TextView lblError;
+
     public static final String TOKEN = "MYTOKEN" ;
     public static final String EXPIRE = "EXPIRE" ;
 
@@ -73,6 +77,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onResponse(Call<Token> call, Response<Token> response) {
                         if(response.isSuccessful()){
+                            Toast.makeText(getApplicationContext(),"Login succesvol",Toast.LENGTH_LONG).show();
                             SharedPreferences preferences = getSharedPreferences(TOKEN,Context.MODE_PRIVATE);
                             Editor editor = preferences.edit();
 
@@ -86,14 +91,15 @@ public class LoginActivity extends BaseActivity {
                             editor.commit();
                             invalidateOptionsMenu();
                             finish();
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }else {
-                            Toast.makeText(getApplicationContext(),"Couldn't log in, try again later",Toast.LENGTH_LONG);
+                            lblError.setText("Foutieve gebruikersnaam of passwoord");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Token> call, Throwable t) {
-
+                        Toast.makeText(getApplicationContext(),"Server niet berijkbaar",Toast.LENGTH_LONG).show();
                     }
                 });
             }

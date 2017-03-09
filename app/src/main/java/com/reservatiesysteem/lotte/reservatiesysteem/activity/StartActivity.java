@@ -96,11 +96,6 @@ public class StartActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        invalidateOptionsMenu();
-    }
 
     private class HomePagerAdapter extends FragmentStatePagerAdapter {
         private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -114,8 +109,6 @@ public class StartActivity extends BaseActivity {
             fragments.add(new Fragment());
             fragments.add(new Fragment());
             fragments.add(new Fragment());
-
-
         }
 
         @Override

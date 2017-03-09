@@ -37,7 +37,7 @@ public class FutureResFragment extends Fragment {
     @BindView(R.id.listReservations) ListView lvReservations;
     @BindView(R.id.empty) TextView txtEmpty;
     ArrayList<Reservation> reservations = new ArrayList<>();
-    final ArrayList<Reservation> futureReservations = new ArrayList<>();
+    ArrayList<Reservation> futureReservations;
 
 
     @Nullable
@@ -61,6 +61,8 @@ public class FutureResFragment extends Fragment {
     }
 
     private void checkFutureRes() throws ParseException {
+        futureReservations = new ArrayList<>();
+
         Date now = new Date();
 
         for (Reservation reservation: reservations){
@@ -83,16 +85,25 @@ public class FutureResFragment extends Fragment {
         //reservaties van user bekijken
         final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, futureReservations);
 
+        //TODO: berichten van reservatie bekijken
         lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+        lvReservations.setAdapter(reservationAdapter);
+        lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), ReservationDetailActivity.class);
                 Bundle bundle = new Bundle();
                 TextView txtBranchName = (TextView) view.findViewById(R.id.txtBranchName);
                 TextView txtBranchAddress = (TextView) view.findViewById(R.id.txtBranchAdress);
                 TextView txtPersonCount = (TextView)view.findViewById(R.id.txtResAmount);
 
-                bundle.putSerializable("reservation",futureReservations.get(position));
+                bundle.putSerializable("reservation", futureReservations.get(i));
                 bundle.putString("branchName",txtBranchName.getText().toString());
                 bundle.putString("branchAddress",txtBranchAddress.getText().toString());
                 bundle.putString("personCount",txtPersonCount.getText().toString()+" personen");

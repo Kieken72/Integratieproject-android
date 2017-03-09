@@ -20,7 +20,8 @@
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
 
         <AutoCompleteTextView
             android:id="@+id/searchCity"
@@ -82,16 +83,6 @@
             android:layout_alignBottom="@+id/imgPerson"
             />
 
-        <Button
-            android:id="@+id/btnReserveer"
-            android:layout_below="@id/numberPersons"
-            android:layout_marginTop="40dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/mint_green"
-            android:text="@string/search"
-            />
-
         <ImageButton
             android:id="@+id/btnLocation"
             android:layout_width="wrap_content"
@@ -112,5 +103,27 @@
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@+id/btnTime"
             android:layout_above="@+id/imgPerson" />
+
+        <Button
+            android:id="@+id/btnReserveer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mint_green"
+            android:text="@string/search"
+            android:layout_marginTop="13dp"
+            android:layout_below="@+id/imgPerson"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="40dp"
+            android:id="@+id/lblError"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark" />
+
     </RelativeLayout>
+
 </RelativeLayout>

@@ -24,6 +24,11 @@ import static com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivi
  */
 
 public class BaseActivity extends AppCompatActivity {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
