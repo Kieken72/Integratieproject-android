@@ -62,7 +62,7 @@ public interface API_Service {
 
     @FormUrlEncoded
     @POST("api/accounts/ChangePassword")
-    Call<Object> changePassWord(@Field("OldPassword") String oldPassword, @Field("NewPassword") String newPassword, @Field("ConfirmPassword") String confirmPassword);
+    Call<Void> changePassWord(@Field("OldPassword") String oldPassword, @Field("NewPassword") String newPassword, @Field("ConfirmPassword") String confirmPassword);
 
     //MESSAGES
     @GET("api/messages/{reservation}")

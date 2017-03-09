@@ -29,8 +29,8 @@ public class Branch {
     private boolean available;
     @SerializedName("Description")
     private String description;
-   /* @SerializedName("Picture")
-    private Image picture;*/
+    @SerializedName("Picture")
+    private String picture;
     @SerializedName("PhoneNumber")
     private String phoneNumber;
     @SerializedName("Email")
@@ -175,5 +175,13 @@ public class Branch {
 
     public void setReviews(ArrayList<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

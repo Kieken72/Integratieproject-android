@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +58,7 @@ public class ProfileActivity extends BaseActivity {
 
         getAccount();
 
-        txtFirstname.addTextChangedListener(new TextWatcher() {
+        firstname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -70,12 +71,12 @@ public class ProfileActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String newFirstName = txtFirstname.getText().toString();
+                String newFirstName = firstname.getText().toString();
                 profileAccount.setFirstname(newFirstName);
             }
         });
 
-        txtSurname.addTextChangedListener(new TextWatcher() {
+        surname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -88,7 +89,7 @@ public class ProfileActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String newLastName = txtSurname.getText().toString();
+                String newLastName = surname.getText().toString();
                 profileAccount.setLastname(newLastName);
             }
         });
@@ -180,10 +181,10 @@ public class ProfileActivity extends BaseActivity {
                         String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
 
                         API_Service service = API.createService(API_Service.class, token);
-                        Call<Object> call = service.changePassWord(oldPass.getText().toString(), newPass.getText().toString(), confirmPass.getText().toString());
-                        call.enqueue(new Callback<Object>() {
+                        Call<Void> call = service.changePassWord(oldPass.getText().toString(), newPass.getText().toString(), confirmPass.getText().toString());
+                        call.enqueue(new Callback<Void>() {
                             @Override
-                            public void onResponse(Call<Object> call, Response<Object> response) {
+                            public void onResponse(Call<Void> call, Response<Void> response) {
                                 if(response.isSuccessful()){
                                     Toast.makeText(getApplicationContext(), "Wachtwoord succesvol gewijzgd", Toast.LENGTH_LONG).show();
                                 }else {
@@ -193,8 +194,8 @@ public class ProfileActivity extends BaseActivity {
                             }
 
                             @Override
-                            public void onFailure(Call<Object> call, Throwable t) {
-
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.d("Error change password", t.getMessage());
                             }
                         });
                     }
@@ -232,7 +233,7 @@ public class ProfileActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                Log.d("Error changing profile", t.getMessage());
             }
         });
     }

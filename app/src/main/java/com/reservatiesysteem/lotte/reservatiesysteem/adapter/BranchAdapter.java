@@ -32,7 +32,7 @@ public class BranchAdapter extends BaseAdapter {
     private int amount;
     private String dateTime;
     private Context context;
-    private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
+    private String url = "http://leisurebooker.azurewebsites.net/";
 
 
     public BranchAdapter(Context context, int amount,String dateTime, List<Branch> branches) {
@@ -107,7 +107,7 @@ public class BranchAdapter extends BaseAdapter {
         TextView txtBranchMail = (TextView) v.findViewById(R.id.branchMail);
         ImageView imgBranch = (ImageView) v.findViewById(R.id.imgBranch);
 
-        Picasso.with(context).load(url).resize(80,80).into(imgBranch);
+        Picasso.with(context).load(url+branch.getPicture()).resize(80,80).into(imgBranch);
         txtBranchName.setText(branch.getName());
         txtBranchStreet.setText(branch.getStreet() + " " + branch.getNumber());
         txtBranchMail.setText(branch.getEmail());

@@ -2,14 +2,12 @@ package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.MessageAdapter;
-import com.reservatiesysteem.lotte.reservatiesysteem.fragments.FutureResFragment;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Message;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Reservation;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
@@ -172,7 +169,7 @@ public class ReservationDetailActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<Message> call, Throwable t) {
-
+                        Log.d("Error posting message", t.getMessage());
                     }
                 });
             }

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,13 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.StartActivity;
@@ -29,6 +38,9 @@ import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -39,13 +51,13 @@ import retrofit2.Response;
  * Created by lotte on 13/02/2017.
  */
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends Fragment implements OnMapReadyCallback {
 
     @BindView(R.id.txtBranchName) TextView txtBranchName;
     @BindView(R.id.btnFotos) Button btnFotos;
     @BindView(R.id.btnPlace) Button btnPlace;
     @BindView(R.id.viewFoto) ImageView viewFoto;
-    @BindView(R.id.viewPlaats) ImageView viewPlaats;
+    @BindView(R.id.viewPlaats) LinearLayout viewPlaats;
     @BindView(R.id.btnBeschrijving) Button btnBeschrijving;
     @BindView(R.id.viewBeschrijving) TextView viewBeschrijving;
     @BindView(R.id.btnUren) Button btnUren;
@@ -83,7 +95,10 @@ public class DetailsFragment extends Fragment {
     private String branchName = "";
     private boolean available;
 
-    private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
+    private SupportMapFragment map;
+    LatLng coordinates;
+    double latitude = 0;
+    double longitude = 0;
 
     public DetailsFragment() {
 
@@ -109,9 +124,6 @@ public class DetailsFragment extends Fragment {
         }
 
         getBranchDetails();
-
-        Picasso.with(getContext()).load(url).into(viewFoto);
-
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +232,10 @@ public class DetailsFragment extends Fragment {
             }
         });
 
+        //google maps
+        map = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        map.getMapAsync(this);//remember getMap() is deprecated!
+
         return view;
     }
 
@@ -292,6 +308,27 @@ public class DetailsFragment extends Fragment {
                 final ReviewAdapter reviewAdapter = new ReviewAdapter(getContext(), R.layout.view_review_entry, response.body().getReviews());
                 lvReview.setEmptyView(txtEmpty);
                 lvReview.setAdapter(reviewAdapter);
+
+                //picture weergeven
+                String url = "https://leisurebooker.azurewebsites.net/"+branch.getPicture();
+                Picasso.with(getContext()).load(url).into(viewFoto);
+
+                //get coordinates
+                String address = branch.getStreet() + " " + branch.getNumber() + ", " + branch.getCity().getPostalCode() + " " + branch.getCity().getName();
+                Geocoder geocoder = new Geocoder(getContext());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocationName(address, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(addresses.size() > 0) {
+                    latitude= addresses.get(0).getLatitude();
+                    longitude= addresses.get(0).getLongitude();
+
+                    System.out.println(latitude +" " + longitude + " geocoder");
+                }
+
             }
 
             @Override
@@ -317,4 +354,11 @@ public class DetailsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        System.out.println(latitude + " " + longitude + " OnMapReady");
+        map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
+        map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Location"));
+        map.setMyLocationEnabled(true);
+    }
 }

@@ -64,8 +64,8 @@ public class MessageAdapter extends BaseAdapter {
         String time = resTime.substring(0,5);
 
         txtMessageText.setText(message.getText());
-        txtMessageUser.setText("Gepost door " + message.getUser().getLastname() + " op " + resDate + " " + time);
-
+        txtMessageUser.setText("Gepost door " + message.getUser().getFirstname() + " op " + resDate + " " + time);
+        //txtMessageUser.setText("Gepost door " + message.getUser().getFirstname() + " " + message.getUser().getLastname() + " op " + resDate + " " + time);
 
         return v;
     }

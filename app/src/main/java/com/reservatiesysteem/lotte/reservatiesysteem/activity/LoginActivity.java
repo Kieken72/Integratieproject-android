@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(Call<Token> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),"Server niet bereikkbaar",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Server niet bereikbaar",Toast.LENGTH_LONG).show();
                     }
                 });
             }

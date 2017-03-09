@@ -48,8 +48,9 @@ public class FutureResFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         txtTitle.setText("Toekomstige reservaties");
-        System.out.println("oncreateview");
 
+        ReservationsActivity reservationsActivity = (ReservationsActivity) getActivity();
+        reservations = reservationsActivity.getReservations();
 
         try {
             checkFutureRes();
@@ -66,6 +67,7 @@ public class FutureResFragment extends Fragment {
 
 
         futureReservations = new ArrayList<>();
+
         Date now = new Date();
 
         for (Reservation reservation: reservations){
