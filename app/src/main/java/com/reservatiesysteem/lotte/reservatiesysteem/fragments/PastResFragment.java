@@ -41,6 +41,7 @@ public class PastResFragment extends Fragment {
     ArrayList<Reservation> pastReservations = new ArrayList<>();
 
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

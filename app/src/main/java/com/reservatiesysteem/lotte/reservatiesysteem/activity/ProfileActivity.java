@@ -129,7 +129,6 @@ public class ProfileActivity extends BaseActivity {
         call.enqueue(new Callback<ProfileAccount>() {
             @Override
             public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
-
                 profileAccount = response.body();
                 if(profileAccount!=null){
                     firstname.setText(profileAccount.getFirstname());
@@ -140,7 +139,6 @@ public class ProfileActivity extends BaseActivity {
                     Toast.makeText(getApplicationContext(),"login verlopen, opnieuw inloggen aub",Toast.LENGTH_SHORT).show();
                     finish();
                 }
-
             }
 
             @Override
@@ -148,7 +146,6 @@ public class ProfileActivity extends BaseActivity {
 
             }
         });
-
     }
 
     private void changePassword(){

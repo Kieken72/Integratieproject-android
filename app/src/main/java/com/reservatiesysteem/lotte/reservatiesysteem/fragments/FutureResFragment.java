@@ -38,6 +38,7 @@ public class FutureResFragment extends Fragment {
     @BindView(R.id.empty) TextView txtEmpty;
     ArrayList<Reservation> reservations = new ArrayList<>();
     ArrayList<Reservation> futureReservations;
+    ReservationAdapter reservationAdapter;
 
 
     @Nullable
@@ -47,9 +48,8 @@ public class FutureResFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         txtTitle.setText("Toekomstige reservaties");
+        System.out.println("oncreateview");
 
-        ReservationsActivity reservationsActivity = (ReservationsActivity) getActivity();
-        reservations = reservationsActivity.getReservations();
 
         try {
             checkFutureRes();
@@ -61,8 +61,11 @@ public class FutureResFragment extends Fragment {
     }
 
     private void checkFutureRes() throws ParseException {
-        futureReservations = new ArrayList<>();
+        ReservationsActivity reservationsActivity = (ReservationsActivity) getActivity();
+        reservations = reservationsActivity.getReservations();
 
+
+        futureReservations = new ArrayList<>();
         Date now = new Date();
 
         for (Reservation reservation: reservations){
@@ -83,15 +86,7 @@ public class FutureResFragment extends Fragment {
         }
 
         //reservaties van user bekijken
-        final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, futureReservations);
-
-        //TODO: berichten van reservatie bekijken
-        lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+        reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, futureReservations);
 
         lvReservations.setAdapter(reservationAdapter);
         lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -116,5 +111,14 @@ public class FutureResFragment extends Fragment {
         lvReservations.setEmptyView(txtEmpty);
         lvReservations.setAdapter(reservationAdapter);
 
+    }
+
+    public void changes() {
+        System.out.println("changes");
+        try {
+            checkFutureRes();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
