@@ -17,10 +17,10 @@ public class ProfileAccount implements Serializable {
     private String id;
     @SerializedName("Email")
     private String email;
-    @SerializedName("Surname")
-    private String surname;
-    @SerializedName("Firstname")
+    @SerializedName("Name")
     private String firstname;
+    @SerializedName("Lastname")
+    private String lastname;
 
     @SerializedName("Reservations")
     private ArrayList<Reservation> reservations;
@@ -44,14 +44,6 @@ public class ProfileAccount implements Serializable {
         this.email = email;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getFirstname() {
         return firstname;
     }
@@ -66,6 +58,14 @@ public class ProfileAccount implements Serializable {
 
     public void setReservations(ArrayList<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     /*public ArrayList<Review> getReviews() {

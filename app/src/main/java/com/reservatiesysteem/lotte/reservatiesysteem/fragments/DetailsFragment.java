@@ -292,7 +292,6 @@ public class DetailsFragment extends Fragment {
                 final ReviewAdapter reviewAdapter = new ReviewAdapter(getContext(), R.layout.view_review_entry, response.body().getReviews());
                 lvReview.setEmptyView(txtEmpty);
                 lvReview.setAdapter(reviewAdapter);
-
             }
 
             @Override

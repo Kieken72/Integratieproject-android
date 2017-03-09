@@ -18,8 +18,8 @@ public class Reservation implements Serializable {
     private String dateTime;
     @SerializedName("EndDateTime")
     private String endDateTime;
-    @SerializedName("SpaceId")
-    private int spaceId;
+    @SerializedName("Cancelled")
+    private boolean cancelled;
     @SerializedName("BranchId")
     private int branchId;
     @SerializedName("AccountId")
@@ -62,12 +62,12 @@ public class Reservation implements Serializable {
         this.endDateTime = endDateTime;
     }
 
-    public int getSpaceId() {
-        return spaceId;
+    public boolean isCancelled() {
+        return cancelled;
     }
 
-    public void setSpaceId(int spaceId) {
-        this.spaceId = spaceId;
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
     public int getBranchId() {

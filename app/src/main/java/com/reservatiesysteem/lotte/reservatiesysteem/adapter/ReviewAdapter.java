@@ -77,7 +77,7 @@ public class ReviewAdapter extends BaseAdapter {
         final String resDate = dateTime[0];
 
         txtReviewText.setText(review.getText());
-        txtReviewUserDate.setText("Gepost door " + review.getUser().getSurname() + " op " + resDate);
+        txtReviewUserDate.setText("Gepost door " + review.getUser().getLastname() + " op " + resDate);
 
         if(review.isResult()){
             imgResult.setImageResource(R.drawable.thumb_up);

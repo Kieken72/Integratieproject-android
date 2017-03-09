@@ -35,8 +35,10 @@ import butterknife.ButterKnife;
 public class PastResFragment extends Fragment {
     @BindView(R.id.titleRes) TextView txtTitle;
     @BindView(R.id.listReservations) ListView lvReservations;
+    @BindView(R.id.empty) TextView txtEmpty;
 
     ArrayList<Reservation> reservations = new ArrayList<>();
+    ArrayList<Reservation> pastReservations = new ArrayList<>();
 
 
     @Nullable
@@ -60,9 +62,6 @@ public class PastResFragment extends Fragment {
     }
 
     private void checkPastRes() throws ParseException {
-
-        ArrayList<Reservation> pastReservations = new ArrayList<>();
-
         Date now = new Date();
 
         for (Reservation reservation: reservations){
@@ -81,6 +80,9 @@ public class PastResFragment extends Fragment {
 
         //reservaties van user bekijken
         final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, pastReservations);
+
+        txtEmpty.setText(R.string.emptyPastReservations);
+        lvReservations.setEmptyView(txtEmpty);
         lvReservations.setAdapter(reservationAdapter);
         lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -91,7 +93,7 @@ public class PastResFragment extends Fragment {
                 TextView txtBranchAddress = (TextView) view.findViewById(R.id.txtBranchAdress);
                 TextView txtPersonCount = (TextView)view.findViewById(R.id.txtResAmount);
 
-                bundle.putSerializable("reservation",reservations.get(i));
+                bundle.putSerializable("reservation",pastReservations.get(i));
                 bundle.putString("branchName",txtBranchName.getText().toString());
                 bundle.putString("branchAddress",txtBranchAddress.getText().toString());
                 bundle.putString("personCount",txtPersonCount.getText().toString()+" personen");

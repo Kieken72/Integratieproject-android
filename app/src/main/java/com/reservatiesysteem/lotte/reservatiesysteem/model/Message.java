@@ -15,10 +15,18 @@ public class Message {
     private int branchId;
     @SerializedName("UserId")
     private String userId;
+    @SerializedName("User")
+    private ProfileAccount user;
     @SerializedName("Text")
     private String text;
     @SerializedName("DateTime")
     private String dateTime;
+
+    public Message(int reservationId, int branchId, String text) {
+        this.reservationId = reservationId;
+        this.branchId = branchId;
+        this.text = text;
+    }
 
     public int getId() {
         return id;
@@ -50,6 +58,14 @@ public class Message {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public ProfileAccount getUser() {
+        return user;
+    }
+
+    public void setUser(ProfileAccount user) {
+        this.user = user;
     }
 
     public String getText() {

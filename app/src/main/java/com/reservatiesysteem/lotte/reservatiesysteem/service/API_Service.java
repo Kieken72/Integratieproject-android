@@ -9,13 +9,14 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.RegisterAccount;
 
 import java.util.List;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -24,9 +25,11 @@ import retrofit2.http.Query;
  */
 
 public interface API_Service {
+    //CITIES
     @GET("api/cities")
     Call<List<City>> getCities();
 
+    //BRANCHES
     @GET("api/branches/by-postal/{chosenPostalCode}")
     Call<List<Branch>> getBranchById(@Path("chosenPostalCode") int chosenPostalCode);
 
@@ -48,11 +51,23 @@ public interface API_Service {
     @POST("api/reservations")
     Call<Object> createReservation(@Field("BranchId")int branchId, @Field("DateTime")String DateTime, @Field("Amount")int Amount);
 
+    @DELETE("api/reservations/{reservation}")
+    Call<Void> deleteReservation(@Path("reservation") int resId);
+
     @GET("api/accounts")
     Call<ProfileAccount> getProfile();
 
-    //MESSAGES
-    @GET("api/messages/{reservationId}")
-    Call<List<Message>> getMessagesByResId(@Path("resId") int resId);
+    @PUT("api/accounts")
+    Call<Void> changeAccount(@Body ProfileAccount account);
 
+    @FormUrlEncoded
+    @POST("api/accounts/ChangePassword")
+    Call<Object> changePassWord(@Field("OldPassword") String oldPassword, @Field("NewPassword") String newPassword, @Field("ConfirmPassword") String confirmPassword);
+
+    //MESSAGES
+    @GET("api/messages/{reservation}")
+    Call<List<Message>> getMessagesByResId(@Path("reservation") int resId);
+
+    @POST("api/messages")
+    Call<Message> createMessage(@Body Message message);
 }

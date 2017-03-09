@@ -35,7 +35,10 @@ import butterknife.ButterKnife;
 public class FutureResFragment extends Fragment {
     @BindView(R.id.titleRes) TextView txtTitle;
     @BindView(R.id.listReservations) ListView lvReservations;
+    @BindView(R.id.empty) TextView txtEmpty;
     ArrayList<Reservation> reservations = new ArrayList<>();
+    final ArrayList<Reservation> futureReservations = new ArrayList<>();
+
 
     @Nullable
     @Override
@@ -58,8 +61,6 @@ public class FutureResFragment extends Fragment {
     }
 
     private void checkFutureRes() throws ParseException {
-        ArrayList<Reservation> pastReservations = new ArrayList<>();
-
         Date now = new Date();
 
         for (Reservation reservation: reservations){
@@ -71,33 +72,27 @@ public class FutureResFragment extends Fragment {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK);
             Date dateRes = dateFormat.parse(date + " " + time);
 
+            //cancelled reservaties niet weergeven
             if(dateRes.after(now)){
-                pastReservations.add(reservation);
+                if(!reservation.isCancelled()) {
+                    futureReservations.add(reservation);
+                }
             }
         }
 
         //reservaties van user bekijken
-        final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, pastReservations);
+        final ReservationAdapter reservationAdapter = new ReservationAdapter(getContext(), R.layout.view_reservation_entry, futureReservations);
 
-        //TODO: berichten van reservatie bekijken
         lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
-
-        lvReservations.setAdapter(reservationAdapter);
-        lvReservations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), ReservationDetailActivity.class);
                 Bundle bundle = new Bundle();
                 TextView txtBranchName = (TextView) view.findViewById(R.id.txtBranchName);
                 TextView txtBranchAddress = (TextView) view.findViewById(R.id.txtBranchAdress);
                 TextView txtPersonCount = (TextView)view.findViewById(R.id.txtResAmount);
 
-                bundle.putSerializable("reservation",reservations.get(i));
+                bundle.putSerializable("reservation",futureReservations.get(position));
                 bundle.putString("branchName",txtBranchName.getText().toString());
                 bundle.putString("branchAddress",txtBranchAddress.getText().toString());
                 bundle.putString("personCount",txtPersonCount.getText().toString()+" personen");
@@ -105,6 +100,10 @@ public class FutureResFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        txtEmpty.setText(R.string.emptyFutureReservations);
+        lvReservations.setEmptyView(txtEmpty);
+        lvReservations.setAdapter(reservationAdapter);
 
     }
 }

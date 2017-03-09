@@ -6,6 +6,9 @@
     <string name="Google_API">AIzaSyCGSoAPHvCRcV5tikRSfK_nCpZON3DYTog</string>
 
     <string name="emptyReviews">Geen reviews beschikbaar</string>
+    <string name="emptyPastReservations">Geen afgelopen reservaties</string>
+    <string name="emptyFutureReservations">Geen toekomstige reservaties</string>
+    <string name="emptyMessages">Geen berichten beschikbaar</string>
 
     <!-- Registreer & Login -->
     <string name="register">Registreer</string>
@@ -75,6 +78,13 @@
     <string name="resDate">Datum reservatie: </string>
     <string name="resBranchAdress">Adres branch: </string>
     <string name="resAmount">Aantal personen: </string>
+    <string name="changePas">Verander wachtwoord</string>
+    <string name="saveProf">Gegevens opslaan</string>
+
+    <!-- Reservaties -->
+    <string name="resAnn">Reservatie Annuleren</string>
+    <string name="postMessage">Bericht sturen</string>
+    <string name="getMessages">Berichten op reservatie:</string>
 
     <!-- About -->
     <string name="about">

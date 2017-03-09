@@ -1,14 +1,20 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +42,10 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.txtProfMail) TextView txtEmail;
     @BindView(R.id.editFirstname) EditText firstname;
     @BindView(R.id.editSurname) EditText surname;
-    @BindView(R.id.editEmail) EditText email;
+    @BindView(R.id.editEmail) TextView email;
     @BindView(R.id.btnCheckRes) Button btnCheckRes;
+    @BindView(R.id.btnChangePassword) Button btnChangePas;
+    @BindView(R.id.btnSaveProfile) Button btnSaveProfile;
 
     ProfileAccount profileAccount;
 
@@ -49,6 +57,49 @@ public class ProfileActivity extends BaseActivity {
 
         getAccount();
 
+        txtFirstname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String newFirstName = txtFirstname.getText().toString();
+                profileAccount.setFirstname(newFirstName);
+            }
+        });
+
+        txtSurname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String newLastName = txtSurname.getText().toString();
+                profileAccount.setLastname(newLastName);
+            }
+        });
+
+        btnSaveProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateUser(profileAccount);
+            }
+        });
+
         btnCheckRes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +107,13 @@ public class ProfileActivity extends BaseActivity {
                 intent.putExtra("Reservations", profileAccount.getReservations());
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        btnChangePas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changePassword();
             }
         });
 
@@ -75,7 +133,7 @@ public class ProfileActivity extends BaseActivity {
                 profileAccount = response.body();
                 if(profileAccount!=null){
                     firstname.setText(profileAccount.getFirstname());
-                    surname.setText(profileAccount.getSurname());
+                    surname.setText(profileAccount.getLastname());
                     email.setText(profileAccount.getEmail());
                 }else {
                     startActivity(new Intent(getApplicationContext(),LoginActivity.class));
@@ -91,5 +149,94 @@ public class ProfileActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void changePassword(){
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+        alertDialog.setTitle("Wachtwoord veranderen");
+        final EditText oldPass = new EditText(ProfileActivity.this);
+        final EditText newPass = new EditText(ProfileActivity.this);
+        final EditText confirmPass = new EditText(ProfileActivity.this);
+
+        oldPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        newPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        confirmPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+        oldPass.setHint("Old Password");
+        newPass.setHint("New Password");
+        confirmPass.setHint("Confirm Password");
+
+        LinearLayout ll =new LinearLayout(ProfileActivity.this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+
+        ll.addView(oldPass);
+        ll.addView(newPass);
+        ll.addView(confirmPass);
+        alertDialog.setView(ll);
+
+        alertDialog.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Activity activity = ProfileActivity.this;
+                        SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+                        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+
+                        API_Service service = API.createService(API_Service.class, token);
+                        Call<Object> call = service.changePassWord(oldPass.getText().toString(), newPass.getText().toString(), confirmPass.getText().toString());
+                        call.enqueue(new Callback<Object>() {
+                            @Override
+                            public void onResponse(Call<Object> call, Response<Object> response) {
+                                if(response.isSuccessful()){
+                                    Toast.makeText(getApplicationContext(), "Wachtwoord succesvol gewijzgd", Toast.LENGTH_LONG).show();
+                                }else {
+                                    Toast.makeText(getApplicationContext(), "Wachtwoord niet gewijzigd " + response.message(), Toast.LENGTH_LONG).show();
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Object> call, Throwable t) {
+
+                            }
+                        });
+                    }
+                });
+
+        alertDialog.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = alertDialog.create();
+        alert11.show();
+
+    }
+
+    private void updateUser(ProfileAccount profileAccount){
+        final Activity activity = ProfileActivity.this;
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+
+        final API_Service service = API.createService(API_Service.class, token);
+        Call<Void> call = service.changeAccount(profileAccount);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getApplicationContext(), "Gegevens zijn succesvol opgeslagen", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Gegevens niet opgeslagen " + response.message(), Toast.LENGTH_LONG).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 }
