@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +22,12 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.FavoritesActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
@@ -31,6 +39,9 @@ import com.reservatiesysteem.lotte.reservatiesysteem.model.OpeningHour;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,6 +97,11 @@ public class FavoriteBranchDetailsFragment extends Fragment {
     private String branchName = "";
     private boolean available;
 
+    private GoogleMap map;
+    LatLng coordinates;
+    double latitude = 0;
+    double longitude = 0;
+
     private String url = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
 
 
@@ -100,6 +116,9 @@ public class FavoriteBranchDetailsFragment extends Fragment {
             receivedBranchId = bundle.getInt("branchId", 0);
         }
         getBranchDetails();
+
+        //google maps
+        map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map)).getMap();
 
         Picasso.with(getContext()).load(url).into(viewFoto);
 
@@ -292,6 +311,29 @@ public class FavoriteBranchDetailsFragment extends Fragment {
                 }else {
                     String url = "https://leisurebooker.azurewebsites.net/" + branch.getPicture();
                     Picasso.with(getContext()).load(url).into(viewFoto);
+                }
+
+                //get coordinates
+                String address = branch.getStreet() + " " + branch.getNumber() + ", " + branch.getCity().getPostalCode() + " " + branch.getCity().getName();
+                Geocoder geocoder = new Geocoder(getContext());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocationName(address, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(addresses.size() > 0) {
+                    latitude = addresses.get(0).getLatitude();
+                    longitude = addresses.get(0).getLongitude();
+
+                    coordinates = new LatLng(latitude, longitude);
+
+                    //google maps
+                    Marker adress = map.addMarker(new MarkerOptions().position(coordinates).title(address));
+                    map.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
+                    map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+                    map.setMyLocationEnabled(true);
+
                 }
 
             }

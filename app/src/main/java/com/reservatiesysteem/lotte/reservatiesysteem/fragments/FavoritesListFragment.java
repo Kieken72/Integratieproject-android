@@ -79,17 +79,15 @@ public class FavoritesListFragment extends Fragment {
                         final List<Branch> favorites = profileAccount.getFavorites();
                         final BranchAdapter branchAdapter = new BranchAdapter(getActivity(),0,null,favorites);
 
-                        txtEmpty.setText(R.string.emptyFavorites
-                        );
+                        txtEmpty.setText(R.string.emptyFavorites);
                         lvFavorites.setEmptyView(txtEmpty);
-
                         lvFavorites.setAdapter(branchAdapter);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ProfileAccount> call, Throwable t) {
-
+                    Log.d("Error favorites", t.getMessage());
                 }
             });
         } catch (NullPointerException e) {

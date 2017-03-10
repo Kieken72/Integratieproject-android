@@ -102,7 +102,6 @@ public class DetailsFragment extends Fragment {
     private String branchName = "";
     private boolean available;
 
-    //private SupportMapFragment map;
     private GoogleMap map;
     LatLng coordinates;
     double latitude = 0;
