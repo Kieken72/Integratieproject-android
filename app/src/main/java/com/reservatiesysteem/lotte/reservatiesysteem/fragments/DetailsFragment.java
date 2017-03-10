@@ -11,21 +11,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
@@ -51,7 +55,7 @@ import retrofit2.Response;
  * Created by lotte on 13/02/2017.
  */
 
-public class DetailsFragment extends Fragment implements OnMapReadyCallback {
+public class DetailsFragment extends Fragment {
 
     @BindView(R.id.txtBranchName) TextView txtBranchName;
     @BindView(R.id.btnFotos) Button btnFotos;
@@ -95,7 +99,8 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
     private String branchName = "";
     private boolean available;
 
-    private SupportMapFragment map;
+    //private SupportMapFragment map;
+    private GoogleMap map;
     LatLng coordinates;
     double latitude = 0;
     double longitude = 0;
@@ -107,6 +112,7 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final View view = inflater.inflate(R.layout.fragment_branchdetails, container, false);
         ButterKnife.bind(this,view);
 
@@ -124,6 +130,9 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
         }
 
         getBranchDetails();
+
+        //google maps
+        map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map)).getMap();
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,9 +241,6 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        //google maps
-        map = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        map.getMapAsync(this);//remember getMap() is deprecated!
 
         return view;
     }
@@ -323,10 +329,16 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
                     e.printStackTrace();
                 }
                 if(addresses.size() > 0) {
-                    latitude= addresses.get(0).getLatitude();
-                    longitude= addresses.get(0).getLongitude();
+                    latitude = addresses.get(0).getLatitude();
+                    longitude = addresses.get(0).getLongitude();
 
-                    System.out.println(latitude +" " + longitude + " geocoder");
+                    coordinates = new LatLng(latitude, longitude);
+
+                    Marker adress = map.addMarker(new MarkerOptions().position(coordinates).title("Adres"));
+                    map.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
+                    map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+                    map.setMyLocationEnabled(true);
+
                 }
 
             }
@@ -354,11 +366,4 @@ public class DetailsFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        System.out.println(latitude + " " + longitude + " OnMapReady");
-        map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
-        map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("Location"));
-        map.setMyLocationEnabled(true);
-    }
 }
