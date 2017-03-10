@@ -9,6 +9,7 @@
     <string name="emptyPastReservations">Geen afgelopen reservaties</string>
     <string name="emptyFutureReservations">Geen toekomstige reservaties</string>
     <string name="emptyMessages">Geen berichten beschikbaar</string>
+    <string name="emptyFavorites">Geen favorieten</string>
 
     <!-- Registreer & Login -->
     <string name="register">Registreer</string>

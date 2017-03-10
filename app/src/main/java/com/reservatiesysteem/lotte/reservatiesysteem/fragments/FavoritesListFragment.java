@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
@@ -36,7 +37,7 @@ import retrofit2.Response;
 
 public class FavoritesListFragment extends Fragment {
     @BindView(R.id.listBranches)ListView lvFavorites;
-
+    @BindView(R.id.empty) TextView txtEmpty;
 
     public FavoritesListFragment() {
 
@@ -77,6 +78,11 @@ public class FavoritesListFragment extends Fragment {
                         ProfileAccount profileAccount = response.body();
                         final List<Branch> favorites = profileAccount.getFavorites();
                         final BranchAdapter branchAdapter = new BranchAdapter(getActivity(),0,null,favorites);
+
+                        txtEmpty.setText(R.string.emptyFavorites
+                        );
+                        lvFavorites.setEmptyView(txtEmpty);
+
                         lvFavorites.setAdapter(branchAdapter);
                     }
                 }
