@@ -24,9 +24,17 @@ public class ProfileAccount implements Serializable {
 
     @SerializedName("Reservations")
     private ArrayList<Reservation> reservations;
+    @SerializedName("Favorites")
+    private ArrayList<Branch>favorites;
 
-    /*@SerializedName("Reviews")
-    private ArrayList<Review> reviews;*/
+    public void setFavorites(ArrayList<Branch> favorites) {
+        this.favorites = favorites;
+    }
+
+    public ArrayList<Branch> getFavorites() {
+
+        return favorites;
+    }
 
     public String getId() {
         return id;

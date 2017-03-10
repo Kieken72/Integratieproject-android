@@ -1,5 +1,7 @@
 package com.reservatiesysteem.lotte.reservatiesysteem.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,8 +15,10 @@ import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.FavoritesActivity;
+import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
 import com.reservatiesysteem.lotte.reservatiesysteem.adapter.BranchAdapter;
 import com.reservatiesysteem.lotte.reservatiesysteem.model.Branch;
+import com.reservatiesysteem.lotte.reservatiesysteem.model.ProfileAccount;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API;
 import com.reservatiesysteem.lotte.reservatiesysteem.service.API_Service;
 
@@ -62,19 +66,24 @@ public class FavoritesListFragment extends Fragment {
 
     private void getFavorites() {
         try {
-            API_Service service = API.createService(API_Service.class);
-            Call<List<Branch>> call = service.getBranchById(2550);
-            call.enqueue(new Callback<List<Branch>>() {
+            SharedPreferences preferences = getActivity().getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+
+            API_Service service = API.createService(API_Service.class,preferences.getString(LoginActivity.TOKEN,""));
+            Call<ProfileAccount> call = service.getProfile();
+            call.enqueue(new Callback<ProfileAccount>() {
                 @Override
-                public void onResponse(Call<List<Branch>> call, Response<List<Branch>> response) {
-                    final List<Branch> branches = response.body();
-                    final BranchAdapter branchAdapter = new BranchAdapter(getActivity(), 0, null, branches);
-                    lvFavorites.setAdapter(branchAdapter);
+                public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
+                    if(response.isSuccessful()){
+                        ProfileAccount profileAccount = response.body();
+                        final List<Branch> favorites =profileAccount.getFavorites();
+                        final BranchAdapter branchAdapter = new BranchAdapter(getActivity(),0,null,favorites);
+                        lvFavorites.setAdapter(branchAdapter);
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<List<Branch>> call, Throwable t) {
-                    Log.d("Error receiving branche", t.getMessage());
+                public void onFailure(Call<ProfileAccount> call, Throwable t) {
+
                 }
             });
         } catch (NullPointerException e) {

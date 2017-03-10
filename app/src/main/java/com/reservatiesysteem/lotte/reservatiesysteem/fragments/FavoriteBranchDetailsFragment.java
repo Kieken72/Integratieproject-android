@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -48,7 +49,8 @@ public class FavoriteBranchDetailsFragment extends Fragment {
     @BindView(R.id.btnPlace) Button btnPlace;
     @BindView(R.id.viewFoto)
     ImageView viewFoto;
-    @BindView(R.id.viewPlaats) ImageView viewPlaats;
+    @BindView(R.id.viewPlaats)
+    LinearLayout viewPlaats;
     @BindView(R.id.btnBeschrijving) Button btnBeschrijving;
     @BindView(R.id.viewBeschrijving) TextView viewBeschrijving;
     @BindView(R.id.btnUren) Button btnUren;

@@ -46,7 +46,6 @@ public class FavoritesActivity extends BaseActivity {
     @BindView(R.id.lytBook)
     LinearLayout lytBook;
 
-
     FavoritesPageAdapter adapter;
 
     @Override
