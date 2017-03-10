@@ -12,23 +12,46 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txtBranchName"
-            android:text="@string/branchName"
-            android:textSize="20dp"
-            android:gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            />
+            android:id="@+id/lytHeader"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtBranchName"
+                android:text="@string/branchName"
+                android:textSize="20dp"
+                android:gravity="left"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.9"
+                />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnFavorites"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_favorite"
+                android:background="@color/white"
+                android:layout_marginTop="5dp"/>
+
+
+        </LinearLayout>
+
+
 
         <LinearLayout
             android:id="@+id/layoutbutttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@+id/txtBranchName">
+            android:layout_below="@+id/lytHeader">
 
             <Button
                 android:id="@+id/btnFotos"

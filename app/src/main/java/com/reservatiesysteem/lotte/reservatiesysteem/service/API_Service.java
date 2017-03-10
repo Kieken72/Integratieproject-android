@@ -64,6 +64,13 @@ public interface API_Service {
     @POST("api/accounts/ChangePassword")
     Call<Void> changePassWord(@Field("OldPassword") String oldPassword, @Field("NewPassword") String newPassword, @Field("ConfirmPassword") String confirmPassword);
 
+    //FAVORITES
+    @POST("api/accounts/favorite/{branchId}")
+    Call<Void> addFavorites(@Path("branchId") int branchId);
+
+    @DELETE("api/accounts/favorite/{branchId}")
+    Call<Void> deleteFavorite(@Path("branchId") int branchId);
+
     //MESSAGES
     @GET("api/messages/{reservation}")
     Call<List<Message>> getMessagesByResId(@Path("reservation") int resId);

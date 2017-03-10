@@ -15,12 +15,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -58,6 +60,7 @@ import retrofit2.Response;
 public class DetailsFragment extends Fragment {
 
     @BindView(R.id.txtBranchName) TextView txtBranchName;
+    @BindView(R.id.btnFavorites) ImageButton btnFavorites;
     @BindView(R.id.btnFotos) Button btnFotos;
     @BindView(R.id.btnPlace) Button btnPlace;
     @BindView(R.id.viewFoto) ImageView viewFoto;
@@ -133,6 +136,13 @@ public class DetailsFragment extends Fragment {
 
         //google maps
         map = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map)).getMap();
+
+        btnFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFavorites();
+            }
+        });
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,6 +380,30 @@ public class DetailsFragment extends Fragment {
         }else {
             return startText + ", " + additionalInfo.getValue().toLowerCase();
         }
+    }
+
+    private void addFavorites(){
+        SharedPreferences preferences = getActivity().getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+        String token =  preferences.getString(LoginActivity.TOKEN,"");
+
+        API_Service service = API.createService(API_Service.class, token);
+        Call<Void> call = service.addFavorites(receivedBranchId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Branch succesvol toegevoegd", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Failed" + response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("Error favorites", t.getMessage());
+            }
+        });
+
     }
 
 }

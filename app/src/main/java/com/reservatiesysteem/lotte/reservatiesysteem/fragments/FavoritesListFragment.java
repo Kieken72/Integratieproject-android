@@ -75,7 +75,7 @@ public class FavoritesListFragment extends Fragment {
                 public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
                     if(response.isSuccessful()){
                         ProfileAccount profileAccount = response.body();
-                        final List<Branch> favorites =profileAccount.getFavorites();
+                        final List<Branch> favorites = profileAccount.getFavorites();
                         final BranchAdapter branchAdapter = new BranchAdapter(getActivity(),0,null,favorites);
                         lvFavorites.setAdapter(branchAdapter);
                     }

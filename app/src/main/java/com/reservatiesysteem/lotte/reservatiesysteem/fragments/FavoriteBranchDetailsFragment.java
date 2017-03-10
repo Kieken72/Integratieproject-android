@@ -12,11 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.FavoritesActivity;
@@ -42,15 +44,12 @@ import retrofit2.Response;
 
 public class FavoriteBranchDetailsFragment extends Fragment {
 
-    @BindView(R.id.txtBranchName)
-    TextView txtBranchName;
-    @BindView(R.id.btnFotos)
-    Button btnFotos;
+    @BindView(R.id.txtBranchName) TextView txtBranchName;
+    @BindView(R.id.btnFavorites) ImageButton btnFavorites;
+    @BindView(R.id.btnFotos) Button btnFotos;
     @BindView(R.id.btnPlace) Button btnPlace;
-    @BindView(R.id.viewFoto)
-    ImageView viewFoto;
-    @BindView(R.id.viewPlaats)
-    LinearLayout viewPlaats;
+    @BindView(R.id.viewFoto) ImageView viewFoto;
+    @BindView(R.id.viewPlaats) LinearLayout viewPlaats;
     @BindView(R.id.btnBeschrijving) Button btnBeschrijving;
     @BindView(R.id.viewBeschrijving) TextView viewBeschrijving;
     @BindView(R.id.btnUren) Button btnUren;
@@ -58,8 +57,7 @@ public class FavoriteBranchDetailsFragment extends Fragment {
     @BindView(R.id.layoutUren) TableLayout viewUren;
     @BindView(R.id.layoutInfo) TableLayout viewInfo;
     @BindView(R.id.btnReview) Button btnReview;
-    @BindView(R.id.lvReview)
-    ListView lvReview;
+    @BindView(R.id.lvReview) ListView lvReview;
     @BindView(R.id.empty) TextView txtEmpty;
 
     @BindView(R.id.btnReserveren) Button btnReserveren;
@@ -105,6 +103,12 @@ public class FavoriteBranchDetailsFragment extends Fragment {
 
         Picasso.with(getContext()).load(url).into(viewFoto);
 
+        btnFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFavorite();
+            }
+        });
 
         btnFotos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,6 +285,15 @@ public class FavoriteBranchDetailsFragment extends Fragment {
                 lvReview.setEmptyView(txtEmpty);
                 lvReview.setAdapter(reviewAdapter);
 
+                //picture weergeven
+                if(branch.getPicture() == null){
+                    String defeaultUrl = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
+                    Picasso.with(getContext()).load(defeaultUrl).into(viewFoto);
+                }else {
+                    String url = "https://leisurebooker.azurewebsites.net/" + branch.getPicture();
+                    Picasso.with(getContext()).load(url).into(viewFoto);
+                }
+
             }
 
             @Override
@@ -304,5 +317,29 @@ public class FavoriteBranchDetailsFragment extends Fragment {
         }else {
             return startText + ", " + additionalInfo.getValue().toLowerCase();
         }
+    }
+
+    private void deleteFavorite(){
+        SharedPreferences preferences = getActivity().getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
+        String token =  preferences.getString(LoginActivity.TOKEN,"");
+
+        API_Service service = API.createService(API_Service.class, token);
+        Call<Void> call = service.deleteFavorite(receivedBranchId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(getContext(), "Favorite succesvol verwijderd", Toast.LENGTH_SHORT).show();
+
+                }else {
+                    Toast.makeText(getContext(), "Failed" + response.message(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("Error favorites", t.getMessage());
+            }
+        });
     }
 }
