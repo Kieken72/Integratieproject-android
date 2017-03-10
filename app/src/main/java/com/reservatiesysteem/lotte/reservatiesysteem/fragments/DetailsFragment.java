@@ -316,8 +316,13 @@ public class DetailsFragment extends Fragment {
                 lvReview.setAdapter(reviewAdapter);
 
                 //picture weergeven
-                String url = "https://leisurebooker.azurewebsites.net/"+branch.getPicture();
-                Picasso.with(getContext()).load(url).into(viewFoto);
+                if(branch.getPicture() == null){
+                    String defeaultUrl = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";
+                    Picasso.with(getContext()).load(defeaultUrl).into(viewFoto);
+                }else {
+                    String url = "https://leisurebooker.azurewebsites.net/" + branch.getPicture();
+                    Picasso.with(getContext()).load(url).into(viewFoto);
+                }
 
                 //get coordinates
                 String address = branch.getStreet() + " " + branch.getNumber() + ", " + branch.getCity().getPostalCode() + " " + branch.getCity().getName();
@@ -334,6 +339,7 @@ public class DetailsFragment extends Fragment {
 
                     coordinates = new LatLng(latitude, longitude);
 
+                    //google maps
                     Marker adress = map.addMarker(new MarkerOptions().position(coordinates).title(address));
                     map.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
                     map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
