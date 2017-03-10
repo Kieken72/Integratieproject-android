@@ -59,6 +59,26 @@ public class FavoritesActivity extends BaseActivity {
 
         lytSearch.setEnabled(false);
         lytBook.setEnabled(false);
+
+        lytSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vwpFavorites.setCurrentItem(1);
+            }
+        });
+        lytList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vwpFavorites.setCurrentItem(0);
+            }
+        });
+
+        lytBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vwpFavorites.setCurrentItem(2);
+            }
+        });
     }
 
     public void changeFragment(Fragment fragment, int currentItem) {

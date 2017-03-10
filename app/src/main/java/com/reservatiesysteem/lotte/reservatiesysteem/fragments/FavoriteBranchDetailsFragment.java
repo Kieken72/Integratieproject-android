@@ -330,6 +330,8 @@ public class FavoriteBranchDetailsFragment extends Fragment {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(getContext(), "Favorite succesvol verwijderd", Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                    startActivity(new Intent(getActivity(),FavoritesActivity.class));
 
                 }else {
                     Toast.makeText(getContext(), "Failed" + response.message(), Toast.LENGTH_LONG).show();
