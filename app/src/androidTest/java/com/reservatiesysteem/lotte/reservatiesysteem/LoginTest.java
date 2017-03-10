@@ -45,6 +45,7 @@ public class LoginTest {
         onView(withId(R.id.btnLogin)).perform(click());
         onView(withText("Login succesvol")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
+
         onView(isRoot()).perform(waitFor(2000));
     }
 

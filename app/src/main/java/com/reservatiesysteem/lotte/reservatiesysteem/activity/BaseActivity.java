@@ -81,6 +81,8 @@ public class BaseActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.commit();
+                finish();
+                startActivity(new Intent(this,StartActivity.class));
                 invalidateOptionsMenu();
                 return true;
             case R.id.myProfile:
@@ -92,6 +94,9 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.about:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
+            case R.id.reserveren:
+                finish();
+                startActivity(new Intent(this,StartActivity.class));
         }
         return true;
     }

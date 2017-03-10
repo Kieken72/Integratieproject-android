@@ -334,7 +334,7 @@ public class DetailsFragment extends Fragment {
 
                     coordinates = new LatLng(latitude, longitude);
 
-                    Marker adress = map.addMarker(new MarkerOptions().position(coordinates).title("Adres"));
+                    Marker adress = map.addMarker(new MarkerOptions().position(coordinates).title(address));
                     map.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
                     map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
                     map.setMyLocationEnabled(true);
