@@ -186,7 +186,7 @@ public class ProfileActivity extends BaseActivity {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
                                 if(response.isSuccessful()){
-                                    Toast.makeText(getApplicationContext(), "Wachtwoord succesvol gewijzgd", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Wachtwoord succesvol gewijzigd", Toast.LENGTH_LONG).show();
                                 }else {
                                     Toast.makeText(getApplicationContext(), "Wachtwoord niet gewijzigd " + response.message(), Toast.LENGTH_LONG).show();
 

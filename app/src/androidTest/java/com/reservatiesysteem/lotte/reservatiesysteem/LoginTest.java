@@ -18,6 +18,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
+import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.reservatiesysteem.lotte.reservatiesysteem.CustomViewAssertions.waitFor;
@@ -35,6 +36,7 @@ public class LoginTest {
 
     @Test
     public void login(){
+        //logintest
         onView(withId(R.id.txtUsername)).perform(typeText("fout"));
         onView(withId(R.id.txtPassword)).perform(typeText("fout"));
         onView(withId(R.id.btnLogin)).perform(click());
@@ -45,8 +47,44 @@ public class LoginTest {
         onView(withId(R.id.btnLogin)).perform(click());
         onView(withText("Login succesvol")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
+        //profiletests
+        onView(isRoot()).perform(waitFor(2000));
+        onView(withId(R.id.editFirstname)).check(matches(withText("leisure")));
+        onView(withId(R.id.editSurname)).check(matches(withText("booker")));
+        onView(withId(R.id.editEmail)).check(matches(withText("hello@leisurebooker.me")));
+
+        //test save profile
+        onView(withId(R.id.editFirstname)).perform(replaceText("leisur"));
+        onView(withId(R.id.editSurname)).perform(replaceText("booke"));
+        onView(withId(R.id.btnSaveProfile)).perform(click());
+        onView(withText("Gegevens zijn succesvol opgeslagen")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+        //reset username to previous state
+        onView(withId(R.id.editFirstname)).perform(replaceText("leisure"));
+        onView(withId(R.id.editSurname)).perform(replaceText("booker"));
+        onView(withId(R.id.btnSaveProfile)).perform(click());
+        onView(withText("Gegevens zijn succesvol opgeslagen")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
 
         onView(isRoot()).perform(waitFor(2000));
-    }
 
+        //change password test
+        onView(withId(R.id.btnChangePassword)).perform(click());
+
+        onView(withHint("Old Password")).perform(typeText("MySuperP@ssword!"));
+        onView(withHint("New Password")).perform(typeText("MySuperP@ssword!"));
+        onView(withHint("Confirm Password")).perform(typeText("MySuperP@ssword!"));
+
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(isRoot()).perform(waitFor(2000));
+        onView(withText("Wachtwoord succesvol gewijzigd")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+        //check reservations test
+        onView(withId(R.id.btnCheckRes)).perform(click());
+
+
+        //// TODO: 12/03/2017 2fragments,same id
+
+
+    }
 }
