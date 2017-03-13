@@ -11,7 +11,7 @@
         android:id="@+id/lytDate"
         android:orientation="horizontal">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:id="@+id/lytTime"
         android:layout_marginTop="70dp">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btnTime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

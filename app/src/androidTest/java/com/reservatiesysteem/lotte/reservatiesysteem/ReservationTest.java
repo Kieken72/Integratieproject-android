@@ -46,7 +46,7 @@ public class ReservationTest {
     public ActivityTestRule<StartActivity>mActivityRule = new ActivityTestRule<StartActivity>(StartActivity.class);
 
     @Test
-    public void useAppContext() throws Exception {
+    public void reservationTest() throws Exception {
         //SearchFragment tests
         onView(withId(R.id.searchCity)).perform(typeText("test"), closeSoftKeyboard());
         onView(withId(R.id.numberPersons)).perform(typeText("azerty2"),closeSoftKeyboard());
@@ -70,12 +70,14 @@ public class ReservationTest {
         onData(anything())
                 .inAdapterView(allOf(withId(R.id.listBranches), isCompletelyDisplayed()))
                 .atPosition(0).perform(click());
-        //onView(withText("Filiaal Kontich")).perform(click());
         onView(withId(R.id.lytDetails)).check(matches(isEnabled()));
 
         //DetailsFragment tests
         onView(withId(R.id.btnReserveren)).perform(scrollTo()).check(matches(isEnabled()));
         onView(isRoot()).perform(waitFor(2000));
+
+        //Review tests
+
 
         onView(withId(R.id.viewFoto)).perform(scrollTo()).check(matches(isDisplayed()));
         onView(withId(R.id.btnFotos)).perform(scrollTo()).perform(click());
@@ -89,7 +91,8 @@ public class ReservationTest {
         onView(withId(R.id.timeRes)).check(matches(withText("18:00")));
         onView(withId(R.id.numberRes)).check(matches(withText("2 personen")));
         onView(withId(R.id.btnConfirmRes)).perform(click());
-        //onView(withText("Reservatie failed: Internal Server Error")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
 
         //
 

@@ -79,6 +79,7 @@ public class LoginTest {
         onView(isRoot()).perform(waitFor(2000));
         onView(withText("Wachtwoord succesvol gewijzigd")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
+        
         //check reservations test
         onView(withId(R.id.btnCheckRes)).perform(click());
 
