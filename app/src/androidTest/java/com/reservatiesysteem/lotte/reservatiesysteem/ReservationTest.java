@@ -13,8 +13,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
@@ -25,6 +27,7 @@ import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static com.reservatiesysteem.lotte.reservatiesysteem.CustomViewAssertions.clickLastListItem;
 import static com.reservatiesysteem.lotte.reservatiesysteem.CustomViewAssertions.setTextInTextView;
 import static com.reservatiesysteem.lotte.reservatiesysteem.CustomViewAssertions.waitFor;
 
@@ -50,7 +53,7 @@ public class ReservationTest {
         //SearchFragment tests
         onView(withId(R.id.searchCity)).perform(typeText("test"), closeSoftKeyboard());
         onView(withId(R.id.numberPersons)).perform(typeText("azerty2"),closeSoftKeyboard());
-        onView(withId(R.id.txtTime)).perform(setTextInTextView("18:00"));
+        onView(withId(R.id.txtTime)).perform(setTextInTextView("20:00"));
         onView(withId(R.id.txtDate)).perform(setTextInTextView("2017-05-02"));
         onView(withId(R.id.btnReserveer)).perform(click());
         onView(withId(R.id.lblError)).check(matches(withText("Gemeente incorrect, gelieve 1 uit de lijst te kiezen")));
@@ -77,7 +80,7 @@ public class ReservationTest {
         onView(isRoot()).perform(waitFor(2000));
 
         //Review tests
-
+        onView (withId (R.id.lvReview)).check (matches (withListSize (0)));
 
         onView(withId(R.id.viewFoto)).perform(scrollTo()).check(matches(isDisplayed()));
         onView(withId(R.id.btnFotos)).perform(scrollTo()).perform(click());
@@ -88,10 +91,25 @@ public class ReservationTest {
         onView(isRoot()).perform(waitFor(2000));
 
         onView(withId(R.id.dateRes)).check(matches(withText("2017-05-02")));
-        onView(withId(R.id.timeRes)).check(matches(withText("18:00")));
+        onView(withId(R.id.timeRes)).check(matches(withText("20:00")));
         onView(withId(R.id.numberRes)).check(matches(withText("2 personen")));
         onView(withId(R.id.btnConfirmRes)).perform(click());
         onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+        //cancel reservation
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText(R.string.myProfile)).perform(click());
+        onView(isRoot()).perform(waitFor(2000));
+        onView(withId(R.id.btnCheckRes)).perform(scrollTo()).perform(click());
+
+
+        onView(isRoot()).perform(waitFor(2000));
+        onView(withText("2017-05-02 om 20:00")).perform(click());
+
+
+
+        onView(withId(R.id.btnCancel)).perform(click());
+        onView(withText("Reservatie succesvol geannuleerd")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
 
         //

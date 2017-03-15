@@ -134,7 +134,6 @@ public class SearchFragment extends Fragment {
         btnDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("date");
                 DatePickerDialog dpd = new DatePickerDialog(getContext(), myDateListener, year, month, day);
                 dpd.show();
             }
@@ -142,7 +141,6 @@ public class SearchFragment extends Fragment {
         btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("time");
                 TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), myTimeListener, hour, minute, true);
                 timePickerDialog.show();
             }

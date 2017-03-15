@@ -116,7 +116,6 @@ public class FutureResFragment extends Fragment {
     }
 
     public void changes() {
-        System.out.println("changes");
         try {
             checkFutureRes();
         } catch (ParseException e) {

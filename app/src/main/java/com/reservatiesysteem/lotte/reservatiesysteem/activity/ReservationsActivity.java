@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.R;
@@ -34,10 +36,11 @@ import retrofit2.Response;
 
 public class ReservationsActivity extends BaseActivity {
     @BindView(R.id.vpRes) ViewPager vpRes;
+    @BindView(R.id.lytToekomst)LinearLayout lytToekomst;
+    @BindView(R.id.lytVerleden)LinearLayout lytVerleden;
 
     CheckReservationAdapter homePagerAdapter;
     ArrayList<Reservation> reservations = new ArrayList<>();
-
 
     public ArrayList<Reservation> getReservations() {
         return reservations;
@@ -54,6 +57,19 @@ public class ReservationsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservations);
         ButterKnife.bind(this);
+
+        lytToekomst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vpRes.setCurrentItem(0);
+            }
+        });
+        lytVerleden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vpRes.setCurrentItem(1);
+            }
+        });
 
         reservations = (ArrayList<Reservation>) getIntent().getExtras().getSerializable("Reservations");
 
@@ -79,8 +95,8 @@ public class ReservationsActivity extends BaseActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position){
-                case 0: return pastResFragment;
-                case 1: return futureResFragment;
+                case 0: return futureResFragment;
+                case 1: return pastResFragment;
             }
             return null;
         }

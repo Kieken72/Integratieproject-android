@@ -67,6 +67,7 @@ public class ReservationAdapter extends BaseAdapter{
         TextView txtResDate = (TextView) v.findViewById(R.id.txtResDate);
         final TextView txtResAdress = (TextView) v.findViewById(R.id.txtBranchAdress);
         TextView txtResAmount = (TextView) v.findViewById(R.id.txtResAmount);
+        final TextView lblHiddenId = (TextView)v.findViewById(R.id.lblHiddenId);
 
         String[] dateTime = reservation.getDateTime().split("T");
         String resDate = dateTime[0];
@@ -92,8 +93,10 @@ public class ReservationAdapter extends BaseAdapter{
             }
         });
 
+        lblHiddenId.setText(reservation.getId()+"");
         txtResDate.setText(resDate + " om " + resTime);
         txtResAmount.setText(String.valueOf(reservation.getAmount()));
+
 
         return v;
     }
