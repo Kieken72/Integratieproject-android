@@ -23,8 +23,10 @@ import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
+import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.reservatiesysteem.lotte.reservatiesysteem.CustomViewAssertions.waitFor;
 import static com.reservatiesysteem.lotte.reservatiesysteem.CustomViewAssertions.withListSize;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
@@ -45,7 +47,6 @@ public class FavoriteAddRemoveTest {
         onView(withId(R.id.txtUsername)).perform(replaceText("hello@leisurebooker.me"));
         onView(withId(R.id.txtPassword)).perform(replaceText("MySuperP@ssword!"));
         onView(withId(R.id.btnLogin)).perform(click());
-        onView(withText("Login succesvol")).inRoot(withDecorView(not(is(mLoginActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.reserveren)).perform(click());
@@ -59,11 +60,12 @@ public class FavoriteAddRemoveTest {
         onView(withId(R.id.numberPersons)).perform(typeText("2"),closeSoftKeyboard());
         onView(withId(R.id.btnReserveer)).perform(click());
 
+        onView(isRoot()).perform(waitFor(1000));
         onView(withId (R.id.listBranches)).check (matches (withListSize (0)));
         onView(withText("Bowling Stones Wommelgem")).perform(click());
 
         onView(withId(R.id.btnFavorites)).perform(click());
-
+        onView(isRoot()).perform(waitFor(1000));
         onView(withText("Branch succesvol toegevoegd")).inRoot(withDecorView(not(is(mLoginActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
 
@@ -71,6 +73,6 @@ public class FavoriteAddRemoveTest {
         onView(withText(R.string.myFavorites)).perform(click());
 
         onView(withText("Bowling Stones Wommelgem")).perform(click());
-        onView(withId(R.id.btnFavorites)).perform(click());
+        onView(withId(R.id.btnFavorites)).perform(scrollTo()).perform(click());
     }
 }

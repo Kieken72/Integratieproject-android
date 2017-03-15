@@ -45,10 +45,11 @@ public class LoginTest {
         onView(withId(R.id.txtUsername)).perform(replaceText("hello@leisurebooker.me"));
         onView(withId(R.id.txtPassword)).perform(replaceText("MySuperP@ssword!"));
         onView(withId(R.id.btnLogin)).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
         onView(withText("Login succesvol")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
         //profiletests
-        onView(isRoot()).perform(waitFor(2000));
+
         onView(withId(R.id.editFirstname)).check(matches(withText("leisure")));
         onView(withId(R.id.editSurname)).check(matches(withText("booker")));
         onView(withId(R.id.editEmail)).check(matches(withText("hello@leisurebooker.me")));
@@ -57,16 +58,15 @@ public class LoginTest {
         onView(withId(R.id.editFirstname)).perform(replaceText("leisur"));
         onView(withId(R.id.editSurname)).perform(replaceText("booke"));
         onView(withId(R.id.btnSaveProfile)).perform(click());
+        onView(isRoot()).perform(waitFor(2000));
         onView(withText("Gegevens zijn succesvol opgeslagen")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
         //reset username to previous state
         onView(withId(R.id.editFirstname)).perform(replaceText("leisure"));
         onView(withId(R.id.editSurname)).perform(replaceText("booker"));
         onView(withId(R.id.btnSaveProfile)).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
         onView(withText("Gegevens zijn succesvol opgeslagen")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
-
-
-        onView(isRoot()).perform(waitFor(2000));
 
         //change password test
         onView(withId(R.id.btnChangePassword)).perform(click());

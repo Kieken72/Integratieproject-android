@@ -4,6 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.reservatiesysteem.lotte.reservatiesysteem.activity.LoginActivity;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -38,30 +39,44 @@ import static org.hamcrest.Matchers.not;
 public class FavoritesReservationTest {
 
     @Rule
-    public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<LoginActivity>(LoginActivity.class);
+    public ActivityTestRule<LoginActivity> mLoginActivityRule = new ActivityTestRule<LoginActivity>(LoginActivity.class);
 
-    @Test
-    public void testFavoriteReservation() {
+
+    @Before
+    public void addfavorite(){
         onView(withId(R.id.txtUsername)).perform(replaceText("hello@leisurebooker.me"));
         onView(withId(R.id.txtPassword)).perform(replaceText("MySuperP@ssword!"));
         onView(withId(R.id.btnLogin)).perform(click());
-        onView(withText("Login succesvol")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText(R.string.reserveren)).perform(click());
+        onView(withId(R.id.searchCity)).perform(typeText("9100"),closeSoftKeyboard());
+        onView(withId(R.id.numberPersons)).perform(typeText("2"),closeSoftKeyboard());
+        onView(withId(R.id.btnReserveer)).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withId (R.id.listBranches)).check (matches (withListSize (0)));
+        onView(withText("Wima Sint-Niklaas")).perform(click());
+        onView(withId(R.id.btnFavorites)).perform(click());
+
+    }
+    @Test
+    public void testFavoriteReservation() {
+
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.myFavorites)).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
 
         onView (withId (R.id.listBranches)).check (matches (withListSize (0)));
 
-        onData(anything())
-                .inAdapterView(allOf(withId(R.id.listBranches), isCompletelyDisplayed()))
-                .atPosition(0).perform(click());
+        onData(anything()).inAdapterView(allOf(withId(R.id.listBranches), isCompletelyDisplayed())).atPosition(0).perform(click());
         onView(withId(R.id.btnReserveren)).perform(scrollTo()).perform(click());
 
         onView(withId(R.id.txtTime)).perform(setTextInTextView("18:00"));
-        onView(withId(R.id.txtDate)).perform(setTextInTextView("2017-05-02"));
+        onView(withId(R.id.txtDate)).perform(setTextInTextView("2018-05-02"));
         onView(withId(R.id.numberPersons)).perform(typeText("2"));
         onView(withId(R.id.btnReserveer)).perform(click());
 
-        onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mLoginActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 }
