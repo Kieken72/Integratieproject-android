@@ -47,6 +47,7 @@ public class FavoritesReservationTest {
         onView(withId(R.id.txtUsername)).perform(replaceText("hello@leisurebooker.me"));
         onView(withId(R.id.txtPassword)).perform(replaceText("MySuperP@ssword!"));
         onView(withId(R.id.btnLogin)).perform(click());
+
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.reserveren)).perform(click());
         onView(withId(R.id.searchCity)).perform(typeText("9100"),closeSoftKeyboard());
@@ -84,7 +85,7 @@ public class FavoritesReservationTest {
         onView(withText(R.string.myProfile)).perform(click());
         onView(withId(R.id.btnCheckRes)).perform(scrollTo()).perform(click());
 
-        onView(isRoot()).perform(waitFor(1000));
+        onView(isRoot()).perform(waitFor(2000));
         onView(withText("2018-05-02 om 18:00")).perform(click());
         onView(withId(R.id.btnCancel)).perform(click());
     }

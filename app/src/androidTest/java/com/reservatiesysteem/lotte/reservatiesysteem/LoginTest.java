@@ -58,7 +58,7 @@ public class LoginTest {
         onView(withId(R.id.editFirstname)).perform(replaceText("Leisur"));
         onView(withId(R.id.editSurname)).perform(replaceText("booke"));
         onView(withId(R.id.btnSaveProfile)).perform(click());
-        onView(isRoot()).perform(waitFor(2000));
+        onView(isRoot()).perform(waitFor(3000));
         onView(withText("Gegevens zijn succesvol opgeslagen")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
         //reset username to previous state
