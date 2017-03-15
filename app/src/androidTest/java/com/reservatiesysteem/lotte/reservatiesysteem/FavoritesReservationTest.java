@@ -78,5 +78,14 @@ public class FavoritesReservationTest {
 
         onView(isRoot()).perform(waitFor(1000));
         onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mLoginActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+
+        //cancel reservation
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText(R.string.myProfile)).perform(click());
+        onView(withId(R.id.btnCheckRes)).perform(scrollTo()).perform(click());
+
+        onView(isRoot()).perform(waitFor(1000));
+        onView(withText("2018-05-02 om 18:00")).perform(click());
+        onView(withId(R.id.btnCancel)).perform(click());
     }
 }
