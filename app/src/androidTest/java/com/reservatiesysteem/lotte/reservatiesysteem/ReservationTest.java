@@ -53,7 +53,7 @@ public class ReservationTest {
         //SearchFragment tests
         onView(withId(R.id.searchCity)).perform(typeText("test"), closeSoftKeyboard());
         onView(withId(R.id.numberPersons)).perform(typeText("azerty2"),closeSoftKeyboard());
-        onView(withId(R.id.txtTime)).perform(setTextInTextView("20:00"));
+        onView(withId(R.id.txtTime)).perform(setTextInTextView("21:00"));
         onView(withId(R.id.txtDate)).perform(setTextInTextView("2017-05-02"));
         onView(withId(R.id.btnReserveer)).perform(click());
         onView(withId(R.id.lblError)).check(matches(withText("Gemeente incorrect, gelieve 1 uit de lijst te kiezen")));
@@ -91,7 +91,7 @@ public class ReservationTest {
         onView(isRoot()).perform(waitFor(2000));
 
         onView(withId(R.id.dateRes)).check(matches(withText("2017-05-02")));
-        onView(withId(R.id.timeRes)).check(matches(withText("20:00")));
+        onView(withId(R.id.timeRes)).check(matches(withText("21:00")));
         onView(withId(R.id.numberRes)).check(matches(withText("2 personen")));
         onView(withId(R.id.btnConfirmRes)).perform(click());
         onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
@@ -104,7 +104,7 @@ public class ReservationTest {
 
 
         onView(isRoot()).perform(waitFor(2000));
-        onView(withText("2017-05-02 om 20:00")).perform(click());
+        onView(withText("2017-05-02 om 21:00")).perform(click());
 
 
 
