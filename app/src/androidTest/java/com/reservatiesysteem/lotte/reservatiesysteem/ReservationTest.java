@@ -54,7 +54,7 @@ public class ReservationTest {
         onView(withId(R.id.searchCity)).perform(typeText("test"), closeSoftKeyboard());
         onView(withId(R.id.numberPersons)).perform(typeText("azerty2"),closeSoftKeyboard());
         onView(withId(R.id.txtTime)).perform(setTextInTextView("21:00"));
-        onView(withId(R.id.txtDate)).perform(setTextInTextView("2017-05-02"));
+        onView(withId(R.id.txtDate)).perform(setTextInTextView("2018-05-02"));
         onView(withId(R.id.btnReserveer)).perform(click());
         onView(withId(R.id.lblError)).check(matches(withText("Gemeente incorrect, gelieve 1 uit de lijst te kiezen")));
 
@@ -77,7 +77,7 @@ public class ReservationTest {
 
         //DetailsFragment tests
         onView(withId(R.id.btnReserveren)).perform(scrollTo()).check(matches(isEnabled()));
-        onView(isRoot()).perform(waitFor(2000));
+        onView(isRoot()).perform(waitFor(1000));
 
         //Review tests
         onView (withId (R.id.lvReview)).check (matches (withListSize (0)));
@@ -88,27 +88,31 @@ public class ReservationTest {
 
         onView(withId(R.id.btnReserveren)).perform(scrollTo()).perform(click());
 
-        onView(isRoot()).perform(waitFor(2000));
+        onView(isRoot()).perform(waitFor(1000));
 
-        onView(withId(R.id.dateRes)).check(matches(withText("2017-05-02")));
+        onView(withId(R.id.dateRes)).check(matches(withText("2018-05-02")));
         onView(withId(R.id.timeRes)).check(matches(withText("21:00")));
         onView(withId(R.id.numberRes)).check(matches(withText("2 personen")));
         onView(withId(R.id.btnConfirmRes)).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
         onView(withText("Reservatie gelukt")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
         //cancel reservation
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.myProfile)).perform(click());
-        onView(isRoot()).perform(waitFor(2000));
+        onView(isRoot()).perform(waitFor(1000));
         onView(withId(R.id.btnCheckRes)).perform(scrollTo()).perform(click());
 
 
-        onView(isRoot()).perform(waitFor(2000));
-        onView(withText("2017-05-02 om 21:00")).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
 
-
+/*        onData(withText("2018-05-02 om 21:00"))
+                .inAdapterView(allOf((withId(R.id.listReservations))))
+                .perform(click());*/
+        onView(withText("2018-05-02 om 21:00")).perform(click());
 
         onView(withId(R.id.btnCancel)).perform(click());
+        onView(isRoot()).perform(waitFor(1000));
         onView(withText("Reservatie succesvol geannuleerd")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
 
