@@ -57,7 +57,6 @@ public class ReservationTest {
         onView(withId(R.id.txtDate)).perform(setTextInTextView("2018-05-02"));
         onView(withId(R.id.btnReserveer)).perform(click());
         onView(withId(R.id.lblError)).check(matches(withText("Gemeente incorrect, gelieve 1 uit de lijst te kiezen")));
-
         onView(withId(R.id.searchCity)).perform(replaceText("wommelgem"));
         onView(withId(R.id.btnReserveer)).perform(click());
 
@@ -80,7 +79,7 @@ public class ReservationTest {
         onView(isRoot()).perform(waitFor(1000));
 
         //Review tests
-        onView (withId (R.id.lvReview)).check (matches (withListSize (0)));
+        //onView (withId (R.id.lvReview)).check (matches (withListSize (0)));
 
         onView(withId(R.id.viewFoto)).perform(scrollTo()).check(matches(isDisplayed()));
         onView(withId(R.id.btnFotos)).perform(scrollTo()).perform(click());
@@ -100,15 +99,10 @@ public class ReservationTest {
         //cancel reservation
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.myProfile)).perform(click());
-        onView(isRoot()).perform(waitFor(1000));
         onView(withId(R.id.btnCheckRes)).perform(scrollTo()).perform(click());
 
 
         onView(isRoot()).perform(waitFor(1000));
-
-/*        onData(withText("2018-05-02 om 21:00"))
-                .inAdapterView(allOf((withId(R.id.listReservations))))
-                .perform(click());*/
         onView(withText("2018-05-02 om 21:00")).perform(click());
 
         onView(withId(R.id.btnCancel)).perform(click());
