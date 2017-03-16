@@ -22,6 +22,7 @@
     <string name="firstname">Voornaam</string>
     <string name="lastname">Achternaam</string>
     <string name="emailRegister">E-mail</string>
+    <string name="phoneNumberRegister">Telefoonnummer</string>
     <string name="confirmPassword">Bevestig paswoord</string>
 
     <!-- Search fragment -->
