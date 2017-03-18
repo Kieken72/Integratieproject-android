@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -303,6 +304,15 @@ public class FavoriteBranchDetailsFragment extends Fragment {
                 final ReviewAdapter reviewAdapter = new ReviewAdapter(getContext(), R.layout.view_review_entry, response.body().getReviews());
                 lvReview.setEmptyView(txtEmpty);
                 lvReview.setAdapter(reviewAdapter);
+
+                //scroll listview inside scrollview
+                lvReview.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        return false;
+                    }
+                });
 
                 //picture weergeven
                 if(branch.getPicture() == null){
