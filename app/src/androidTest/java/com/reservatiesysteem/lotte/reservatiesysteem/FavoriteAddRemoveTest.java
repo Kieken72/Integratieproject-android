@@ -50,8 +50,6 @@ public class FavoriteAddRemoveTest {
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
         onView(withText(R.string.reserveren)).perform(click());
-
-
     }
 
     @Test

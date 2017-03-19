@@ -21,7 +21,8 @@ public class ProfileAccount implements Serializable {
     private String firstname;
     @SerializedName("Lastname")
     private String lastname;
-
+    @SerializedName("PhoneNumber")
+    private String phoneNumber;
     @SerializedName("Reservations")
     private ArrayList<Reservation> reservations;
     @SerializedName("Favorites")
@@ -74,6 +75,14 @@ public class ProfileAccount implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     /*public ArrayList<Review> getReviews() {

@@ -38,15 +38,28 @@ import retrofit2.Response;
 
 public class ProfileActivity extends BaseActivity {
 
-    @BindView(R.id.txtProfFirstName) TextView txtFirstname;
-    @BindView(R.id.txtProfSurname) TextView txtSurname;
-    @BindView(R.id.txtProfMail) TextView txtEmail;
-    @BindView(R.id.editFirstname) EditText firstname;
-    @BindView(R.id.editSurname) EditText surname;
-    @BindView(R.id.editEmail) TextView email;
-    @BindView(R.id.btnCheckRes) Button btnCheckRes;
-    @BindView(R.id.btnChangePassword) Button btnChangePas;
-    @BindView(R.id.btnSaveProfile) Button btnSaveProfile;
+    @BindView(R.id.txtProfFirstName)
+    TextView txtFirstname;
+    @BindView(R.id.txtProfSurname)
+    TextView txtSurname;
+    @BindView(R.id.txtProfMail)
+    TextView txtEmail;
+    @BindView(R.id.editFirstname)
+    EditText firstname;
+    @BindView(R.id.editSurname)
+    EditText surname;
+    @BindView(R.id.editPhoneNumber)
+    EditText phonenumber;
+    @BindView(R.id.editEmail)
+    TextView email;
+    @BindView(R.id.lblError)
+    TextView error;
+    @BindView(R.id.btnCheckRes)
+    Button btnCheckRes;
+    @BindView(R.id.btnChangePassword)
+    Button btnChangePas;
+    @BindView(R.id.btnSaveProfile)
+    Button btnSaveProfile;
 
     ProfileAccount profileAccount;
 
@@ -93,6 +106,28 @@ public class ProfileActivity extends BaseActivity {
                 profileAccount.setLastname(newLastName);
             }
         });
+        phonenumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String phoneNumber = phonenumber.getText().toString();
+                if(phoneNumber.matches("\\d{10}")){
+                    profileAccount.setPhoneNumber(phoneNumber);
+                    error.setText("");
+                }else {
+                    error.setText("foutief telefoon nummer");
+                }
+            }
+        });
 
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,10 +155,10 @@ public class ProfileActivity extends BaseActivity {
 
     }
 
-    private void getAccount(){
+    private void getAccount() {
         Activity activity = ProfileActivity.this;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+        String token = sharedPreferences.getString(LoginActivity.TOKEN, "");
 
         final API_Service service = API.createService(API_Service.class, token);
         Call<ProfileAccount> call = service.getProfile();
@@ -131,13 +166,14 @@ public class ProfileActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ProfileAccount> call, Response<ProfileAccount> response) {
                 profileAccount = response.body();
-                if(profileAccount!=null){
+                if (profileAccount != null) {
                     firstname.setText(profileAccount.getFirstname());
                     surname.setText(profileAccount.getLastname());
                     email.setText(profileAccount.getEmail());
-                }else {
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
-                    Toast.makeText(getApplicationContext(),"login verlopen, opnieuw inloggen aub",Toast.LENGTH_SHORT).show();
+                    phonenumber.setText(profileAccount.getPhoneNumber());
+                } else {
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    Toast.makeText(getApplicationContext(), "login verlopen, opnieuw inloggen aub", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -149,7 +185,7 @@ public class ProfileActivity extends BaseActivity {
         });
     }
 
-    private void changePassword(){
+    private void changePassword() {
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
         alertDialog.setTitle("Wachtwoord veranderen");
@@ -165,7 +201,7 @@ public class ProfileActivity extends BaseActivity {
         newPass.setHint("New Password");
         confirmPass.setHint("Confirm Password");
 
-        LinearLayout ll =new LinearLayout(ProfileActivity.this);
+        LinearLayout ll = new LinearLayout(ProfileActivity.this);
         ll.setOrientation(LinearLayout.VERTICAL);
 
         ll.addView(oldPass);
@@ -178,16 +214,16 @@ public class ProfileActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         Activity activity = ProfileActivity.this;
                         SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
-                        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+                        String token = sharedPreferences.getString(LoginActivity.TOKEN, "");
 
                         API_Service service = API.createService(API_Service.class, token);
                         Call<Void> call = service.changePassWord(oldPass.getText().toString(), newPass.getText().toString(), confirmPass.getText().toString());
                         call.enqueue(new Callback<Void>() {
                             @Override
                             public void onResponse(Call<Void> call, Response<Void> response) {
-                                if(response.isSuccessful()){
+                                if (response.isSuccessful()) {
                                     Toast.makeText(getApplicationContext(), "Wachtwoord succesvol gewijzigd", Toast.LENGTH_LONG).show();
-                                }else {
+                                } else {
                                     Toast.makeText(getApplicationContext(), "Wachtwoord niet gewijzigd " + response.message(), Toast.LENGTH_LONG).show();
 
                                 }
@@ -213,19 +249,19 @@ public class ProfileActivity extends BaseActivity {
 
     }
 
-    private void updateUser(ProfileAccount profileAccount){
+    private void updateUser(ProfileAccount profileAccount) {
         final Activity activity = ProfileActivity.this;
         SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
-        String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
+        String token = sharedPreferences.getString(LoginActivity.TOKEN, "");
 
         final API_Service service = API.createService(API_Service.class, token);
         Call<Void> call = service.changeAccount(profileAccount);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Gegevens zijn succesvol opgeslagen", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Gegevens niet opgeslagen " + response.message(), Toast.LENGTH_LONG).show();
 
                 }

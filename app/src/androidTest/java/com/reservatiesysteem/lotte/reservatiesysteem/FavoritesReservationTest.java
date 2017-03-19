@@ -56,7 +56,7 @@ public class FavoritesReservationTest {
         onView(isRoot()).perform(waitFor(1000));
         onView(withId (R.id.listBranches)).check (matches (withListSize (0)));
         onView(withText("Wima Sint-Niklaas")).perform(click());
-        onView(withId(R.id.btnFavorites)).perform(click());
+        onView(withId(R.id.btnFavorites)).perform(scrollTo()).perform(click());
 
     }
     @Test

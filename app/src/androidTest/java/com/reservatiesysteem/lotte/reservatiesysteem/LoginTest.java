@@ -50,7 +50,7 @@ public class LoginTest {
 
         //profiletests
 
-        onView(withId(R.id.editFirstname)).check(matches(withText("Leisure")));
+        onView(withId(R.id.editFirstname)).check(matches(withText("leisure")));
         onView(withId(R.id.editSurname)).check(matches(withText("booker")));
         onView(withId(R.id.editEmail)).check(matches(withText("hello@leisurebooker.me")));
 
@@ -62,7 +62,7 @@ public class LoginTest {
         onView(withText("Gegevens zijn succesvol opgeslagen")).inRoot(withDecorView(not(is(mActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
         //reset username to previous state
-        onView(withId(R.id.editFirstname)).perform(replaceText("Leisure"));
+        onView(withId(R.id.editFirstname)).perform(replaceText("leisure"));
         onView(withId(R.id.editSurname)).perform(replaceText("booker"));
         onView(withId(R.id.btnSaveProfile)).perform(click());
         onView(isRoot()).perform(waitFor(1000));

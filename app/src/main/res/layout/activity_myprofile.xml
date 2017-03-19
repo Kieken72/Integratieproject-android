@@ -79,6 +79,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/phoneNumber">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtPhoneNumber"
+                android:text="@string/phonenumber"
+                android:textSize="16sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="0.4"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6"
+                android:textSize="16sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="5dp"
+                android:hint="@string/phonenumber"
+                android:id="@+id/editPhoneNumber"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/email">
 
@@ -104,12 +130,18 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblError"
+            android:textColor="@android:color/holo_red_dark" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btnSaveProfile"
             android:text="@string/saveProf"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:background="@color/mint_green"/>
 
         <Button
