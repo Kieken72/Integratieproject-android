@@ -324,6 +324,15 @@ public class DetailsFragment extends Fragment {
                 lvReview.setEmptyView(txtEmpty);
                 lvReview.setAdapter(reviewAdapter);
 
+                //scroll listview inside scrollview
+                lvReview.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        return false;
+                    }
+                });
+
                 //picture weergeven
                 if(branch.getPicture() == null){
                     String defeaultUrl = "http://leisurebooker.azurewebsites.net/Content/bowling.jpg";

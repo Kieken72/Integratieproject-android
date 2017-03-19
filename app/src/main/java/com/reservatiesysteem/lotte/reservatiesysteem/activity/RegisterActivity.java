@@ -33,6 +33,8 @@ public class RegisterActivity extends BaseActivity {
     EditText txtLastName;
     @BindView(R.id.txtEmail)
     EditText txtEmail;
+    @BindView(R.id.txtPhoneNumber)
+    EditText txtPhoneNumber;
     @BindView(R.id.txtPassword)
     EditText txtPassword;
     @BindView(R.id.txtConfirmPassword)
@@ -56,6 +58,7 @@ public class RegisterActivity extends BaseActivity {
                 String firstName = txtFirstName.getText().toString();
                 String lastName = txtLastName.getText().toString();
                 String eMail = txtEmail.getText().toString();
+                String phoneNumber = txtPhoneNumber.getText().toString();
                 String password = txtPassword.getText().toString();
                 String confirmPassword = txtConfirmPassword.getText().toString();
 
@@ -70,10 +73,13 @@ public class RegisterActivity extends BaseActivity {
                 if(eMail.equals("")){
                     lblError.setText("E-mail incorrect of leeg");return;
                 }
+                if(phoneNumber.equals("")){
+                    lblError.setText("Telefoonnummer incorrect of leeg");
+                }
                 lblError.setText(error);
 
                 if(error.equals("")){
-                    RegisterAccount account = new RegisterAccount(eMail,eMail,firstName,lastName,password,confirmPassword);
+                    RegisterAccount account = new RegisterAccount(eMail,firstName,lastName,phoneNumber,password,confirmPassword);
                     createNewUser(account);
                 }else {
                     lblError.setText(error);
@@ -92,7 +98,7 @@ public class RegisterActivity extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "Registratie gelukt", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Registratie failed: " + response.code(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Registratie failed: " + response.message(), Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -110,8 +116,8 @@ public class RegisterActivity extends BaseActivity {
         if(!password.matches(".*\\d+.*")){
             return "passwoord moet minstens 1 getal bevatten";
         }
-        if(!password.matches(".*[!@#$%^&*]+.*")){
-            return "passwoord moet 1 van volgende tekens bevatten !@#$%^&*";
+        if(!password.matches(".*[!@#$%^&*_]+.*")){
+            return "passwoord moet 1 van volgende tekens bevatten !@#$%^&*_";
         }
         if(!password.equals(confirmPassword)){
             return "Wachtwoord en Herhaal wachtwoord moeten gelijk zijn";

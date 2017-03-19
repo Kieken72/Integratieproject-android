@@ -9,22 +9,22 @@ import com.google.gson.annotations.SerializedName;
 public class RegisterAccount {
     @SerializedName("Email")
     private String email;
-    @SerializedName("Username")
-    private String username;
-    @SerializedName("FirstName")
+    @SerializedName("Name")
     private String firstName;
-    @SerializedName("LastName")
+    @SerializedName("Lastname")
     private String lastName;
+    @SerializedName("PhoneNumber")
+    private String phoneNumber;
     @SerializedName("Password")
     private String password;
     @SerializedName("ConfirmPassword")
     private String confirmPassword;
 
-    public RegisterAccount(String email, String username, String firstName, String lastName, String password, String confirmPassword) {
+    public RegisterAccount(String email, String firstName, String lastName, String phoneNumber, String password, String confirmPassword) {
         this.email = email;
-        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }
@@ -35,14 +35,6 @@ public class RegisterAccount {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirstName() {
@@ -75,5 +67,13 @@ public class RegisterAccount {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
