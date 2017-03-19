@@ -43,6 +43,9 @@ public class RegisterTest {
         onView(withId(R.id.btnRegister)).perform(click());
         onView(withId(R.id.lblError)).check(matches(withText("E-mail incorrect of leeg")));
 
+
+        onView(withId(R.id.txtPhoneNumber)).perform(replaceText("0473228041"),closeSoftKeyboard());
+
         onView(withId(R.id.txtEmail)).perform(typeText("jasper.vangrieken@student.kdg.be"), closeSoftKeyboard());
         onView(withId(R.id.txtPassword)).perform(typeText("Test"),closeSoftKeyboard());
         onView(withId(R.id.btnRegister)).perform(click());
@@ -53,9 +56,10 @@ public class RegisterTest {
         onView(withId(R.id.lblError)).check(matches(withText("passwoord moet minstens 1 getal bevatten")));
 
 
+
         onView(withId(R.id.txtPassword)).perform(replaceText("Test123"),closeSoftKeyboard());
         onView(withId(R.id.btnRegister)).perform(click());
-        onView(withId(R.id.lblError)).check(matches(withText("passwoord moet 1 van volgende tekens bevatten !@#$%^&*")));
+        onView(withId(R.id.lblError)).check(matches(withText("passwoord moet 1 van volgende tekens bevatten !@#$%^&*_")));
 
         onView(withId(R.id.txtPassword)).perform(replaceText("Test@124"),closeSoftKeyboard());
         onView(withId(R.id.btnRegister)).perform(click());
