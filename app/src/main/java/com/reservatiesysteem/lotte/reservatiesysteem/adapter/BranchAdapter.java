@@ -83,10 +83,10 @@ public class BranchAdapter extends BaseAdapter {
                     Branch returnBranch = response.body();
                     if(returnBranch!=null){
                         if(returnBranch.isAvailable()){
-                            txtAvailable.setText("available");
+                            txtAvailable.setText("Beschikbaar");
                             txtAvailable.setTextColor(Color.GREEN);
                         }else {
-                            txtAvailable.setText("not available");
+                            txtAvailable.setText("Niet beschikbaar");
                             txtAvailable.setTextColor(Color.RED);
                         }
                     }

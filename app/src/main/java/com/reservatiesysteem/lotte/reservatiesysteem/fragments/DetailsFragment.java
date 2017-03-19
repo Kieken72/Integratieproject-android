@@ -125,7 +125,7 @@ public class DetailsFragment extends Fragment {
             chosenDate = bundle.getString(SearchFragment.CHOSEN_DATE);
             chosenTime = bundle.getString(SearchFragment.CHOSEN_TIME);
             chosenNumberOfPersons = bundle.getString(SearchFragment.CHOSEN_NUMBEROFPERSONS);
-            if(!bundle.getString("available").equals("available")){
+            if(!bundle.getString("Beschikbaar").equals("Beschikbaar")){
                 btnReserveren.setEnabled(false);
             }
 
@@ -400,7 +400,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(getContext(), "Branch succesvol toegevoegd", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Favoriet succesvol toegevoegd", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getContext(), "Failed" + response.message(), Toast.LENGTH_LONG).show();
                 }

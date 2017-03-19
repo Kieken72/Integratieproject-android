@@ -23,7 +23,7 @@
     <string name="lastname">Achternaam</string>
     <string name="emailRegister">E-mail</string>
     <string name="phonenumber">Telefoon nummer</string>
-    <string name="confirmPassword">Bevestig paswoord</string>
+    <string name="confirmPassword">Bevestig wachtwoord</string>
 
     <!-- Search fragment -->
     <string name="search">Zoeken</string>
@@ -76,9 +76,9 @@
     
     <!-- Profile -->
     <string name="checkRes">Bekijk je reservaties</string>
-    <string name="resBranchName">Naam branch: </string>
+    <string name="resBranchName">Naam filiaal: </string>
     <string name="resDate">Datum reservatie: </string>
-    <string name="resBranchAdress">Adres branch: </string>
+    <string name="resBranchAdress">Adres: </string>
     <string name="resAmount">Aantal personen: </string>
     <string name="changePas">Verander wachtwoord</string>
     <string name="saveProf">Gegevens opslaan</string>

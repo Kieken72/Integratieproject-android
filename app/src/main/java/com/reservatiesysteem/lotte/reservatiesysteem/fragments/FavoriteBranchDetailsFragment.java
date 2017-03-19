@@ -381,7 +381,7 @@ public class FavoriteBranchDetailsFragment extends Fragment {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getContext(), "Favorite succesvol verwijderd", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Favoriet succesvol verwijderd", Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                     startActivity(new Intent(getActivity(),FavoritesActivity.class));
 

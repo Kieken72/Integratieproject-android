@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/branchName"
-            android:hint="Brach Name"
+            android:hint="Filiaal Naam"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="18dp"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/branchStreet"
-            android:hint="Street"
+            android:hint="Straat"
             android:layout_marginLeft="10dp"
             android:layout_alignTop="@+id/btnDetails" />
 
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lblAvailable"
-            android:hint="Available"
+            android:hint="Beschikbaar"
             android:layout_marginLeft="10dp"/>
 
     </LinearLayout>

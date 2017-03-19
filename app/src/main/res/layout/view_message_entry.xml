@@ -10,7 +10,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/messageText"
-        android:hint="Text Message"/>
+        android:hint="Text Bericht"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,6 +19,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:id="@+id/messageUser"
-        android:hint="User Message"/>
+        android:hint="User Bericht"/>
 
 </LinearLayout>

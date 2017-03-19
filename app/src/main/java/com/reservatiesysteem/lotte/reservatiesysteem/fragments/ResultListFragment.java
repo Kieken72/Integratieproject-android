@@ -91,7 +91,7 @@ public class ResultListFragment extends Fragment {
 
                                     bundle.putInt("branchId", (int) id);
                                     bundle.putInt("chosenPostalCode", chosenPostalCode);
-                                    bundle.putString("available",lblAvailbale.getText().toString());
+                                    bundle.putString("Beschikbaar",lblAvailbale.getText().toString());
                                     bundle.putString(SearchFragment.CHOSEN_DATE, chosenDate);
                                     bundle.putString(SearchFragment.CHOSEN_TIME, chosenTime);
                                     bundle.putString(SearchFragment.CHOSEN_NUMBEROFPERSONS, chosenNumberOfPersons);
