@@ -64,7 +64,7 @@ public class FavoriteAddRemoveTest {
 
         onView(withId(R.id.btnFavorites)).perform(click());
         onView(isRoot()).perform(waitFor(1000));
-        onView(withText("Branch succesvol toegevoegd")).inRoot(withDecorView(not(is(mLoginActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
+        onView(withText("Favoriet succesvol toegevoegd")).inRoot(withDecorView(not(is(mLoginActivityRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
 
 
         openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
