@@ -51,6 +51,7 @@ public class ReservationDetailActivity extends BaseActivity {
     @BindView(R.id.empty) TextView txtEmpty;
 
     Reservation reservation;
+    MessageAdapter messageAdapter = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +122,7 @@ public class ReservationDetailActivity extends BaseActivity {
                     lvMessages.setEmptyView(txtEmpty);
                     txtEmpty.setVisibility(View.VISIBLE);
                 }else {
-                    final MessageAdapter messageAdapter = new MessageAdapter(getApplicationContext(), R.layout.view_message_entry, response.body());
+                     messageAdapter = new MessageAdapter(getApplicationContext(), R.layout.view_message_entry, response.body());
                     txtEmpty.setVisibility(View.GONE);
                     lvMessages.setAdapter(messageAdapter);
                 }
@@ -153,7 +154,7 @@ public class ReservationDetailActivity extends BaseActivity {
                 SharedPreferences sharedPreferences = activity.getSharedPreferences(LoginActivity.TOKEN, Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString(LoginActivity.TOKEN,"");
 
-                Message message = new Message(txtMessage.getId(), reservation.getBranchId(), txtMessage.getText().toString());
+                final Message message = new Message(txtMessage.getId(), reservation.getBranchId(), txtMessage.getText().toString());
 
                 API_Service service = API.createService(API_Service.class, token);
                 Call<Message> call = service.createMessage(message);
@@ -162,6 +163,7 @@ public class ReservationDetailActivity extends BaseActivity {
                     public void onResponse(Call<Message> call, Response<Message> response) {
                         if(response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Bericht succesvol verzonden", Toast.LENGTH_LONG).show();
+                            messageAdapter.addMessage(response.body());
                         }else{
                             Toast.makeText(getApplicationContext(), "Bericht niet verzonden " + response.code(), Toast.LENGTH_LONG).show();
                         }

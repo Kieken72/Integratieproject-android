@@ -80,7 +80,6 @@ public class ReservationAdapter extends BaseAdapter{
             @Override
             public void onResponse(Call<Branch> call, Response<Branch> response) {
                 Branch branch = response.body();
-
                 if(branch!=null){
                     txtResBranchName.setText(branch.getName());
                     txtResAdress.setText(branch.getStreet() + " " + branch.getNumber() + ",\n" + branch.getCity().getPostalCode() + " " + branch.getCity().getName());

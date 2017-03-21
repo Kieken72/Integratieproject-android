@@ -25,6 +25,10 @@ public class MessageAdapter extends BaseAdapter {
         this.context = context;
         this.messages = messages;
     }
+    public void addMessage(Message message){
+        messages.add(message);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount() {
@@ -64,7 +68,8 @@ public class MessageAdapter extends BaseAdapter {
         String time = resTime.substring(0,5);
 
         txtMessageText.setText(message.getText());
-        txtMessageUser.setText("Gepost door " + message.getUser().getFirstname() + " op " + resDate + " " + time);
+        String messageUser= message.getUser() == null?"Gepost door jou":("Gepost door"+message.getUser().getFirstname());
+        txtMessageUser.setText(messageUser + " op " + resDate + " " + time);
         //txtMessageUser.setText("Gepost door " + message.getUser().getFirstname() + " " + message.getUser().getLastname() + " op " + resDate + " " + time);
 
         return v;
